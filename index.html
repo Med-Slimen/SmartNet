@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartNet</title>
+    <!--Render all elements normally-->
+    <link rel="stylesheet" href="css/normalize.css" />
+    <!--Font Awseome-->
+    <link rel="stylesheet" href="css/all.min.css" />
+    <!--Main template css file-->
+    <link rel="stylesheet" href="css/smartNet.css" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playwrite+IN:wght@100..400&display=swap"
+      rel="stylesheet"
+    />
+    <script src="index.js"></script>
+  </head>
+  <body onload="menu()">
+    <!-- Start Header -->
+    <div id="header" class="header">
+      <div class="container">
+        <div class="logo">
+          <a href="index.html"><h2 id="smartnet-title">Smart Net</h2></a>
+        </div>
+        <div onclick="showMenu()" id="bars" class="bars">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+        <ul class="links">
+          <li><a class="les-liens" href="#home">Home</a></li>
+          <li><a class="les-liens" href="#About">About</a></li>
+          <li><a class="les-liens" href="#Impact">Impact</a></li>
+          <li><a class="les-liens" href="#Help">Help us</a></li>
+          <li><a class="les-liens" href="#App">Our App</a></li>
+          <li><a class="les-liens" href="#Contact">Contact us</a></li>
+        </ul>
+      </div>
+    </div>
+    <ul id="menu" class="menu">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#About">About</a></li>
+      <li><a href="#Impact">Impact</a></li>
+      <li><a href="#Help">Help us</a></li>
+      <li><a href="#App">Our App</a></li>
+      <li><a href="#Contact">Contact us</a></li>
+    </ul>
+    <!-- End Header -->
+    <!-- Start landing -->
+    <div id="home" class="landing">
+      <video preload="auto" autoplay muted loop>
+        <source src="./images/landpage_1.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <div class="container">
+        <div class="text">
+          <h1>Protecting Our Valleys, Saving Our Seas</h1>
+          <p>
+            Smart Net stops waste in valleys before it pollutes the ocean.
+            Together, we can protect marine life and create a cleaner planet
+          </p>
+        </div>
+        <div class="buttons">
+          <a href="#Help">Get Involved</a>
+          <a href="#About">Lear More</a>
+        </div>
+      </div>
+    </div>
+    <!-- End landing -->
+    <!-- About section -->
+    <div id="About" class="about">
+      <div class="main-heading">
+        <h2>About us</h2>
+      </div>
+      <div class="container">
+        <div class="text">
+          <h3>Our Mission</h3>
+          <p>
+            Smart Net is an innovative solution designed to stop waste from
+            reaching the ocean. Using advanced net technology, Smart Net
+            intercepts garbage in valleys and waterways, preventing pollution at
+            its source. Our goal is simple: protect marine ecosystems and keep
+            our waters clean through smart, efficient, and sustainable
+            solutions.
+          </p>
+          <a href="team.html">Check Our Team !</a>
+        </div>
+        <div class="image">
+          <img src="images/net.webp" alt="" />
+        </div>
+      </div>
+    </div>
+    <!-- End about section -->
+    <!-- Start stats -->
+    <div id="Impact" class="stats">
+      <div class="main-heading">
+        <h2>Impact</h2>
+      </div>
+      <div class="container">
+        <div class="stats-list">
+          <div class="box">
+            <i class="fa-solid fa-water"></i>
+            <h4>150</h4>
+            <p>Valleys Cleaned</p>
+          </div>
+          <div class="box">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="28px"
+              height="28px"
+              viewBox="0 0 24 24"
+              style="fill: rgba(0, 0, 0, 1)"
+            >
+              <path
+                d="M6 7H5v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7H6zm4 12H8v-9h2v9zm6 0h-2v-9h2v9zm.618-15L15 2H9L7.382 4H3v2h18V4z"
+              ></path>
+            </svg>
+            <h4>135 kg</h4>
+            <p>Garbage Collected</p>
+          </div>
+          <div class="box">
+            <i class="fa-solid fa-people-group"></i>
+            <h4>50</h4>
+            <p>People Voluntered</p>
+          </div>
+          <div class="box">
+            <i class="fa-solid fa-droplet"></i>
+            <h4>500 L</h4>
+            <p>Water Saved</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End stats -->
+    <!-- Start help us -->
+    <div id="Help" class="help">
+      <div class="main-heading">
+        <h2>Help Us</h2>
+      </div>
+      <div class="container">
+        <div class="box">
+          <div class="image">
+            <img src="images/volun.jpg" alt="" />
+          </div>
+          <div class="text">
+            <h3>Volunteer</h3>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Quibusdam animi tenetur dignissimos
+            </p>
+          </div>
+          <div class="button"><a href="events.html">Get Involved</a></div>
+        </div>
+        <div class="box">
+          <div id="image-donate" class="image">
+            <img src="images/donate.jpg" alt="" />
+          </div>
+          <div class="text">
+            <h3>Donate</h3>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Quibusdam animi tenetur dignissimos
+            </p>
+          </div>
+          <div class="button">
+            <a id="button-donate" href="donation.html">Donate</a>
+          </div>
+        </div>
+        <div class="box">
+          <div id="image-report" class="image">
+            <img src="images/report.jpg" alt="" />
+          </div>
+          <div class="text">
+            <h3>Report A Valley</h3>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Quibusdam animi tenetur dignissimos
+            </p>
+          </div>
+          <div class="button">
+            <a id="button-report" href="report.html">Report</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End help us -->
+    <!-- Start app -->
+    <div id="App" class="app">
+      <div class="main-heading">
+        <h2>Our App</h2>
+      </div>
+      <div class="container">
+        <div class="text">
+          <h3>Try Our App !</h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit,
+            ducimus, ea nihil quo, voluptatum explicabo tempore
+          </p>
+          <div class="download">
+            <a href=""><img src="images/play store.png" alt="" /></a>
+            <a href=""><img src="images/appstore.png" alt="" /></a>
+          </div>
+        </div>
+        <div class="phone">
+          <img src="images/phone.png" alt="" />
+          <img src="images/Untitled phone 2.png" alt="" />
+        </div>
+      </div>
+    </div>
+    <!-- End app -->
+    <!-- Start contact us -->
+    <div id="Contact" class="contact">
+      <div class="main-heading">
+        <h2>Contact Us</h2>
+      </div>
+      <div class="container">
+        <div class="part1">
+          <div class="text">
+            <h3>Get In Touch With Us</h3>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Consectetur, quia soluta ex sint minima officia, perferendis
+            </p>
+          </div>
+          <div class="socials">
+            <a href=""><i class="fa-brands fa-square-facebook"></i></a>
+            <a href=""><i class="fa-brands fa-square-twitter"></i></a>
+            <a href="mailto: mohamedamineslimene01@gmail.com"
+              ><i class="fa-solid fa-envelope"></i
+            ></a>
+          </div>
+          <div class="details">
+            <div class="dt">
+              <i class="fa-solid fa-location-dot"></i>
+              <p>Hammamet</p>
+            </div>
+            <div class="dt">
+              <i class="fa-solid fa-clock"></i>
+              <p>Business Hours: From 9:00 To 18:00</p>
+            </div>
+            <div class="dt">
+              <i class="fa-solid fa-phone"></i>
+              <p>+216 xxxxxxxx</p>
+            </div>
+          </div>
+        </div>
+        <div class="part2">
+          <form method="get" action="">
+            <input type="text" placeholder="Name" name="" id="" />
+            <input type="email" placeholder="Email" name="" id="" />
+            <textarea
+              name=""
+              placeholder="Message"
+              id=""
+              cols="30"
+              rows="10"
+            ></textarea>
+            <input type="submit" value="Send" name="" id="" />
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- end contact us -->
+  </body>
+</html>

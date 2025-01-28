@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartNet</title>
+    <!--Render all elements normally-->
+    <link rel="stylesheet" href="css/normalize.css" />
+    <!--Font Awseome-->
+    <link rel="stylesheet" href="css/all.min.css" />
+    <!--Main template css file-->
+    <link rel="stylesheet" href="css/donation.css" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playwrite+IN:wght@100..400&display=swap"
+      rel="stylesheet"
+    />
+    <script src="index.js"></script>
+  </head>
+  <body onload="menu()">
+    <!-- Start Header -->
+    <div id="header" class="header">
+      <div class="container">
+        <div class="logo">
+          <a href="index.html"><h2 id="smartnet-title">Smart Net</h2></a>
+        </div>
+        <div onclick="showMenu()" id="bars" class="bars">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+        <ul class="links">
+          <li><a class="les-liens" href="index.html#home">Home</a></li>
+          <li><a class="les-liens" href="index.html#About">About</a></li>
+          <li><a class="les-liens" href="index.html#Impact">Impact</a></li>
+          <li><a class="les-liens" href="index.html#Help">Help us</a></li>
+          <li><a class="les-liens" href="index.html#App">Our App</a></li>
+          <li><a class="les-liens" href="index.html#Contact">Contact us</a></li>
+        </ul>
+      </div>
+    </div>
+    <ul id="menu" class="menu">
+      <li><a href="index.html#home">Home</a></li>
+      <li><a href="index.html#About">About</a></li>
+      <li><a href="index.html#Impact">Impact</a></li>
+      <li><a href="index.html#Help">Help us</a></li>
+      <li><a href="index.html#App">Our App</a></li>
+      <li><a href="index.html#Contact">Contact us</a></li>
+    </ul>
+    <!-- End Header -->
+    <div class="donate">
+      <div class="main-heading">
+        <h2>Donation</h2>
+      </div>
+      <div class="box">
+        <div class="details">
+          <h3>Enter The nessecary informations</h3>
+          <form action="">
+            <input type="text" placeholder="Full Name" name="" id="" />
+            <input type="text" placeholder="Email" name="" id="" />
+            <p>Select Donation Amount :</p>
+            <div class="amounts">
+              <span onclick="setdonate('5')">5dt</span>
+              <span onclick="setdonate('10')">10dt</span>
+              <span onclick="setdonate('50')">50dt</span>
+              <span onclick="setdonate('100')">100dt</span>
+            </div>
+            <p>Or enter amount</p>
+            <input type="number" name="" id="dt" />
+
+            <p>Payment Method</p>
+            <input type="radio" onclick="check()" name="rd" id="cr" />
+            <img src="images/credit_card_jcb.svg" alt="" />
+            <input type="radio" onclick="check()" name="rd" id="tel" />
+            <img src="images/carte-tel.webp" alt="" />
+            <div id="phone" class="phone">
+              <input
+                type="text"
+                placeholder="Your Phone Number"
+                name=""
+                id=""
+              />
+            </div>
+            <div id="credit-card" class="credit-card">
+              <input type="text" placeholder="Card Number" name="" id="" />
+              <input
+                type="text"
+                placeholder="Card Holder's Name "
+                name=""
+                id=""
+              /><br />
+              <input type="month" name="" id="" />
+              <input type="password" placeholder="CVC/CVV" name="" id="" />
+            </div>
+            <input type="submit" value="Donate" name="" id="" />
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
