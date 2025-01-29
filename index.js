@@ -58,7 +58,7 @@ function startCountdown() {
 
   events.forEach((event) => {
     // Now `event` is recognized as an HTMLElement
-    const targetDate = new Date(event.getAttribute("date"));
+    const targetDate = new Date(event.getAttribute("date")).getTime();
     const daysSpan = event.querySelector(".days");
     const hoursSpan = event.querySelector(".hours");
     const minutesSpan = event.querySelector(".minutes");
@@ -69,10 +69,10 @@ function startCountdown() {
       const diff = targetDate - now;
 
       if (diff <= 0) {
-        daysSpan.innerHTML = "00";
-        hoursSpan.innerHTML = "00";
-        minutesSpan.innerHTML = "00";
-        secondsSpan.innerHTML = "00";
+        daysSpan.innerHTML = "00 D";
+        hoursSpan.innerHTML = "00 H";
+        minutesSpan.innerHTML = "00 M";
+        secondsSpan.innerHTML = "00 S";
         return;
       }
 
@@ -83,10 +83,12 @@ function startCountdown() {
       const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-      daysSpan.innerHTML = days < 10 ? "0" + days : days;
-      hoursSpan.innerHTML = hours < 10 ? "0" + hours : hours;
-      minutesSpan.innerHTML = minutes < 10 ? "0" + minutes : minutes;
-      secondsSpan.innerHTML = seconds < 10 ? "0" + seconds : seconds;
+      daysSpan.innerHTML = days < 10 ? "0" + days + " D" : days + " D";
+      hoursSpan.innerHTML = hours < 10 ? "0" + hours + " H" : hours + " H";
+      minutesSpan.innerHTML =
+        minutes < 10 ? "0" + minutes + " M" : minutes + " M";
+      secondsSpan.innerHTML =
+        seconds < 10 ? "0" + seconds + " S" : seconds + " S";
     }, 1000);
   });
 }

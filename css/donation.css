@@ -177,36 +177,47 @@ li{
     padding-top: 80px;
     background-color: rgb(213, 213, 213);
 }
-.donate  .box{
+.donate  .container{
     max-width: 100%;
     background-color: rgb(213, 213, 213);
     padding: 30px;
+    margin-left: 0;
     height: fit-content;
 }
-.donate  .box .image{
+.donate  .container .image{
     max-width: 100%;
 }
-.donate  .box .image img{
+.donate  .container .image img{
     width: 550px;
     height: 300px;
     max-width: 100%;
 }
-.donate  .box .details{
+.donate  .container .details h3{
+    font-size: 25px;
+    font-weight: bold;
+}
+@media(max-width:767px){
+    .donate  .container .details h3{
+        font-size: 17px;
+    }
+}
+.donate  .container .details{
     padding: 10px;
     margin: 0 auto;
     width: 100%;
 }
 @media(max-width:767px){
-    .donate  .box .details{
+    .donate  .container .details{
         padding: 5px;
     }
 }
-.donate  .box .details form input[type="text"],.donate  .box .details form input[type="email"],.donate  .box .details form input[type="number"],.donate  .box .details form input[type="month"],.donate  .box .details form input[type="password"]{
+.donate  .container .details form input[type="text"],.donate  .container .details form input[type="email"],.donate  .container .details form input[type="number"],.donate  .container .details form input[type="month"],.donate  .container .details form input[type="password"]{
     width: 300px;
     border: 1px solid #777;
     outline: none;
     border-radius: 10px;
     margin: 20px 0;
+    max-width: 100%;
     padding: 20px;
 }
 #dt{position: relative;}
@@ -219,16 +230,16 @@ li{
     color: black;
     font-weight: bold;
 }
-.donate  .box .details form img{
+.donate  .container .details form img{
     width: 70px;
     max-width: 100%;
 }
-.donate  .box .details form .amounts{
+.donate  .container .details form .amounts{
     width: fit-content;
     margin: 25px 0;
     max-width: 100%;
 }
-.donate  .box .details form .amounts span{
+.donate  .container .details form .amounts span{
     background-color: var(--first-color);
     color: white;
     padding: 20px;
@@ -236,13 +247,18 @@ li{
     margin-right: 5px;
     cursor: pointer;
     width: calc( 25% - 20px);
+    transition: var(--trans);
+}
+.donate  .container .details form .amounts span:hover{
+    background-color: white;
+    color: var(--first-color);
 }
 @media(max-width:767px){
-    .donate  .box .details form .amounts span{
-        padding: 12px;
+    .donate  .container .details form .amounts span{
+        padding: 5px;
     }
 }
-.donate  .box .details form input[type="submit"]{
+.donate  .container .details form input[type="submit"]{
     text-align: center;
     font-size: 20px;
     cursor: pointer;

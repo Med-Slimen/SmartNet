@@ -225,3 +225,9 @@ li{
     background-color: var(--second-color);
     color: white;
 }
+@media(max-width:767px){
+    .events .container .box .text .countdown .button a{
+        width: 80px;
+        padding: 5px;
+    }
+}

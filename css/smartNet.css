@@ -210,10 +210,10 @@ li{
 }
 @media(max-width:767px){
     .landing .container .text h1{
-        font-size: 30px;
+        font-size: 25px;
     }
     .landing .container .text p{
-        font-size: 20px;
+        font-size: 17px;
     }
 }
 .landing .container .buttons{
@@ -459,7 +459,6 @@ li{
 
 .help .container .box{
     width: 350px;
-    filter: blur(0.6px);
     margin: 0 auto;
     max-width: 100%;
     cursor: pointer;
@@ -508,8 +507,6 @@ li{
 
 .help .container .box:hover{
     transform: scale(1.04);
-    filter: blur(0);
-    filter: contrast(12px);
 }
 .help .container .box:hover .image::before{
     transform: skewX(-75deg);
