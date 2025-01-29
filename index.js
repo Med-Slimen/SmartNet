@@ -134,7 +134,7 @@ function showAbout() {
       aboutImage.style.right = "-70%";
       aboutImage.style.opacity = "0";
     }
-    if (window.scrollY >= helpSection.offsetTop - 100) {
+    if (window.scrollY >= helpSection.offsetTop - 70) {
       helpBoxes.forEach((box) => {
         box.style.bottom = "0";
         box.style.opacity = "1";
