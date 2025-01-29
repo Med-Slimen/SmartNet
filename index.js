@@ -39,6 +39,8 @@ function menu() {
     }
   });
   startCountdown();
+  countingNumbers();
+  showAbout();
 }
 function setdonate(ch) {
   document.getElementById("dt").value = ch;
@@ -90,5 +92,58 @@ function startCountdown() {
       secondsSpan.innerHTML =
         seconds < 10 ? "0" + seconds + " S" : seconds + " S";
     }, 1000);
+  });
+}
+function countingNumbers() {
+  let section = document.getElementById("Impact");
+  let statsList = document.querySelectorAll(".stats-list .box");
+  let started = false;
+  window.onscroll = function () {
+    if (window.scrollY >= section.offsetTop - 220) {
+      if (!started) {
+        console.log("wselt");
+        statsList.forEach((stat) => {
+          let number = stat.querySelector("h4");
+          let count = setInterval(() => {
+            number.textContent++;
+            if (number.textContent == number.getAttribute("number")) {
+              clearInterval(count);
+            }
+          }, 1000 / number.getAttribute("number"));
+        });
+      }
+      started = true;
+    }
+  };
+}
+function showAbout() {
+  let aboutSection = document.getElementById("About");
+  let helpSection = document.getElementById("Help");
+  let aboutText = document.querySelector(".about .container .text");
+  let aboutImage = document.querySelector(".about .container .image");
+  let helpBoxes = document.querySelectorAll(".help .container .box");
+  document.addEventListener("scroll", () => {
+    if (window.scrollY >= aboutSection.offsetTop - 600) {
+      aboutText.style.left = "0";
+      aboutText.style.opacity = "1";
+      aboutImage.style.right = "0";
+      aboutImage.style.opacity = "1";
+    } else {
+      aboutText.style.left = "-80%";
+      aboutText.style.opacity = "0";
+      aboutImage.style.right = "-70%";
+      aboutImage.style.opacity = "0";
+    }
+    if (window.scrollY >= helpSection.offsetTop - 100) {
+      helpBoxes.forEach((box) => {
+        box.style.bottom = "0";
+        box.style.opacity = "1";
+      });
+    } else {
+      helpBoxes.forEach((box) => {
+        box.style.bottom = "-35%";
+        box.style.opacity = "0";
+      });
+    }
   });
 }

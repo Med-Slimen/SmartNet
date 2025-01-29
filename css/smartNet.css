@@ -4,6 +4,7 @@
     --second-color:#1F509A;
     --third-color:#CBDCEB;
     --trans:0.3s;
+    --scroll-trans:1.5s;
     --section-padding:10px;
 }
 
@@ -210,10 +211,10 @@ li{
 }
 @media(max-width:767px){
     .landing .container .text h1{
-        font-size: 25px;
+        font-size: 22px;
     }
     .landing .container .text p{
-        font-size: 17px;
+        font-size: 16px;
     }
 }
 .landing .container .buttons{
@@ -240,6 +241,9 @@ li{
 @media(max-width:767px){
     .landing .container .buttons a{
         margin-bottom: 15px;
+        font-size: 20px;
+        padding: 8px;
+        min-width: 160px;
     }
 }
 .landing .container .buttons a:hover{
@@ -252,6 +256,7 @@ li{
     background-color: #f5f5f5;
     padding-top: 25px;
     position: relative;
+    overflow: hidden;
 }
 .main-heading{
     padding: 10px 8px;
@@ -287,6 +292,10 @@ li{
     flex-basis: 45%;
     transition: var(--trans);
     cursor: pointer;
+    position: relative;
+    right: -70%;
+    opacity: 0;
+    transition: var(--scroll-trans);
 }
 .about .container .image:hover{
     transform: scale(1.03);
@@ -299,6 +308,10 @@ li{
 .about .container .text{
     text-align: center;
     flex-basis: 45%;
+    transition: var(--scroll-trans);
+    opacity: 0;
+    position: relative;
+    left: -80%;
 }
 
 .about .container .text h3{
@@ -373,6 +386,7 @@ li{
     padding-bottom: 70px;
     grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
     gap: 30px;
+    padding: 10px;
 }
 .stats .container .stats-list .box{
     text-align: center;
@@ -449,6 +463,7 @@ li{
 .help{
     padding-top: 80px;
     background-color: rgb(233, 233, 233);
+    overflow: hidden;
 }
 .help .container{
     padding: 100px 20px;
@@ -463,12 +478,14 @@ li{
     max-width: 100%;
     cursor: pointer;
     border-radius: 10px;
+    transition: 1s;
     overflow: hidden;
-    transition: var(--trans);
     padding-bottom: 40px;
     background-color: white;
     height: fit-content;
     position: relative;
+    bottom: -35%;
+    opacity: 0;
 }
 @media(max-width:767px){
     .help .container{
