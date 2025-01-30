@@ -101,7 +101,6 @@ function countingNumbers() {
   window.onscroll = function () {
     if (window.scrollY >= section.offsetTop - 220) {
       if (!started) {
-        console.log("wselt");
         statsList.forEach((stat) => {
           let number = stat.querySelector("h4");
           let count = setInterval(() => {
@@ -147,7 +146,7 @@ function showAbout() {
       });
     } else {
       helpBoxes.forEach((box) => {
-        box.style.bottom = "-35%";
+        box.style.bottom = "-20%";
         box.style.opacity = "0";
       });
     }
@@ -157,9 +156,9 @@ function showAbout() {
       appPhone.style.right = "0";
       appPhone.style.opacity = "1";
     } else {
-      appText.style.left = "-80%";
+      appText.style.left = "-40%";
       appText.style.opacity = "0";
-      appPhone.style.right = "-70%";
+      appPhone.style.right = "-40%";
       appPhone.style.opacity = "0";
     }
     if (window.scrollY >= contactSection.offsetTop - 400) {

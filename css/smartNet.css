@@ -440,17 +440,22 @@ li{
 }
 .stats .container .stats-list .box i{
     font-size: 30px;
+    display: block;
 }
 .stats .container .stats-list .box svg{
     font-size: 30px;
     max-width: 100%;
+    display: block;
+    margin: 0 auto;
 }
 .stats .container .stats-list .box img{
     width: 40px;
     max-width: 100%;
 }
-.stats .container .stats-list .box h4{
+.stats .container .stats-list .box h4,.stats .container .stats-list .box span{
     font-size: 45px;
+    font-weight: bold;
+    display: inline-block;
 }
 .stats .container .stats-list .box p{
     font-size: 22px;
@@ -484,7 +489,7 @@ li{
     background-color: white;
     height: 555px;
     position: relative;
-    bottom: -35%;
+    bottom: -20%;
     opacity: 0;
 }
 @media(max-width:767px){
@@ -599,7 +604,7 @@ li{
     padding: 10px;
     color: white;
     position: relative;
-    left: -80%;
+    left: -40%;
     opacity: 0;
     transition: var(--scroll-trans);
 }
@@ -647,7 +652,7 @@ li{
     max-width: 100%;
     width: fit-content;
     position: relative;
-    right: -70%;
+    right: -40%;
     opacity: 0;
     transition: var(--scroll-trans);
 }
