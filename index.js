@@ -119,9 +119,15 @@ function countingNumbers() {
 function showAbout() {
   let aboutSection = document.getElementById("About");
   let helpSection = document.getElementById("Help");
+  let appSection = document.getElementById("App");
+  let contactSection = document.getElementById("Contact");
   let aboutText = document.querySelector(".about .container .text");
   let aboutImage = document.querySelector(".about .container .image");
   let helpBoxes = document.querySelectorAll(".help .container .box");
+  let appText = document.querySelector(".app .container .text");
+  let appPhone = document.querySelector(".app .container .phone");
+  let contactText = document.querySelector(".contact .container .part1");
+  let contactForm = document.querySelector(".contact .container .part2");
   document.addEventListener("scroll", () => {
     if (window.scrollY >= aboutSection.offsetTop - 600) {
       aboutText.style.left = "0";
@@ -134,7 +140,7 @@ function showAbout() {
       aboutImage.style.right = "-70%";
       aboutImage.style.opacity = "0";
     }
-    if (window.scrollY >= helpSection.offsetTop - 70) {
+    if (window.scrollY >= helpSection.offsetTop - 350) {
       helpBoxes.forEach((box) => {
         box.style.bottom = "0";
         box.style.opacity = "1";
@@ -144,6 +150,28 @@ function showAbout() {
         box.style.bottom = "-35%";
         box.style.opacity = "0";
       });
+    }
+    if (window.scrollY >= appSection.offsetTop - 470) {
+      appText.style.left = "0";
+      appText.style.opacity = "1";
+      appPhone.style.right = "0";
+      appPhone.style.opacity = "1";
+    } else {
+      appText.style.left = "-80%";
+      appText.style.opacity = "0";
+      appPhone.style.right = "-70%";
+      appPhone.style.opacity = "0";
+    }
+    if (window.scrollY >= contactSection.offsetTop - 400) {
+      contactText.style.left = "0";
+      contactText.style.opacity = "1";
+      contactForm.style.right = "0";
+      contactForm.style.opacity = "1";
+    } else {
+      contactText.style.left = "-80%";
+      contactText.style.opacity = "0";
+      contactForm.style.right = "-70%";
+      contactForm.style.opacity = "0";
     }
   });
 }

@@ -482,7 +482,7 @@ li{
     overflow: hidden;
     padding-bottom: 40px;
     background-color: white;
-    height: fit-content;
+    height: 555px;
     position: relative;
     bottom: -35%;
     opacity: 0;
@@ -545,6 +545,7 @@ li{
     color: #777;
     font-size: 17px;
     line-height: 1.9;
+    height: 100px;
 }
 .help .container .box .button{
     width: fit-content;
@@ -557,21 +558,35 @@ li{
     display: block;
     width: 150px;
     padding: 9px;
-    border-radius: 8px;
+    transition: var(--trans);
+    border-radius: 10px;
     background-color: var(--first-color);
     color: white;
+}
+.help .container .box .button a:hover{
+    background-color:rgb(244, 244, 244);
+    color:  var(--first-color);
 }
 .help .container .box .button #button-donate{
     background-color: #2199e3e9;
 }
+.help .container .box .button #button-donate:hover{
+    background-color:rgb(244, 244, 244);
+    color:  #2199e3e9;
+}
 .help .container .box .button #button-report{
     background-color: #be3017e9;
+}
+.help .container .box .button #button-report:hover{
+    background-color:rgb(244, 244, 244);
+    color:  #be3017e9;
 }
 /* End help */
 /* Start app */
 .app{
     background-color: rgb(14, 14, 14);
     padding-top: 70px;
+    overflow: hidden;
 }
 .app .container{
     display: flex;
@@ -583,6 +598,10 @@ li{
     max-width: 100%;
     padding: 10px;
     color: white;
+    position: relative;
+    left: -80%;
+    opacity: 0;
+    transition: var(--scroll-trans);
 }
 @media(max-width:1200px){
     .app .container .text{
@@ -627,6 +646,10 @@ li{
 .app .container .phone{
     max-width: 100%;
     width: fit-content;
+    position: relative;
+    right: -70%;
+    opacity: 0;
+    transition: var(--scroll-trans);
 }
 .app .container .phone img{
     width: 250px;
@@ -651,6 +674,7 @@ li{
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
+    overflow: hidden;
 }
 .contact::before{
     content: '';
@@ -676,6 +700,10 @@ li{
 }
 .contact .container .part1{
     max-width: 100%;
+    position: relative;
+    left: -80%;
+    opacity: 0;
+    transition: var(--scroll-trans);
 }
 .contact .container .part1 .text{
     color: white;
@@ -778,6 +806,10 @@ li{
 }
 .contact .container .part2{
     max-width: 100%;
+    position: relative;
+    right: -70%;
+    opacity: 0;
+    transition: var(--scroll-trans);
 }
 .contact .container .part2 form{
     width: 524px;
