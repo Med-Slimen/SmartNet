@@ -68,7 +68,7 @@ li{
 .header{
     padding-top: 8px;
     background-color:white ;
-    height: 60px;
+    height: 95px;
     position: fixed;
     width: 100%;
     transition: var(--trans);
@@ -84,6 +84,11 @@ li{
 .header .container .logo{
     max-width: 100%;
     max-height: 100px;
+}
+.header .container .logo img{
+    width: 75px;
+    height: 75px;
+    max-width: 100%;
 }
 .header .container .logo h2{
     font-size: 25px;
@@ -174,7 +179,7 @@ li{
 }
 /* End Header */
 .donate{
-    padding-top: 80px;
+    padding-top: 105px;
     background-color: rgb(213, 213, 213);
 }
 .donate  .container{

@@ -24,14 +24,14 @@ function menu() {
   document.addEventListener("scroll", () => {
     if (window.scrollY > 50) {
       header.classList.add("header-scrolled");
-      logo.classList.add("h2-scrolled");
+      // logo.classList.add("h2-scrolled");
       bars.classList.add("bars-scrolled");
       for (let lien of lesLiens) {
         lien.classList.add("les-liens-scrolled");
       }
     } else {
       header.classList.remove("header-scrolled");
-      logo.classList.remove("h2-scrolled");
+      // logo.classList.remove("h2-scrolled");
       bars.classList.remove("bars-scrolled");
       for (let lien of lesLiens) {
         lien.classList.remove("les-liens-scrolled");
@@ -59,7 +59,6 @@ function startCountdown() {
   const events = document.querySelectorAll(".timer");
 
   events.forEach((event) => {
-    // Now `event` is recognized as an HTMLElement
     const targetDate = new Date(event.getAttribute("date")).getTime();
     const daysSpan = event.querySelector(".days");
     const hoursSpan = event.querySelector(".hours");

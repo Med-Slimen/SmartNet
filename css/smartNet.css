@@ -53,7 +53,7 @@ li{
 .header{
     padding-top: 8px;
     background-color: transparent;
-    height: 60px;
+    height: 95px;
     position: fixed;
     width: 100%;
     transition: var(--trans);
@@ -72,6 +72,11 @@ li{
 .header .container .logo{
     max-width: 100%;
     max-height: 100px;
+}
+.header .container .logo img{
+    width: 75px;
+    height: 75px;
+    max-width: 100%;
 }
 .header .container .logo h2{
     font-size: 25px;
