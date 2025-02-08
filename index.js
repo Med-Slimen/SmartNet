@@ -41,6 +41,8 @@ function menu() {
   startCountdown();
   countingNumbers();
   showAbout();
+  savingData();
+  setEventImage();
 }
 function setdonate(ch) {
   document.getElementById("dt").value = ch;
@@ -172,4 +174,19 @@ function showAbout() {
       contactForm.style.opacity = "0";
     }
   });
+}
+function savingData() {
+  let allButtons = document.querySelectorAll(
+    ".events .container .box .text .button"
+  );
+  allButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      localStorage.setItem("imgUrl", button.getAttribute("imgUrl"));
+    });
+  });
+}
+function setEventImage() {
+  document
+    .querySelector(".eventform .details .event .image img")
+    .setAttribute("src", localStorage.getItem("imgUrl"));
 }
