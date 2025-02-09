@@ -26,6 +26,16 @@ a{
 li{
     list-style: none;
 }
+::-webkit-scrollbar{
+    width: 12px;
+}
+::-webkit-scrollbar-track{
+    background-color: #CBDCEB;
+}
+::-webkit-scrollbar-thumb{
+    background-color: var(--first-color);
+    border-radius: 5px;
+}
 .main-heading{
     padding: 10px 8px;
     background-color: #30b6b0;
