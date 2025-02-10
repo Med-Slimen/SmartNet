@@ -99,24 +99,27 @@ function countingNumbers() {
   let section = document.getElementById("Impact");
   let statsList = document.querySelectorAll(".stats-list .box");
   let started = false;
-  window.onscroll = function () {
-    if (window.scrollY >= section.offsetTop - 220) {
-      if (!started) {
-        statsList.forEach((stat) => {
-          let number = stat.querySelector("h4");
-          let count = setInterval(() => {
-            number.textContent++;
-            if (number.textContent == number.getAttribute("number")) {
-              clearInterval(count);
-            }
-          }, 1000 / number.getAttribute("number"));
-        });
+  if (section) {
+    window.onscroll = function () {
+      if (window.scrollY >= section.offsetTop - 220) {
+        if (!started) {
+          statsList.forEach((stat) => {
+            let number = stat.querySelector("h4");
+            let count = setInterval(() => {
+              number.textContent++;
+              if (number.textContent == number.getAttribute("number")) {
+                clearInterval(count);
+              }
+            }, 1000 / number.getAttribute("number"));
+          });
+        }
+        started = true;
       }
-      started = true;
-    }
-  };
+    };
+  }
 }
 function showAbout() {
+  let homeSection = document.getElementById("home");
   let aboutSection = document.getElementById("About");
   let helpSection = document.getElementById("Help");
   let appSection = document.getElementById("App");
@@ -128,52 +131,60 @@ function showAbout() {
   let appPhone = document.querySelector(".app .container .phone");
   let contactText = document.querySelector(".contact .container .part1");
   let contactForm = document.querySelector(".contact .container .part2");
-  document.addEventListener("scroll", () => {
-    if (window.scrollY >= aboutSection.offsetTop - 600) {
-      aboutText.style.left = "0";
-      aboutText.style.opacity = "1";
-      aboutImage.style.right = "0";
-      aboutImage.style.opacity = "1";
-    } else {
-      aboutText.style.left = "-80%";
-      aboutText.style.opacity = "0";
-      aboutImage.style.right = "-70%";
-      aboutImage.style.opacity = "0";
-    }
-    if (window.scrollY >= helpSection.offsetTop - 350) {
-      helpBoxes.forEach((box) => {
-        box.style.bottom = "0";
-        box.style.opacity = "1";
-      });
-    } else {
-      helpBoxes.forEach((box) => {
-        box.style.bottom = "-20%";
-        box.style.opacity = "0";
-      });
-    }
-    if (window.scrollY >= appSection.offsetTop - 470) {
-      appText.style.left = "0";
-      appText.style.opacity = "1";
-      appPhone.style.right = "0";
-      appPhone.style.opacity = "1";
-    } else {
-      appText.style.left = "-40%";
-      appText.style.opacity = "0";
-      appPhone.style.right = "-40%";
-      appPhone.style.opacity = "0";
-    }
-    if (window.scrollY >= contactSection.offsetTop - 400) {
-      contactText.style.left = "0";
-      contactText.style.opacity = "1";
-      contactForm.style.right = "0";
-      contactForm.style.opacity = "1";
-    } else {
-      contactText.style.left = "-80%";
-      contactText.style.opacity = "0";
-      contactForm.style.right = "-70%";
-      contactForm.style.opacity = "0";
-    }
-  });
+  let arrow = document.querySelector(".arrow");
+  if (aboutSection) {
+    document.addEventListener("scroll", () => {
+      if (window.scrollY > homeSection.offsetTop) {
+        arrow.classList.add("arrow-visible");
+      } else {
+        arrow.classList.remove("arrow-visible");
+      }
+      if (window.scrollY >= aboutSection.offsetTop - 600) {
+        aboutText.style.left = "0";
+        aboutText.style.opacity = "1";
+        aboutImage.style.right = "0";
+        aboutImage.style.opacity = "1";
+      } else {
+        aboutText.style.left = "-80%";
+        aboutText.style.opacity = "0";
+        aboutImage.style.right = "-70%";
+        aboutImage.style.opacity = "0";
+      }
+      if (window.scrollY >= helpSection.offsetTop - 350) {
+        helpBoxes.forEach((box) => {
+          box.style.bottom = "0";
+          box.style.opacity = "1";
+        });
+      } else {
+        helpBoxes.forEach((box) => {
+          box.style.bottom = "-20%";
+          box.style.opacity = "0";
+        });
+      }
+      if (window.scrollY >= appSection.offsetTop - 470) {
+        appText.style.left = "0";
+        appText.style.opacity = "1";
+        appPhone.style.right = "0";
+        appPhone.style.opacity = "1";
+      } else {
+        appText.style.left = "-40%";
+        appText.style.opacity = "0";
+        appPhone.style.right = "-40%";
+        appPhone.style.opacity = "0";
+      }
+      if (window.scrollY >= contactSection.offsetTop - 400) {
+        contactText.style.left = "0";
+        contactText.style.opacity = "1";
+        contactForm.style.right = "0";
+        contactForm.style.opacity = "1";
+      } else {
+        contactText.style.left = "-80%";
+        contactText.style.opacity = "0";
+        contactForm.style.right = "-70%";
+        contactForm.style.opacity = "0";
+      }
+    });
+  }
 }
 function savingData() {
   let allButtons = document.querySelectorAll(
@@ -186,7 +197,8 @@ function savingData() {
   });
 }
 function setEventImage() {
-  document
-    .querySelector(".eventform .details .event .image img")
-    .setAttribute("src", localStorage.getItem("imgUrl"));
+  let imgg = document.querySelector(".eventform .details .event .image img");
+  if (imgg) {
+    imgg.setAttribute("src", localStorage.getItem("imgUrl"));
+  }
 }

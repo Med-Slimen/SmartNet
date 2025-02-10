@@ -266,6 +266,45 @@ li{
     color: var(--first-color);
 }
 /* End landing */
+/* Arrow */
+.arrow{
+    position: fixed;    
+    bottom: 0;
+    opacity: 0;
+    z-index: 999;
+    right: 20px;
+    height: 68px;
+    width: 68px;
+    cursor: pointer;
+    transition: 0.5s;
+    border-radius: 100%;
+    background-color: var(--first-color);
+    padding: 20px;
+}
+.arrow-visible{
+    opacity: 1;
+    bottom: 20px;
+}
+.arrow i {
+    color: white;
+    text-align: center;
+    width: fit-content;
+    font-weight: 700;
+    font-size: 22px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    animation: updown 3s  infinite;
+
+}
+@keyframes updown{
+    0%{top: 45%;}
+    25%{top: 60%;}
+    50%{top: 45%;}
+    75%{top: 65%;}
+    100%{top: 45%;}
+}
 /* Start about */
 .about{
     background-color: #f5f5f5;
