@@ -1,0 +1,242 @@
+/* Start Global Rules */
+:root{
+    --first-color:#30bdb5;
+    --second-color:#1F509A;
+    --third-color:#CBDCEB;
+    --trans:0.3s;
+    --scroll-trans:1.5s;
+    --section-padding:10px;
+}
+
+body{
+    font-family: "Cairo", sans-serif;
+}
+html{
+    scroll-behavior: smooth;
+}
+a{
+    text-decoration: none;
+}
+*{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+li{
+    list-style: none;
+}
+::-webkit-scrollbar{
+    width: 12px;
+}
+::-webkit-scrollbar-track{
+    background-color: #CBDCEB;
+}
+::-webkit-scrollbar-thumb{
+    background-color: var(--first-color);
+    border-radius: 5px;
+}
+.container{
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+@media (min-width: 768px) {
+    .container{
+        width: 750px;
+    }
+}
+@media (min-width: 992px) {
+    .container{
+        width: 970px;
+    }
+}
+@media (min-width: 1200px) {
+    .container{
+        width: 1170px;
+    }
+}
+/* End Global Rules */
+/* Start header */
+.header{
+    padding-top: 8px;
+    background-color: transparent;
+    height: 95px;
+    position: fixed;
+    display: none;
+    width: 100%;
+    transition: var(--trans);
+    z-index: 1;
+}
+.header.header-scrolled{
+    background-color:white ;
+}
+
+.header .container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.header .container .logo{
+    max-width: 100%;
+    max-height: 100px;
+}
+.header .container .logo img{
+    width: 75px;
+    height: 75px;
+    max-width: 100%;
+}
+.header .container .logo h2{
+    font-size: 25px;
+    color: white;
+    text-shadow: 2px 1px 3px  black;
+}
+@media(max-width:1200px){
+    .header .container .logo h2{
+        font-size: 22px;
+    }
+}
+.header .container .logo h2.h2-scrolled{
+    color: var(--first-color);
+    text-shadow: 0px 0px 0px  black;
+}
+.header .container .links{
+    display: flex;
+    z-index: 1;
+    justify-content: space-between;
+    align-items: center;
+}
+.header .container .links li .les-liens{
+    padding: 20px;
+    text-shadow: 2px 1px 3px  black;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+@media(max-width:1200px){
+    .header .container .links li .les-liens{
+        padding: 10px;
+    }
+}
+.header .container .links li .les-liens.les-liens-scrolled{
+   color: black;
+   text-shadow: 0px 0px 0px  black;
+}
+.header .container .links li{
+    position: relative;
+}
+.header .container .links li::before{
+    content: "";
+    position: absolute;
+    left: 15px;
+    bottom: 0;
+    width: 0%;
+    height: 3px;
+    transition: var(--trans);
+    background-color:#E38E49;
+}
+.header .container .links li:hover::before{
+    width: calc(100% - 20px ); 
+}
+.header .container .bars{
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+    display: none;
+    transition: var(--trans);
+    position: relative;
+}
+.header .container .bars.bars-scrolled{
+    color: black;
+}
+.menu{
+    position: fixed;
+    background-color: white;
+    width: 60%;
+    opacity: 0;
+    z-index: -100;
+    top: 0;
+    left: -50px;
+    transition: 1s;
+    text-align: center;
+    height: fit-content;
+}
+.menu li{
+    padding: 25px;
+    transition: var(--trans);
+}
+.menu li:hover{
+    padding-left: 35px;
+}
+.menu li:not(:last-child){
+    border-bottom: 1px solid var(--first-color);
+}
+.menu li a{
+    font-size: 22px;
+    font-weight: bold;
+    color: black;
+}
+@media(max-width:767px){
+    .header .container .bars{
+        display: block;
+    }
+    .header .container .links{
+        display: none;
+    }
+}
+/* End Header */
+/* Start Login */
+.login{
+    height: 100vh;
+    background-color:var(--third-color) ;
+    position: relative;
+}
+.login .container{
+    background-color:#E8F5E9;
+    padding: 10px;
+    width: 40%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+.login .container .logo{
+    max-width: 100%;
+    max-height: 100px;
+    width: fit-content;
+    margin: 0 auto;
+}
+.login .container .logo img{
+    width: 75px;
+    height: 75px;
+    max-width: 100%;
+}
+.login .container h3{
+    font-size: 20px;
+    text-align: center;
+}
+.login .container .login-form{
+    max-width: 100%;
+    margin: 0 auto;
+    width: fit-content;
+}
+.login .container .login-form input{
+    padding: 12px;
+    margin: 15px;
+    width: 250px;
+    border-radius: 5px;
+    outline: none;
+    border:1px solid #777;
+}
+.login .container .login-form input[type="checkbox"]{
+    padding: 10px;
+    margin: 15px;
+    width: fit-content;
+    border-radius: 5px;
+    outline: none;
+    border:1px solid #777;
+}
+/* End Login */
