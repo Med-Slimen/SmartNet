@@ -5,7 +5,7 @@ session_start();
 
 if (isset($_SESSION['logged'])) {
   if ($_SESSION['logged'] == true) {
-    header("Location: dashboard.php");
+    header("Location: dashboard.html");
   }
 }
 

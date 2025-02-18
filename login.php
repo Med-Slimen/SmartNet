@@ -1,7 +1,7 @@
 <?php
 session_start();
 include 'connect.php';
-if (isset($_POST['email']) && isset($_POST['password'])) { 
+if (isset($_POST['email']) && isset($_POST['password'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
     $checkAcc = $conn->prepare("SELECT firstname,lastname,email ,password  FROM admin
@@ -14,10 +14,11 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         $_SESSION['firstname'] = $data['firstname'];
         $_SESSION['lastname'] = $data['lastname'];
         $_SESSION['logged'] = true;
-        header("Location: dashboard.php");
+        header("Location: dashboard.html");
         exit();
     } else {
         alert("Account Not Found");
+        
     }
 }
 function alert($msg)
