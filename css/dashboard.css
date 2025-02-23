@@ -100,7 +100,7 @@ a:visited{
 .panel{
     position: absolute;
     left: 15%;
-    padding: 10px;
+    padding: 15px;
     top: 0;
     width: 85%;
     background-color: #DBE2EF;
@@ -150,42 +150,53 @@ a:visited{
 }
 /* End panel */
 /* Start dashboard */
-.panel .dashboard .header{
+.panel .dashboard{
+    height: calc(100vh - 105px);
+}
+.header{
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    height: 75px;
 }
-.panel .dashboard .header .profile{
+.header h2{
+    font-size: 30px;
+}
+.header .profile{
     width: fit-content;
     max-width: 100%;
     cursor: pointer;
     position: relative;
 }
-.panel .dashboard .header .profile .profile-settings{
+.header .profile .profile-settings{
     position: absolute;
     z-index: 1;
     border-radius: 5px;
     top: 100%;
     transition: var(--trans);
     right: 0;
+    padding: 0px;
     background-color: rgb(239, 239, 239);
     width: 180px;
     height: 0;
     overflow: hidden;
 }
-.panel .dashboard .header .profile .profile-settings a li{
+.header .profile .profile-settings a li,.header .profile .profile-settings h3{
     color: black;
     width: fit-content;
     padding: 8px;
     font-size: 17px;
+    text-align: center;
     transition: var(--trans);
     font-weight: bold;
 }
-.panel .dashboard .header .profile .profile-settings a li:hover{
+.header .profile .profile-settings h3{
+    border-bottom: 1px solid #777;
+}
+.header .profile .profile-settings a li:hover{
     padding-left: 15px;
 }
-.panel .dashboard .header .profile img{
+.header .profile img{
     width: 65px;
     height: 65px;
     border-radius: 100%;
@@ -257,3 +268,110 @@ table,tr,td,th{
     border-collapse: collapse;
 }
 /* End dashboard */
+/* Start event */
+.events{
+    height: calc(100vh - 105px);
+    padding: 10px;
+}
+.events .events-list{
+    padding: 10px;
+}
+.events .events-list .header-event{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#addbt{
+    padding: 15px;
+    background-color: lightseagreen;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+    border: 1px solid #777;
+}
+.delbt{
+    padding: 15px;
+    background-color: red;
+    color: white;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    border: 1px solid #777;
+}
+#delete-conf{
+    background-color: white;
+    padding: 30px;
+    position: absolute;
+    left: 50%;
+    visibility: hidden;
+    top: 50%;
+    opacity: 0;
+    transition: var(--trans);
+    border-radius: 8px;
+    transform-origin: left;
+    transform: scale(0.6) translate(-50%,-50%);
+    width: fit-content;
+}
+#delete-conf .choice{
+    display: flex;
+    margin-top: 25px;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+#delete-conf .choice #yes{
+    padding: 8px;
+    background-color: lightseagreen;
+    color: white;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid #777;
+}
+#delete-conf .choice #no{
+    padding: 8px;
+    background-color: red;
+    color: white;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid #777;
+}
+.events .events-list .header-event .add-event{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transition: var(--trans);
+    visibility: hidden;
+    opacity: 0;
+    transform-origin: left;
+    transform: scale(0.6) translate(-50%,-50%);
+    background-color: whitesmoke;
+    color: black;
+    padding: 25px;
+}
+.events .events-list .header-event .add-event .xmark{
+    position: absolute;
+    right: 10px;
+    font-size: 25px;
+    font-weight: bold;
+    top: 10px;
+    cursor: pointer;
+}
+
+.events .events-list .header-event .add-event form input{
+    width: 200px;
+    display: block;
+    border: 1px solid #777;
+    padding: 10px;
+    margin: 18px;
+}
+.events .events-list .header-event .add-event form input[type="submit"]{
+    background-color: lightseagreen;
+    color: whitesmoke;
+    cursor: pointer;
+}
+.events .events-list .header-event .add-event form input[type="reset"]{
+    background-color: rgba(255, 78, 78, 0.937);
+    color: whitesmoke;
+    cursor: pointer;
+}

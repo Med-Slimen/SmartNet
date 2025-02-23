@@ -14,7 +14,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         $_SESSION['firstname'] = $data['firstname'];
         $_SESSION['lastname'] = $data['lastname'];
         $_SESSION['logged'] = true;
-        header("Location: dashboard.html");
+        header("Location: dashboard.php");
         exit();
     } else {
         alert("Account Not Found");
