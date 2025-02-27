@@ -36,7 +36,11 @@
     <div id="header" class="header">
       <div class="container">
         <div class="logo">
-          <a href="index.html"><img src="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/mwlldu11prcamv90qmul" alt="" /></a>
+          <a href="index.html"
+            ><img
+              src="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/mwlldu11prcamv90qmul"
+              alt=""
+          /></a>
         </div>
         <div onclick="showMenu()" id="bars" class="bars">
           <i class="fa-solid fa-bars"></i>
@@ -67,9 +71,21 @@
       <div class="container">
         <div class="details">
           <h3>Enter The nessecary informations</h3>
-          <form action="">
-            <input type="text" placeholder="Full Name" name="" id="" />
-            <input type="text" placeholder="Email" name="" id="" />
+          <form action="donate.php" method="post">
+            <input
+              type="text"
+              placeholder="Full Name"
+              name="full_name"
+              id=""
+              required
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              name="email"
+              id=""
+              required
+            />
             <p>Select Donation Amount :</p>
             <div class="amounts">
               <span onclick="setdonate('5')">5dt</span>
@@ -78,15 +94,27 @@
               <span onclick="setdonate('100')">100dt</span>
             </div>
             <p>Or enter amount</p>
-            <input type="number" name="" id="dt" />
+            <input type="number" name="amount" id="dt" required />
 
             <p>Payment Method</p>
-            <input type="radio" onclick="check()" name="rd" id="cr" />
+            <input
+              type="radio"
+              onclick="check()"
+              name="rd"
+              id="cr"
+              value="Credit Card"
+            />
             <img
               src="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/ejvsftjqtmbmsdhcfzjm"
               alt=""
             />
-            <input type="radio" onclick="check()" name="rd" id="tel" />
+            <input
+              type="radio"
+              onclick="check()"
+              name="rd"
+              id="tel"
+              value="Solde"
+            />
             <img
               src="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/kurmgjpvs4o16zu4rnql"
               alt=""
@@ -100,15 +128,25 @@
               />
             </div>
             <div id="credit-card" class="credit-card">
-              <input type="text" placeholder="Card Number" name="" id="" />
+              <input
+                type="text"
+                placeholder="Card Number"
+                name="card_number"
+                id=""
+              />
               <input
                 type="text"
                 placeholder="Card Holder's Name "
-                name=""
+                name="holder_name"
                 id=""
               /><br />
               <input type="month" name="" id="" />
-              <input type="password" placeholder="CVC/CVV" name="" id="" />
+              <input
+                type="password"
+                placeholder="CVC/CVV"
+                name="card_cvc"
+                id=""
+              />
             </div>
             <input type="submit" value="Donate" name="" id="" />
           </form>

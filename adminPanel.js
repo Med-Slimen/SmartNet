@@ -56,3 +56,18 @@ function hideAddEvent() {
   addEvent.style.transform = "scale(0.6) translate(-50%,-50%)";
   addEvent.style.opacity = "0";
 }
+function showDash() {
+  document.getElementById("dashboard").style.display = "block";
+  document.getElementById("events").style.display = "none";
+  document.getElementById("donations").style.display = "none";
+}
+function showEvents() {
+  document.getElementById("dashboard").style.display = "none";
+  document.getElementById("events").style.display = "block";
+  document.getElementById("donations").style.display = "none";
+}
+function showDonations() {
+  document.getElementById("dashboard").style.display = "none";
+  document.getElementById("events").style.display = "none";
+  document.getElementById("donations").style.display = "block";
+}

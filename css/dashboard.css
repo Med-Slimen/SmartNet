@@ -81,6 +81,7 @@ a:visited{
 .menu .links ul li{
     font-size: 17px;
     width: 180px;
+    cursor: pointer;
     border-radius: 5px;
     text-align: center;
     background-color: var(--second-color);
@@ -126,6 +127,7 @@ a:visited{
     color: black;
     font-size: 18px;
     font-weight: bold;
+    cursor: pointer;
     margin: 3px;
 }
 @media (max-width: 991px) {
@@ -158,9 +160,15 @@ a:visited{
     justify-content: space-between;
     align-items: center;
     height: 75px;
+    margin-top: 10px;
 }
 .header h2{
     font-size: 30px;
+}
+@media (max-width: 767px) {
+    .header h2{
+        font-size: 23px;
+    }
 }
 .header .profile{
     width: fit-content;
@@ -202,12 +210,20 @@ a:visited{
     border-radius: 100%;
     max-width: 100%;
 }
-.panel .dashboard .card-section{
+@media (max-width: 767px) {
+    .header .profile img{
+        width: 60px;
+        height: 60px;
+    }
+}
+.panel  .card-section{
     display: grid;
     margin-top: 40px;
-    grid-template-columns: repeat(auto-fill,minmax(280px,1fr));
+    width: 100%;
+    grid-template-columns: repeat(auto-fill,minmax(320px,1fr));
+    margin: 0 auto;
 }
-.panel .dashboard .card-section .card{
+.panel  .card-section .card{
     background-color: var(--first-color);
     color: white;
     width: 250px;
@@ -218,17 +234,17 @@ a:visited{
     margin: 5px auto;
     border-radius: 10px;
 }
-.panel .dashboard .card-section .card p{
+.panel  .card-section .card p{
     font-size: 20px;
     margin: 5px 0;
 }
-.panel .dashboard .card-section .card i,.panel .dashboard .card-section .card svg{
+.panel  .card-section .card i,.panel  .card-section .card svg{
     margin: 10px 0;
     text-align: center;
     color: white;
     font-size: 30px;
 }
-.panel .dashboard .card-section .card h3{
+.panel  .card-section .card h3{
     font-size: 20px;
     font-weight: bold;
 }
@@ -270,13 +286,49 @@ table,tr,td,th{
 /* End dashboard */
 /* Start event */
 .events{
-    height: calc(100vh - 105px);
+    min-height: calc(100vh - 105px);
     padding: 10px;
+    display: none;
+}
+.events h1{
+    font-size: 30px;
+}
+@media (max-width: 767px) {
+    .events h1{
+        font-size: 25px;
+    }
 }
 .events .events-list{
-    padding: 10px;
+    padding: 10px 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
+    gap: 20px;
 }
-.events .events-list .header-event{
+.events  .box{
+    width: 420px;
+    margin: 0 auto;
+    background-color: white;
+    max-width: 100%;
+    padding: 15px;
+}
+.events  .box .image{
+    max-width: 100%;
+}
+.events  .box .image img{
+    width: 390px;
+    max-width: 100%;
+}
+.events  .box .text{
+    max-width: 100%;
+    padding: 5px;
+    margin: 5px;
+    text-align: center;
+}
+.events  .box .text h3{
+    font-size: 25px;
+    font-weight: bold;
+}
+.events  .header-event{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -302,8 +354,8 @@ table,tr,td,th{
 #delete-conf{
     background-color: white;
     padding: 30px;
-    position: absolute;
-    left: 50%;
+    position: fixed;
+    left: 52%;
     visibility: hidden;
     top: 50%;
     opacity: 0;
@@ -320,36 +372,32 @@ table,tr,td,th{
     align-items: center;
     gap: 40px;
 }
-#delete-conf .choice #yes{
-    padding: 8px;
-    background-color: lightseagreen;
-    color: white;
-    border-radius: 5px;
-    outline: none;
-    border: 1px solid #777;
-}
 #delete-conf .choice #no{
     padding: 8px;
     background-color: red;
     color: white;
+    width: 70px;
+    text-align: center;
+    height: 50px;
     border-radius: 5px;
     outline: none;
     border: 1px solid #777;
 }
-.events .events-list .header-event .add-event{
+.events  .header-event .add-event{
     position: fixed;
-    left: 50%;
+    left: 52%;
     top: 50%;
     transition: var(--trans);
     visibility: hidden;
     opacity: 0;
+    z-index: 2;
     transform-origin: left;
     transform: scale(0.6) translate(-50%,-50%);
     background-color: whitesmoke;
     color: black;
     padding: 25px;
 }
-.events .events-list .header-event .add-event .xmark{
+.events  .header-event .add-event .xmark{
     position: absolute;
     right: 10px;
     font-size: 25px;
@@ -358,20 +406,39 @@ table,tr,td,th{
     cursor: pointer;
 }
 
-.events .events-list .header-event .add-event form input{
+.events  .header-event .add-event form input{
     width: 200px;
     display: block;
     border: 1px solid #777;
     padding: 10px;
     margin: 18px;
 }
-.events .events-list .header-event .add-event form input[type="submit"]{
+#yes{
     background-color: lightseagreen;
     color: whitesmoke;
     cursor: pointer;
+    padding: 8px;
+    width: 70px;
+    height: 50px;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: bold;
+    outline: none;
+    border: 1px solid #777;
 }
-.events .events-list .header-event .add-event form input[type="reset"]{
+.events  .header-event .add-event form input[type="reset"]{
     background-color: rgba(255, 78, 78, 0.937);
     color: whitesmoke;
     cursor: pointer;
+}
+.delete-conf h2{
+    text-align: center;
+}
+/* End event */
+/* Start donation */
+.donations{
+    min-height: calc(100vh - 105px);
+    padding: 10px;
+    display: none;
 }

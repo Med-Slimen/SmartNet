@@ -39,24 +39,12 @@ if (!isset($_SESSION['logged'])) {
   <div class="menu">
     <div class="links">
       <ul>
-        <a href="">
-          <li>Dashboard</li>
-        </a>
-        <a href="">
-          <li>Events</li>
-        </a>
-        <a href="">
-          <li>Donations</li>
-        </a>
-        <a href="">
-          <li>Reports</li>
-        </a>
-        <a href="">
-          <li>Contact Submissions</li>
-        </a>
-        <a href="">
-          <li>Settings</li>
-        </a>
+        <li onclick="showDash()">Dashboard</li>
+        <li onclick="showEvents()">Events</li>
+        <li onclick="showDonations()">Donations</li>
+        <li onclick="showReports()">Reports</li>
+        <li onclick="showContact()">Contact Submissions</li>
+        <li onclick="showSetting()">Settings</li>
       </ul>
     </div>
   </div>
@@ -64,29 +52,17 @@ if (!isset($_SESSION['logged'])) {
     <div class="icon"><i class="fa-solid fa-arrow-down"></i></div>
 
     <ul>
-      <a href="">
-        <li>Dashboard</li>
-      </a>
-      <a href="">
-        <li>Events</li>
-      </a>
-      <a href="">
-        <li>Donations</li>
-      </a>
-      <a href="">
-        <li>Reports</li>
-      </a>
-      <a href="">
-        <li>Contact Submissions</li>
-      </a>
-      <a href="">
-        <li>Settings</li>
-      </a>
+      <li onclick="showDash()">Dashboard</li>
+      <li onclick="showEvents()">Events</li>
+      <li onclick="showDonations()">Donations</li>
+      <li onclick="showReports()">Reports</li>
+      <li onclick="showContact()">Contact Submissions</li>
+      <li onclick="showSetting()">Settings</li>
     </ul>
   </div>
   <div id="panel" class="panel">
     <div class="header">
-      <h2>Welcome Med Slimene</h2>
+      <h2>Welcome <?php echo ($_SESSION['firstname'] . " " . $_SESSION['lastname']); ?></h2>
       <div class="profile">
         <img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Outdoors-man-portrait_%28cropped%29.jpg" alt="" />
         <div class="profile-settings">
@@ -104,7 +80,7 @@ if (!isset($_SESSION['logged'])) {
         </div>
       </div>
     </div>
-    <div style="display: none" class="dashboard">
+    <div id="dashboard" class="dashboard">
       <h2>Dashboard</h2>
       <div class="card-section">
         <div class="card">
@@ -171,62 +147,111 @@ if (!isset($_SESSION['logged'])) {
           </div> -->
       </div>
     </div>
-    <div class="events">
+    <div id="events" class="events">
       <h1>Events</h1>
+      <div class="header-event">
+        <h2>Events list</h2>
+        <button onclick="showAddEvent()" id="addbt">Add Event</button>
+        <div class="add-event">
+          <i class="fa-solid fa-xmark xmark" onclick="hideAddEvent()"></i>
+          <h3>Add Event</h3>
+          <form action="addEvent.php" method="post">
+            <input type="text" placeholder="Event Name" name="eventName" required>
+            <input type="datetime-local" placeholder="Event Date" name="eventDate" required>
+            <input type="text" placeholder="Event Description" name="eventDesc" required>
+            <input type="text" placeholder="Event Image Url" name="eventImg" required>
+            <input type="submit" name="add" value="Add Event">
+            <input type="reset" name="reset" value="Reset">
+          </form>
+        </div>
+      </div>
       <div class="events-list">
-        <div class="header-event">
-          <h2>Events list</h2>
-          <button onclick="showAddEvent()" id="addbt">Add Event</button>
-          <div class="add-event">
-            <i class="fa-solid fa-xmark xmark" onclick="hideAddEvent()"></i>
-            <h3>Add Event</h3>
-            <form action="addEvent.php" method="post">
-              <input type="text" placeholder="Event Name" name="eventName" required>
-              <input type="datetime-local" placeholder="Event Date" name="eventDate" required>
-              <input type="text" placeholder="Event Description" name="eventDesc" required>
-              <input type="text" placeholder="Event Image Url" name="eventImg" required>
-              <input type="submit" name="add" value="Add Event">
-              <input type="reset" name="reset" value="Reset">
+
+        <?php
+        $query = $conn->prepare("SELECT * FROM events");
+        $query->execute();
+        $result = $query->get_result();
+        while ($event = $result->fetch_assoc()) {
+        ?>
+          <div class="box">
+            <div class="image">
+              <img src="<?php echo ($event["event_img"]) ?>" alt="" />
+            </div>
+            <div class="text">
+              <h3>Event Name :</h3>
+              <h3><?php echo ($event["event_name"]) ?></h3>
+              <h3>Event Date :</h3>
+              <p><?php echo ($event["event_date"]) ?></p>
+              <button id="delbtn" onclick="showConf(<?php echo ($event['id_events']) ?>)" class="delbt">Delete</button>
+            </div>
+          </div>
+        <?php
+        }
+        ?>
+        <div id="delete-conf" class="delete-conf">
+          <h2>Are you sure ?</h2>
+          <div class="choice">
+            <a id="no" href="#">
+              <h3>No</h3>
+            </a>
+            <form action="delete-event.php" method="post">
+              <input type="hidden" id="idEvent" name="id_events">
+              <input type="submit" id="yes" value="Yes">
             </form>
           </div>
         </div>
-        <table border="3" style="width: 100%; text-align: left">
-          <tr>
-            <th>Event Name</th>
-            <th>Event Date</th>
-            <th>Event Description</th>
-            <th>Delete Event</th>
-          </tr>
-
-          <?php
-          $query = $conn->prepare("SELECT * FROM events");
-          $query->execute();
-          $result = $query->get_result();
-          while ($event = $result->fetch_assoc()) {
-          ?>
+      </div>
+    </div>
+    <div id="donations" class="donations">
+      <h1>Donations</h1>
+      <div class="card-section">
+        <div class="card">
+          <h3>Total donation</h3>
+          <p>100$</p>
+          <i class="fa-solid fa-hand-holding-dollar"></i>
+        </div>
+        <div class="card">
+          <h3>Donations Today</h3>
+          <p>20$</p>
+          <i class="fa-solid fa-money-bill-trend-up"></i>
+        </div>
+        <div class="card">
+          <h3>Total Donors</h3>
+          <p>70</p>
+          <i class="fa-solid fa-users"></i>
+        </div>
+      </div>
+      <div class="dt-details">
+        <div class="recent-dt">
+          <h2>Recent Donations</h2>
+          <table border="3">
             <tr>
-              <td><?php echo ($event['event_name']) ?></td>
-              <td><?php echo ($event['event_desc']) ?></td>
-              <td><?php echo ($event['event_date']) ?></td>
-              <td><button id="delbtn" onclick="showConf(<?php echo ($event['id_events']) ?>)" class="delbt">Delete</button></td>
-
+              <th>Full Name</th>
+              <th>Email</th>
+              <th>Date</th>
+              <th>Amount</th>
+              <th>Payment Methode</th>
             </tr>
-          <?php
-          }
-          ?>
-          <div id="delete-conf" class="delete-conf">
-            <h2>Are you sure ?</h2>
-            <div class="choice">
-              <a id="no" href="#">
-                <h3>No</h3>
-              </a>
-              <form action="delete-event.php" method="post">
-                <input type="hidden" id="idEvent" name="id_events">
-                <input type="submit" id="yes" value="Yes">
-              </form>
-            </div>
-          </div>
-        </table>
+            <?php
+            $dt_qeury = $conn->prepare("SELECT * FROM donations");
+            $dt_qeury->execute();
+            $res = $dt_qeury->get_result();
+            while ($dt = $res->fetch_assoc()) {
+            ?>
+              <tr>
+                <td><?php echo ($dt["dt_fullname"]) ?></td>
+                <td><?php echo ($dt["dt_email"]) ?></td>
+                <td><?php echo ($dt["dt_date"]) ?></td>
+                <td><?php echo ($dt["dt_amount"] . "$") ?></td>
+                <td><?php echo ($dt["dt_paymethode"]) ?></td>
+              </tr>
+            <?php
+            }
+            ?>
+          </table>
+        </div>
+        <div class="top-dt">
+        </div>
       </div>
     </div>
   </div>
