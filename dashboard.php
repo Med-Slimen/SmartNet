@@ -91,7 +91,7 @@ if (!isset($_SESSION['logged'])) {
         <div class="card">
           <p>360kg</p>
           <h3>Total garbage collected</h3>
-          <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 24 24" style="fill: rgb(255, 255, 255)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 24 24" style="fill: black">
             <path d="M6 7H5v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7H6zm4 12H8v-9h2v9zm6 0h-2v-9h2v9zm.618-15L15 2H9L7.382 4H3v2h18V4z"></path>
           </svg>
         </div>
@@ -111,25 +111,27 @@ if (!isset($_SESSION['logged'])) {
           <h3>Recent Activiy</h3>
           <div class="activity">
             <table border="3" style="width: 100%; text-align: left">
+              <thead>
+                <tr>
+                  <th>Activiy type</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
               <tr>
-                <th>Activiy type</th>
-                <th>Description</th>
+                <td title="Activiy type :">Test</td>
+                <td title="Description :">Test</td>
               </tr>
               <tr>
-                <td>Test</td>
-                <td>Test</td>
+                <td title="Activiy type :">Test</td>
+                <td title="Description :">Test</td>
               </tr>
               <tr>
-                <td>Test</td>
-                <td>Test</td>
+                <td title="Activiy type :">Test</td>
+                <td title="Description :">Test</td>
               </tr>
               <tr>
-                <td>Test</td>
-                <td>Test</td>
-              </tr>
-              <tr>
-                <td>Test</td>
-                <td>Test</td>
+                <td title="Activiy type :">Test</td>
+                <td title="Description :">Test</td>
               </tr>
             </table>
           </div>
@@ -166,28 +168,31 @@ if (!isset($_SESSION['logged'])) {
         </div>
       </div>
       <div class="events-list">
-
-        <?php
-        $query = $conn->prepare("SELECT * FROM events");
-        $query->execute();
-        $result = $query->get_result();
-        while ($event = $result->fetch_assoc()) {
-        ?>
-          <div class="box">
-            <div class="image">
-              <img src="<?php echo ($event["event_img"]) ?>" alt="" />
-            </div>
-            <div class="text">
-              <h3>Event Name :</h3>
-              <h3><?php echo ($event["event_name"]) ?></h3>
-              <h3>Event Date :</h3>
-              <p><?php echo ($event["event_date"]) ?></p>
-              <button id="delbtn" onclick="showConf(<?php echo ($event['id_events']) ?>)" class="delbt">Delete</button>
-            </div>
-          </div>
-        <?php
-        }
-        ?>
+        <table border="3">
+          <thead>
+            <tr>
+              <th>Event Name</th>
+              <th>Event Description</th>
+              <th>Event Date</th>
+              <th>Delete Event</th>
+            </tr>
+          </thead>
+          <?php
+          $dt_qeury = $conn->prepare("SELECT * FROM events");
+          $dt_qeury->execute();
+          $res = $dt_qeury->get_result();
+          while ($dt = $res->fetch_assoc()) {
+          ?>
+            <tr>
+              <td title="Event Name :"><?php echo ($dt["event_name"]) ?></td>
+              <td title="Event Description :"><?php echo ($dt["event_desc"]) ?></td>
+              <td title="Event Date :"><?php echo ($dt["event_date"]) ?></td>
+              <td title="Delete Event"><button id="delbtn" onclick="showConf(<?php echo ($dt['id_events']) ?>)" class="delbt">Delete</button></td>
+            </tr>
+          <?php
+          }
+          ?>
+        </table>
         <div id="delete-conf" class="delete-conf">
           <h2>Are you sure ?</h2>
           <div class="choice">
@@ -225,13 +230,15 @@ if (!isset($_SESSION['logged'])) {
         <div class="recent-dt">
           <h2>Recent Donations</h2>
           <table border="3">
-            <tr>
-              <th>Full Name</th>
-              <th>Email</th>
-              <th>Date</th>
-              <th>Amount</th>
-              <th>Payment Methode</th>
-            </tr>
+            <thead>
+              <tr>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Payment Methode</th>
+              </tr>
+            </thead>
             <?php
             $dt_qeury = $conn->prepare("SELECT * FROM donations");
             $dt_qeury->execute();
@@ -239,11 +246,11 @@ if (!isset($_SESSION['logged'])) {
             while ($dt = $res->fetch_assoc()) {
             ?>
               <tr>
-                <td><?php echo ($dt["dt_fullname"]) ?></td>
-                <td><?php echo ($dt["dt_email"]) ?></td>
-                <td><?php echo ($dt["dt_date"]) ?></td>
-                <td><?php echo ($dt["dt_amount"] . "$") ?></td>
-                <td><?php echo ($dt["dt_paymethode"]) ?></td>
+                <td title="Full Name :"><?php echo ($dt["dt_fullname"]) ?></td>
+                <td title="Email :"><?php echo ($dt["dt_email"]) ?></td>
+                <td title="Date :"><?php echo ($dt["dt_date"]) ?></td>
+                <td title="Amount :"><?php echo ($dt["dt_amount"] . "$") ?></td>
+                <td title="Payment Method :"><?php echo ($dt["dt_paymethode"]) ?></td>
               </tr>
             <?php
             }
