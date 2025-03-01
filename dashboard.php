@@ -39,25 +39,37 @@ if (!isset($_SESSION['logged'])) {
   <div class="menu">
     <div class="links">
       <ul>
-        <li onclick="showDash()">Dashboard</li>
-        <li onclick="showEvents()">Events</li>
-        <li onclick="showDonations()">Donations</li>
-        <li onclick="showReports()">Reports</li>
-        <li onclick="showContact()">Contact Submissions</li>
-        <li onclick="showSetting()">Settings</li>
+        <a><img src="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/mwlldu11prcamv90qmul"></a>
+        <li onclick="showDash()" id="dashBtn" class="clicked"><i class="fa-solid fa-chart-simple"></i>
+          Dashboard</li>
+        <li onclick="showEvents()" id="eventBtn"><i class="fa-solid fa-calendar-days"></i>
+          Events</li>
+        <li onclick="showDonations()" id="donationBtn"><i class="fa-solid fa-circle-dollar-to-slot"></i>
+          Donations</li>
+        <li onclick="showReports()" id="reportBtn"><i class="fa-solid fa-circle-exclamation"></i>
+          Reports</li>
+        <li onclick="showContact()" id="contactBtn"><i class="fa-solid fa-envelope-open-text"></i>
+          Contact Submissions</li>
+        <li onclick="showSetting()" id="settingBtn"><i class="fa-solid fa-gear"></i>
+          Settings</li>
       </ul>
     </div>
   </div>
   <div class="mobile-menu">
     <div class="icon"><i class="fa-solid fa-arrow-down"></i></div>
-
     <ul>
-      <li onclick="showDash()">Dashboard</li>
-      <li onclick="showEvents()">Events</li>
-      <li onclick="showDonations()">Donations</li>
-      <li onclick="showReports()">Reports</li>
-      <li onclick="showContact()">Contact Submissions</li>
-      <li onclick="showSetting()">Settings</li>
+      <li onclick="showDash()"><i class="fa-solid fa-chart-simple"></i>
+        Dashboard</li>
+      <li onclick="showEvents()"><i class="fa-solid fa-calendar-days"></i>
+        Events</li>
+      <li onclick="showDonations()"><i class="fa-solid fa-circle-dollar-to-slot"></i>
+        Donations</li>
+      <li onclick="showReports()"><i class="fa-solid fa-circle-exclamation"></i>
+        Reports</li>
+      <li onclick="showContact()"><i class="fa-solid fa-envelope-open-text"></i>
+        Contact Submissions</li>
+      <li onclick="showSetting()"><i class="fa-solid fa-gear"></i>
+        Settings</li>
     </ul>
   </div>
   <div id="panel" class="panel">

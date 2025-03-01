@@ -60,14 +60,32 @@ function showDash() {
   document.getElementById("dashboard").style.display = "block";
   document.getElementById("events").style.display = "none";
   document.getElementById("donations").style.display = "none";
+  document.getElementById("dashBtn").classList.add("clicked");
+  document.getElementById("eventBtn").classList.remove("clicked");
+  document.getElementById("donationBtn").classList.remove("clicked");
+  document.getElementById("reportBtn").classList.remove("clicked");
+  document.getElementById("contactBtn").classList.remove("clicked");
+  document.getElementById("settingBtn").classList.remove("clicked");
 }
 function showEvents() {
   document.getElementById("dashboard").style.display = "none";
   document.getElementById("events").style.display = "block";
   document.getElementById("donations").style.display = "none";
+  document.getElementById("dashBtn").classList.remove("clicked");
+  document.getElementById("eventBtn").classList.add("clicked");
+  document.getElementById("donationBtn").classList.remove("clicked");
+  document.getElementById("reportBtn").classList.remove("clicked");
+  document.getElementById("contactBtn").classList.remove("clicked");
+  document.getElementById("settingBtn").classList.remove("clicked");
 }
 function showDonations() {
   document.getElementById("dashboard").style.display = "none";
   document.getElementById("events").style.display = "none";
   document.getElementById("donations").style.display = "block";
+  document.getElementById("dashBtn").classList.remove("clicked");
+  document.getElementById("eventBtn").classList.remove("clicked");
+  document.getElementById("donationBtn").classList.add("clicked");
+  document.getElementById("reportBtn").classList.remove("clicked");
+  document.getElementById("contactBtn").classList.remove("clicked");
+  document.getElementById("settingBtn").classList.remove("clicked");
 }
