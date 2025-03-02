@@ -186,7 +186,7 @@ if (!isset($_SESSION['logged'])) {
               <th>Event Name</th>
               <th>Event Description</th>
               <th>Event Date</th>
-              <th>Delete Event</th>
+              <th>Delete/Edit Event</th>
             </tr>
           </thead>
           <?php
@@ -199,7 +199,12 @@ if (!isset($_SESSION['logged'])) {
               <td title="Event Name :"><?php echo ($dt["event_name"]) ?></td>
               <td title="Event Description :"><?php echo ($dt["event_desc"]) ?></td>
               <td title="Event Date :"><?php echo ($dt["event_date"]) ?></td>
-              <td title="Delete Event"><button id="delbtn" onclick="showConf(<?php echo ($dt['id_events']) ?>)" class="delbt">Delete</button></td>
+              <td title="Delete Event">
+                <div class="buttons">
+                  <button id="delbtn" onclick="showConf(<?php echo ($dt['id_events']) ?>)" class="delbt">Delete</button>
+                  <button id="editbtn" onclick="showEditEvent(<?php echo ($dt['id_events']) ?>)" class="editbtn">Edit</button>
+                </div>
+              </td>
             </tr>
           <?php
           }
@@ -216,6 +221,19 @@ if (!isset($_SESSION['logged'])) {
               <input type="submit" id="yes" value="Yes">
             </form>
           </div>
+        </div>
+        <div id="edit-event" class="edit-event">
+          <i class="fa-solid fa-xmark xmark" onclick="hideEditEvent()"></i>
+          <h3>Edit Event</h3>
+          <form action="editEvent.php" method="post">
+            <input type="hidden" id="idEvent" name="id_events">
+            <input type="text" placeholder="Event Name" name="eventName" required>
+            <input type="datetime-local" placeholder="Event Date" name="eventDate" required>
+            <input type="text" placeholder="Event Description" name="eventDesc" required>
+            <input type="text" placeholder="Event Image Url" name="eventImg" required>
+            <input type="submit" name="add" value="Edit Event">
+            <input type="reset" name="reset" value="Reset">
+          </form>
         </div>
       </div>
     </div>

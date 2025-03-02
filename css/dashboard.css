@@ -209,7 +209,7 @@ a:visited{
     transition: var(--trans);
     right: 0;
     padding: 0px;
-    background-color: rgb(239, 239, 239);
+    background-color: white;
     width: 180px;
     height: 0;
     overflow: hidden;
@@ -304,6 +304,9 @@ a:visited{
     padding: 15px;
     height: 350px;
 }
+td{
+    position: relative;
+}
 table,tr,td,th{
     padding: 15px;
     margin: 10px;
@@ -350,7 +353,24 @@ table,tr,td,th{
     border-radius: 5px;
     outline: none;
     cursor: pointer;
+    margin: 0 auto;
+    text-align: center;
     border: 1px solid #777;
+}
+.editbtn{
+    padding: 15px;
+    background-color: lightseagreen;
+    color: white;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    margin: 0 auto;
+    text-align: center;
+    border: 1px solid #777;
+}
+.events .buttons{
+    width: 130px;
+    margin: 0 auto;
 }
 #delete-conf{
     background-color: white;
@@ -387,7 +407,7 @@ table,tr,td,th{
 .events  .header-event h2{
     margin-left: 10px;
 }
-.events  .header-event .add-event{
+.events  .header-event .add-event,.edit-event{
     position: fixed;
     left: 52%;
     top: 50%;
@@ -401,7 +421,7 @@ table,tr,td,th{
     color: black;
     padding: 25px;
 }
-.events  .header-event .add-event .xmark{
+.events  .header-event .add-event .xmark,.edit-event .xmark{
     position: absolute;
     right: 10px;
     font-size: 25px;
@@ -410,7 +430,7 @@ table,tr,td,th{
     cursor: pointer;
 }
 
-.events  .header-event .add-event form input{
+.events  .header-event .add-event form input,.edit-event form input{
     width: 200px;
     display: block;
     border: 1px solid #777;
@@ -431,7 +451,12 @@ table,tr,td,th{
     outline: none;
     border: 1px solid #777;
 }
-.events  .header-event .add-event form input[type="reset"]{
+.events  .header-event .add-event form input[type="submit"],.edit-event form input[type="submit"]{
+    background-color: lightseagreen;
+    color: whitesmoke;
+    cursor: pointer;
+}
+.events  .header-event .add-event form input[type="reset"],.edit-event form input[type="reset"]{
     background-color: rgba(255, 78, 78, 0.937);
     color: whitesmoke;
     cursor: pointer;

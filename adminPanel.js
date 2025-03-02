@@ -44,6 +44,20 @@ function showConf(idEvent) {
     }
   });
 }
+function showEditEvent(idEvent) {
+  document.getElementById("edit-event").style.visibility = "visible";
+  document.getElementById("edit-event").style.transform =
+    "scale(1) translate(-50%,-50%)";
+  document.getElementById("edit-event").style.opacity = "1";
+  let id_event = document.querySelector(".edit-event #idEvent");
+  id_event.setAttribute("value", idEvent);
+}
+function hideEditEvent() {
+  let editEvent = document.querySelector(".edit-event");
+  editEvent.style.visibility = "hidden";
+  editEvent.style.transform = "scale(0.6) translate(-50%,-50%)";
+  editEvent.style.opacity = "0";
+}
 function showAddEvent() {
   let addEvent = document.querySelector(".add-event");
   addEvent.style.visibility = "visible";
