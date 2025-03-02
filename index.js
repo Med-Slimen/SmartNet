@@ -202,3 +202,16 @@ function setEventImage() {
     imgg.setAttribute("src", localStorage.getItem("imgUrl"));
   }
 }
+function reportCheck() {
+  let file = document.getElementById("file").files[0];
+  let fileimg = document.getElementById("fileimg");
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (event) {
+      fileimg.value = event.target.result;
+      document.getElementById("form").submit();
+    };
+    reader.readAsDataURL(file);
+    return false;
+  }
+}

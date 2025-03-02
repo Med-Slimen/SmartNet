@@ -195,7 +195,7 @@ if (!isset($_SESSION['logged'])) {
           $res = $dt_qeury->get_result();
           while ($dt = $res->fetch_assoc()) {
           ?>
-            <tr>
+            <tr id="<?php echo ($dt['id_events']) ?>">
               <td title="Event Name :"><?php echo ($dt["event_name"]) ?></td>
               <td title="Event Description :"><?php echo ($dt["event_desc"]) ?></td>
               <td title="Event Date :"><?php echo ($dt["event_date"]) ?></td>
@@ -226,11 +226,11 @@ if (!isset($_SESSION['logged'])) {
           <i class="fa-solid fa-xmark xmark" onclick="hideEditEvent()"></i>
           <h3>Edit Event</h3>
           <form action="editEvent.php" method="post">
-            <input type="hidden" id="idEvent" name="id_events">
             <input type="text" placeholder="Event Name" name="eventName" required>
             <input type="datetime-local" placeholder="Event Date" name="eventDate" required>
             <input type="text" placeholder="Event Description" name="eventDesc" required>
             <input type="text" placeholder="Event Image Url" name="eventImg" required>
+            <input type="hidden" id="idEvent" name="id_events">
             <input type="submit" name="add" value="Edit Event">
             <input type="reset" name="reset" value="Reset">
           </form>
@@ -288,6 +288,44 @@ if (!isset($_SESSION['logged'])) {
           </table>
         </div>
         <div class="top-dt">
+        </div>
+      </div>
+    </div>
+    <div id="reports" class="reports">
+      <h1>Reports</h1>
+      <div class="reports-list">
+        <table border="3">
+          <thead>
+            <tr>
+              <th>Full Name</th>
+              <th>Email</th>
+              <th>Location</th>
+              <th>Issue Type</th>
+              <th>Description</th>
+              <th>Attached Photo</th>
+            </tr>
+          </thead>
+          <?php
+          $rp_qeury = $conn->prepare("SELECT * FROM reports");
+          $rp_qeury->execute();
+          $res = $rp_qeury->get_result();
+          while ($rp = $res->fetch_assoc()) {
+          ?>
+            <tr id="<?php echo ($dt['id_events']) ?>">
+              <td title="Full Name :"><?php echo ($rp["report_fullname"]) ?></td>
+              <td title="Email :"><?php echo ($rp["report_email"]) ?></td>
+              <td title="Location :"><?php echo ($rp["report_location"]) ?></td>
+              <td title="Issue Type :"><?php echo ($rp["report_issue_type"]) ?></td>
+              <td title="Description :"><?php echo ($rp["report_description"]) ?></td>
+              <td title="Attached Photo :"><button id="showimg" onclick="showImg('<?php echo ($rp['report_img']) ?>')">Show Image</button></td>
+            </tr>
+          <?php
+          }
+          ?>
+        </table>
+        <div class="imgShow">
+          <i class="fa-solid fa-xmark xmark" onclick="hideImg()"></i>
+          <img id="attachedPhoto" src="">
         </div>
       </div>
     </div>
