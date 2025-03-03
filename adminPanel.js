@@ -78,6 +78,7 @@ function showDash() {
   document.getElementById("events").style.display = "none";
   document.getElementById("donations").style.display = "none";
   document.getElementById("reports").style.display = "none";
+  document.getElementById("contact").style.display = "none";
   document.getElementById("dashBtn").classList.add("clicked");
   document.getElementById("eventBtn").classList.remove("clicked");
   document.getElementById("donationBtn").classList.remove("clicked");
@@ -90,6 +91,7 @@ function showEvents() {
   document.getElementById("events").style.display = "block";
   document.getElementById("donations").style.display = "none";
   document.getElementById("reports").style.display = "none";
+  document.getElementById("contact").style.display = "none";
   document.getElementById("dashBtn").classList.remove("clicked");
   document.getElementById("eventBtn").classList.add("clicked");
   document.getElementById("donationBtn").classList.remove("clicked");
@@ -102,6 +104,7 @@ function showDonations() {
   document.getElementById("events").style.display = "none";
   document.getElementById("donations").style.display = "block";
   document.getElementById("reports").style.display = "none";
+  document.getElementById("contact").style.display = "none";
   document.getElementById("dashBtn").classList.remove("clicked");
   document.getElementById("eventBtn").classList.remove("clicked");
   document.getElementById("donationBtn").classList.add("clicked");
@@ -114,6 +117,7 @@ function showReports() {
   document.getElementById("events").style.display = "none";
   document.getElementById("donations").style.display = "none";
   document.getElementById("reports").style.display = "block";
+  document.getElementById("contact").style.display = "none";
   document.getElementById("dashBtn").classList.remove("clicked");
   document.getElementById("eventBtn").classList.remove("clicked");
   document.getElementById("donationBtn").classList.remove("clicked");
@@ -121,16 +125,50 @@ function showReports() {
   document.getElementById("contactBtn").classList.remove("clicked");
   document.getElementById("settingBtn").classList.remove("clicked");
 }
+function showContact() {
+  document.getElementById("dashboard").style.display = "none";
+  document.getElementById("events").style.display = "none";
+  document.getElementById("donations").style.display = "none";
+  document.getElementById("reports").style.display = "none";
+  document.getElementById("contact").style.display = "block";
+  document.getElementById("dashBtn").classList.remove("clicked");
+  document.getElementById("eventBtn").classList.remove("clicked");
+  document.getElementById("donationBtn").classList.remove("clicked");
+  document.getElementById("reportBtn").classList.remove("clicked");
+  document.getElementById("contactBtn").classList.add("clicked");
+  document.getElementById("settingBtn").classList.remove("clicked");
+}
 function showImg(imgUrl) {
   let showImgDiv = document.querySelector(".reports .imgShow");
   showImgDiv.style.visibility = "visible";
   showImgDiv.style.opacity = "1";
   showImgDiv.style.transform = "scale(1) translate(-50%,-50%)";
-  document.getElementById("attachedPhoto").src = imgUrl;
+  if (imgUrl != "No Image Attached") {
+    document.getElementById("attachedPhoto").src = imgUrl;
+    document.getElementById("noimg").innerHTML = "";
+  } else {
+    document.getElementById("noimg").innerHTML = "No Image Attached";
+    document.getElementById("attachedPhoto").src = "";
+  }
 }
 function hideImg() {
   let showImgDiv = document.querySelector(".reports .imgShow");
   showImgDiv.style.visibility = "hidden";
   showImgDiv.style.opacity = "0";
   showImgDiv.style.transform = "scale(0.7) translate(-50%,-50%)";
+}
+function showFeedback(fullname,email,description) {
+  let box_details=document.querySelector(".contact .contact-list .box-details");
+  box_details.style.visibility="visible";
+  box_details.style.opacity="1";
+  box_details.style.transform="scale(1) translate(-50%,-50%)";
+  document.getElementById("contact_fullname").innerHTML=fullname;
+  document.getElementById("contact_email").innerHTML=email;
+  document.getElementById("contact_description").innerHTML=description;
+}
+function hideFeedback() {
+  let box_details=document.querySelector(".contact .contact-list .box-details");
+  box_details.style.visibility="hidden";
+  box_details.style.opacity="0";
+  box_details.style.transform="scale(0.7) translate(-50%,-50%)";
 }

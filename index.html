@@ -307,15 +307,28 @@
           </div>
         </div>
         <div class="part2">
-          <form method="get" action="">
-            <input type="text" placeholder="Name" name="" id="" />
-            <input type="email" placeholder="Email" name="" id="" />
+          <form action="contact.php" method="post">
+            <input
+              type="text"
+              placeholder="Full Name"
+              name="fullname"
+              id=""
+              required
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              name="email"
+              id=""
+              required
+            />
             <textarea
-              name=""
+              name="description"
               placeholder="Message"
               id=""
               cols="30"
               rows="10"
+              required
             ></textarea>
             <input type="submit" value="Send" name="" id="" />
           </form>

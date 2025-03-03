@@ -195,7 +195,7 @@ if (!isset($_SESSION['logged'])) {
           $res = $dt_qeury->get_result();
           while ($dt = $res->fetch_assoc()) {
           ?>
-            <tr id="<?php echo ($dt['id_events']) ?>">
+            <tr>
               <td title="Event Name :"><?php echo ($dt["event_name"]) ?></td>
               <td title="Event Description :"><?php echo ($dt["event_desc"]) ?></td>
               <td title="Event Date :"><?php echo ($dt["event_date"]) ?></td>
@@ -311,9 +311,13 @@ if (!isset($_SESSION['logged'])) {
           $res = $rp_qeury->get_result();
           while ($rp = $res->fetch_assoc()) {
           ?>
-            <tr id="<?php echo ($dt['id_events']) ?>">
-              <td title="Full Name :"><?php echo ($rp["report_fullname"]) ?></td>
-              <td title="Email :"><?php echo ($rp["report_email"]) ?></td>
+            <tr>
+              <td title="Full Name :">
+                <?php echo ($rp["report_fullname"]) ?>
+              </td>
+              <td title="Email :">
+                <?php echo ($rp["report_email"]) ?>
+              </td>
               <td title="Location :"><?php echo ($rp["report_location"]) ?></td>
               <td title="Issue Type :"><?php echo ($rp["report_issue_type"]) ?></td>
               <td title="Description :"><?php echo ($rp["report_description"]) ?></td>
@@ -325,7 +329,47 @@ if (!isset($_SESSION['logged'])) {
         </table>
         <div class="imgShow">
           <i class="fa-solid fa-xmark xmark" onclick="hideImg()"></i>
+          <p id="noimg"></p>
           <img id="attachedPhoto" src="">
+        </div>
+      </div>
+    </div>
+    <div id="contact" class="contact">
+      <h1>Contact List</h1>
+      <div class="contact-list">
+        <?php
+        $ct_qeury = $conn->prepare("SELECT * FROM contact");
+        $ct_qeury->execute();
+        $res = $ct_qeury->get_result();
+        while ($ct = $res->fetch_assoc()) {
+        ?>
+          <div class="box">
+            <div class="text">
+              <i class="fa-solid fa-envelope"></i>
+              <span>Feedback From <?php echo ($ct["contact_fullname"]) ?> </span>
+            </div>
+            <div class="button">
+              <button onclick="showFeedback('<?php echo ($ct['contact_fullname']) ?>','<?php echo ($ct['contact_email']) ?>','<?php echo ($ct['contact_description']) ?>')">More Details</button>
+              <form action="deleteContact.php" method="post">
+                <input type="hidden" name="id_contact" value="<?php echo ($ct['id_contact']) ?>">
+                <input type="submit" id="done" value="Done">
+              </form>
+            </div>
+          </div>
+        <?php
+        }
+        ?>
+        <div class="box-details">
+          <i class="fa-solid fa-xmark xmark" onclick="hideFeedback()"></i>
+          <h1>Feedback</h1>
+          <div class="text">
+            <p>Full Name :</p>
+            <span id="contact_fullname"></span>
+            <p>Email :</p>
+            <span id="contact_email"></span>
+            <p>Message :</p>
+            <span id="contact_description"></span>
+          </div>
         </div>
       </div>
     </div>
