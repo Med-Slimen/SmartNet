@@ -44,7 +44,8 @@ function showConf(idEvent) {
     }
   });
 }
-function showEditEvent(idEvent) {
+function showEditEvent() {
+  let idEvent = document.getElementById("event_id_events").innerHTML;
   document.getElementById("edit-event").style.visibility = "visible";
   document.getElementById("edit-event").style.transform =
     "scale(1) translate(-50%,-50%)";
@@ -157,18 +158,38 @@ function hideImg() {
   showImgDiv.style.opacity = "0";
   showImgDiv.style.transform = "scale(0.7) translate(-50%,-50%)";
 }
-function showFeedback(fullname,email,description) {
-  let box_details=document.querySelector(".contact .contact-list .box-details");
-  box_details.style.visibility="visible";
-  box_details.style.opacity="1";
-  box_details.style.transform="scale(1) translate(-50%,-50%)";
-  document.getElementById("contact_fullname").innerHTML=fullname;
-  document.getElementById("contact_email").innerHTML=email;
-  document.getElementById("contact_description").innerHTML=description;
+function showFeedback(fullname, email, description) {
+  let box_details = document.querySelector(
+    ".contact .contact-list .box-details"
+  );
+  box_details.style.visibility = "visible";
+  box_details.style.opacity = "1";
+  box_details.style.transform = "scale(1) translate(-50%,-50%)";
+  document.getElementById("contact_fullname").innerHTML = fullname;
+  document.getElementById("contact_email").innerHTML = email;
+  document.getElementById("contact_description").innerHTML = description;
 }
 function hideFeedback() {
-  let box_details=document.querySelector(".contact .contact-list .box-details");
-  box_details.style.visibility="hidden";
-  box_details.style.opacity="0";
-  box_details.style.transform="scale(0.7) translate(-50%,-50%)";
+  let box_details = document.querySelector(
+    ".contact .contact-list .box-details"
+  );
+  box_details.style.visibility = "hidden";
+  box_details.style.opacity = "0";
+  box_details.style.transform = "scale(0.7) translate(-50%,-50%)";
+}
+function showEventDetails(name, description, date,idEvent) {
+  let box_details = document.querySelector(".events .events-list .box-details");
+  box_details.style.visibility = "visible";
+  box_details.style.opacity = "1";
+  box_details.style.transform = "scale(1) translate(-50%,-50%)";
+  document.getElementById("event_id_events").innerHTML=idEvent;
+  document.getElementById("event_name").innerHTML = name;
+  document.getElementById("event_desc").innerHTML = description;
+  document.getElementById("event_date").innerHTML = date;
+}
+function hideEventDetails() {
+  let box_details = document.querySelector(".events .events-list .box-details");
+  box_details.style.visibility = "hidden";
+  box_details.style.opacity = "0";
+  box_details.style.transform = "scale(0.7) translate(-50%,-50%)";
 }

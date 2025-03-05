@@ -5,7 +5,7 @@ echo ($idEvent);
 $query = $conn->prepare("DELETE FROM events WHERE id_events = ?");
 $query->bind_param("i", $idEvent);
 if ($query->execute()) {
-    header("Location: dashboard.php");
+    header("Location: eventPanel.php");
 } else {
     echo ("error");
 }

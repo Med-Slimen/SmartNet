@@ -319,7 +319,6 @@ table,tr,td,th{
 .events{
     min-height: calc(100vh - 105px);
     padding: 10px;
-    display: none;
 }
 .events h1{
     font-size: 30px;
@@ -584,7 +583,7 @@ tbody tr:nth-child(even){
     padding: 10px;
     display: none;
 }
-.contact .contact-list .box{
+ .box{
     display: flex;
     justify-content: space-between;
     padding: 10px;
@@ -596,25 +595,25 @@ tbody tr:nth-child(even){
     align-items: center;
     background-color: whitesmoke;
 }
-.contact .contact-list .box .text span{
+ .box .text span{
     font-size: 20px;
     font-weight: bold;
 }
-.contact .contact-list .box .text{
+ .box .text{
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.contact .contact-list .box .text i {
+ .box .text i {
     font-size: 35px;
     text-align: center;
 }
-.contact .contact-list .box .button{
+ .box .button{
     display: flex;
     gap: 10px;
 }
-.contact .contact-list .box .button button,#done{
+ .box .button button,#done{
     background-color: rgb(54, 178, 255);
     color: whitesmoke;
     cursor: pointer;
@@ -628,7 +627,7 @@ tbody tr:nth-child(even){
     outline: none;
     border: 1px solid #777;
 }
-.contact .contact-list .box-details{
+ .box-details{
     background-color: whitesmoke;
     width: 350px;
     padding: 10px;
@@ -646,30 +645,30 @@ tbody tr:nth-child(even){
     min-height: 400px;
     box-shadow: 1px 0px 12px -4px black;
 }
-.contact .contact-list .box-details p {
+ .box-details p {
     font-weight: bold;
     padding: 5px;
     font-size: 20px;
 }
-.contact .contact-list .box-details span{
+ .box-details span{
     font-size: 17px;
 }
-.contact .contact-list .box-details i {
+ .box-details i {
     float: right;
     font-size: 25px;
     font-weight: bold;
     cursor: pointer;
 }
 @media(max-width:767px){
-    .contact .contact-list .box .text{
+     .box .text{
         flex-direction: column;
         text-align: center;
     }
-    .contact .contact-list .box{
+     .box{
         margin: 10px auto;
         flex-direction: column;
     }
-    .contact .contact-list .box .button button,#done{
+     .box .button button,#done{
         width: 100px;
     }
 }
