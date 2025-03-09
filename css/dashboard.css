@@ -64,6 +64,15 @@ a:visited{
 }
 /* End Global Rules */
 /* Start menu */
+.overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 49;
+    display: none;
+    width: 100%;
+    height: 100%;
+}
 .menu{
     padding: 20px;
     background-color: #f9f9f9;
@@ -99,9 +108,23 @@ a:visited{
     color: black;
     font-weight: bold;
     text-align: left;
-    /* background-color: #323232; */
     padding: 8px;
     margin-top: 35px;
+    position: relative;
+}
+.menu .links ul li[notification]:not([notification="0"]):after{
+    content: attr(notification);
+    position: absolute;
+    right: 20px;
+    top: 0;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    width: 25px;
+    height: 25px;
+    font-size: 15px;
 }
 .menu .links ul li.clicked{
     color: white;
@@ -132,6 +155,7 @@ a:visited{
     display: none;
     cursor: pointer;
     background-color: #f9f9f9;
+    z-index: 50;
 }
 .mobile-menu .icon{
     width: fit-content;
@@ -198,8 +222,46 @@ a:visited{
 .header .profile{
     width: fit-content;
     max-width: 100%;
-    cursor: pointer;
+    display: flex;
     position: relative;
+    align-items: center;
+    gap: 30px;
+}
+.header .profile i {
+    font-size: 40px;
+    color: rgb(61 60 60);
+}
+.header .profile img {
+    cursor: pointer;
+}
+.header .profile .notification{
+    position: relative;
+    cursor: pointer;
+}
+.header .profile .notification .notification-list {
+    position: absolute;
+    background-color: white;
+    padding: 40px;
+    right: 0;
+    top: 100%;
+    z-index: 50;
+    visibility: hidden;
+    opacity: 0;
+    transition: var(--trans);
+    min-height: 100px;
+    width: 300px;
+}
+.header .profile .notification span{
+    position: absolute;
+    background-color: red;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    top: -4px;
+    right: -12px;
 }
 .header .profile .profile-settings{
     position: absolute;
@@ -241,7 +303,7 @@ a:visited{
         height: 60px;
     }
 }
-.panel  .card-section{
+.card-section{
     display: grid;
     margin-top: 40px;
     width: 100%;
@@ -249,7 +311,7 @@ a:visited{
     grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
     margin: 0 auto;
 }
-.panel  .card-section .card{
+.card-section .card{
     background-color: #ffffff;
     color: white;
     width: 250px;
@@ -260,18 +322,18 @@ a:visited{
     margin: 5px auto;
     border-radius: 10px;
 }
-.panel  .card-section .card p{
+.card-section .card p{
     font-size: 20px;
     color: black;
     margin: 5px 0;
 }
-.panel  .card-section .card i,.panel  .card-section .card svg{
+.card-section .card i,.panel  .card-section .card svg{
     margin: 10px 0;
     text-align: center;
     color: black;
     font-size: 30px;
 }
-.panel  .card-section .card h3{
+.card-section .card h3{
     font-size: 20px;
     color: black;
     font-weight: bold;
@@ -306,6 +368,11 @@ a:visited{
 }
 td{
     position: relative;
+}
+thead{
+    background-color: #454545;
+    color: white;
+    font-weight: bold;
 }
 table,tr,td,th{
     padding: 15px;
@@ -468,11 +535,10 @@ table,tr,td,th{
 .donations{
     min-height: calc(100vh - 105px);
     padding: 10px;
-    display: none;
 }
 table{
-    width: 100%;
-    max-width: 100%;
+    width: 98%;
+    max-width: 98%;
     table-layout: fixed;
 }
 td{
@@ -515,7 +581,6 @@ tbody tr:nth-child(even){
 .reports{
     min-height: calc(100vh - 105px);
     padding: 10px;
-    display: none;
 }
 .reports .imgShow{
     position: fixed;
@@ -532,10 +597,11 @@ tbody tr:nth-child(even){
     height: 400px;
     padding: 10px;
     margin: 0 auto;
-    background-color: rgb(236, 236, 236);
+    background-color: rgb(210, 210, 210);
 }
 .reports .imgShow img{
     width: 500px;
+    max-height: 100%;
     max-width: 100%;
 }
 .reports .imgShow i{
@@ -581,7 +647,6 @@ tbody tr:nth-child(even){
 .contact{
     min-height: calc(100vh - 105px);
     padding: 10px;
-    display: none;
 }
  .box{
     display: flex;
@@ -644,6 +709,11 @@ tbody tr:nth-child(even){
     transform: scale(0.7) translate(-50%,-50%);
     min-height: 400px;
     box-shadow: 1px 0px 12px -4px black;
+}
+@media(max-width:767px){
+    .box-details{
+        width: 310px;
+    }
 }
  .box-details p {
     font-weight: bold;

@@ -50,39 +50,48 @@ include 'connect.php';
       $dt_qeury = $conn->prepare("SELECT * FROM events");
       $dt_qeury->execute();
       $res = $dt_qeury->get_result();
-      while ($dt =
-        $res->fetch_assoc()
-      ) { ?>
-        <div class="box">
-          <div class="text">
-            <i class="fa-solid fa-calendar-check"></i>
-            <span>Event :
-              <?php echo ($dt["event_name"]) ?>
-            </span>
+      if ($res->num_rows > 0) {
+        while ($dt =
+          $res->fetch_assoc()
+        ) { ?>
+          <div class="box">
+            <div class="text">
+              <i class="fa-solid fa-calendar-check"></i>
+              <span>Event :
+                <?php echo ($dt["event_name"]) ?>
+              </span>
+            </div>
+            <div class="button">
+              <button onclick="showEventDetails('<?php echo ($dt['event_name']) ?>','<?php echo ($dt['event_desc']) ?>','<?php echo ($dt['event_date']) ?>','<?php echo ($dt['id_events']) ?>','<?php echo ($dt['event_img']) ?>')">
+                More Details
+              </button>
+              <button id="delbtn" onclick="showConf(<?php echo ($dt['id_events']) ?>)" class="delbt">
+                Delete
+              </button>
+            </div>
           </div>
-          <div class="button">
-            <button onclick="showEventDetails('<?php echo ($dt['event_name']) ?>','<?php echo ($dt['event_desc']) ?>','<?php echo ($dt['event_date']) ?>','<?php echo ($dt['id_events']) ?>')">
-              More Details
-            </button>
-            <button id="delbtn" onclick="showConf(<?php echo ($dt['id_events']) ?>)" class="delbt">
-              Delete
-            </button>
-          </div>
+        <?php
+        }
+      } else {
+        ?>
+        <div class="noEvent">
+          <h2 style="text-align: center; margin-top:50px;">There is no Event Created</h2>
         </div>
       <?php
       }
       ?>
       <div class="box-details">
         <i class="fa-solid fa-xmark xmark" onclick="hideEventDetails()"></i>
-        <h1>Event Details :</h1>
+        <h1>Event Details</h1>
         <div class="text">
           <span id="event_id_events" style="display: none"></span>
           <p>Name :</p>
-          <span id="event_name"></span>
+          <span id="old_event_name"></span>
           <p>Description :</p>
-          <span id="event_desc"></span>
+          <span id="old_event_desc"></span>
           <p>Date :</p>
-          <span id="event_date"></span>
+          <span id="old_event_date"></span>
+          <span style="visibility: hidden;" id="old_event_img"></span>
         </div>
         <button id="editbtn" onclick="showEditEvent()" class="editbtn">
           Edit
@@ -104,10 +113,10 @@ include 'connect.php';
         <i class="fa-solid fa-xmark xmark" onclick="hideEditEvent()"></i>
         <h3>Edit Event</h3>
         <form action="editEvent.php" method="post">
-          <input type="text" placeholder="Event Name" name="eventName" required />
-          <input type="datetime-local" placeholder="Event Date" name="eventDate" required />
-          <input type="text" placeholder="Event Description" name="eventDesc" required />
-          <input type="text" placeholder="Event Image Url" name="eventImg" required />
+          <input type="text" placeholder="Event Name" id="edit_eventName" name="eventName" required />
+          <input type="datetime-local" placeholder="Event Date" id="edit_eventDate" name="eventDate" required />
+          <input type="text" placeholder="Event Description" id="edit_eventDesc" name="eventDesc" required />
+          <input type="text" placeholder="Event Image Url" id="edit_eventImg" name="eventImg" required />
           <input type="hidden" id="idEvent" name="id_events" />
           <input type="submit" name="add" value="Edit Event" />
           <input type="reset" name="reset" value="Reset" />

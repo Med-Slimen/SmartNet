@@ -3,7 +3,7 @@ include 'connect.php';
 session_start();
 if (isset($_SESSION['logged'])) {
   if ($_SESSION['logged'] == true) {
-    header("Location: ./php/dashboard.php");
+    header("Location: dashboard.php");
     exit();
   }
 }

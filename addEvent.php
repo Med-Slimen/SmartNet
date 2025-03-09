@@ -9,7 +9,17 @@ if (isset($_POST["eventName"])) {
     $query->bind_param("ssss", $eventName, $eventDesc, $eventDate, $eventImg);
     $query->execute();
     if ($query->affected_rows > 0) {
-        header("Location: eventPanel.php");
+        $activiy_type = "Creation of Event";
+        $activiy_description = $eventName . " Event created";
+        $icon = "fa-solid fa-calendar-plus";
+        $query2 = $conn->prepare("INSERT INTO recent_activity VALUES('',?,?,?)");
+        $query2->bind_param("sss", $activiy_type, $activiy_description, $icon);
+        $query2->execute();
+        if ($query2->affected_rows > 0) {
+            header("Location: eventPanel.php");
+        } else {
+            echo ("<script>alert('server probleme')</script>");
+        }
     } else {
         echo ("<script>alert('server probleme')</script>");
     }

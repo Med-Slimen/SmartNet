@@ -11,7 +11,23 @@ if (isset($_POST["full_name"])) {
     $query->bind_param("ssiss", $name, $email, $amount, $payment_method, $date);
     $query->execute();
     if ($query->affected_rows > 0) {
-        echo ("donations sent !");
+        $activiy_type = "New Donation";
+        $activiy_description = $name . " Donated " . $amount . "$";
+        $icon = "fa-solid fa-circle-dollar-to-slot";
+        $query2 = $conn->prepare("INSERT INTO recent_activity VALUES('',?,?,?)");
+        $query2->bind_param("sss", $activiy_type, $activiy_description, $icon);
+        $query2->execute();
+        if ($query2->affected_rows > 0) {
+            $query3 = $conn->prepare("UPDATE noti SET noti_count=noti_count+1 WHERE noti_name='donation'");
+            $query3->execute();
+            if ($query3->affected_rows > 0) {
+                echo ("donations sent !");
+            } else {
+                echo ("<script>alert('server probleme')</script>");
+            }
+        } else {
+            echo ("<script>alert('server probleme')</script>");
+        }
     } else {
         echo ("whoops....");
     }
