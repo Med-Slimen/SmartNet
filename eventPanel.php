@@ -36,10 +36,10 @@ include 'connect.php';
         <i class="fa-solid fa-xmark xmark" onclick="hideAddEvent()"></i>
         <h3>Add Event</h3>
         <form action="addEvent.php" method="post">
-          <input type="text" placeholder="Event Name" name="eventName" required />
-          <input type="datetime-local" placeholder="Event Date" name="eventDate" required />
-          <input type="text" placeholder="Event Description" name="eventDesc" required />
-          <input type="text" placeholder="Event Image Url" name="eventImg" required />
+          <input type="text" id="addEvent_name" placeholder="Event Name" name="eventName" required />
+          <input type="datetime-local" id="addEvent_date" placeholder="Event Date" name="eventDate" required />
+          <input type="text" id="addEvent_desc" placeholder="Event Description" name="eventDesc" required />
+          <input type="text" id="addEvent_img" placeholder="Event Image Url" name="eventImg" required />
           <input type="submit" name="add" value="Add Event" />
           <input type="reset" name="reset" value="Reset" />
         </form>
@@ -47,7 +47,7 @@ include 'connect.php';
     </div>
     <div class="events-list">
       <?php
-      $dt_qeury = $conn->prepare("SELECT * FROM events");
+      $dt_qeury = $conn->prepare("SELECT * FROM events ORDER BY id_events DESC");
       $dt_qeury->execute();
       $res = $dt_qeury->get_result();
       if ($res->num_rows > 0) {
@@ -122,6 +122,10 @@ include 'connect.php';
           <input type="reset" name="reset" value="Reset" />
         </form>
       </div>
+    </div>
+    <div class="event_msg">
+      <span>fff</span>
+      <i class="fa-solid fa-circle-check"></i>
     </div>
   </div>
 </body>

@@ -79,6 +79,9 @@ include 'connect.php';
                                 <td title="Description :"><?php echo ($act["activity_description"]) ?></td>
                             </tr>
                         <?php
+                        if ($i==10) {
+                            break;
+                        }
                         }
                         ?>
 

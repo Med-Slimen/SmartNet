@@ -1,0 +1,20 @@
+{
+    "name": "med/smartnet",
+    "description": "Test project",
+    "type": "project",
+    "require": {
+        "phpmailer/phpmailer": "^6.9"
+    },
+    "license": "proprietary",
+    "autoload": {
+        "psr-4": {
+            "Med\\Smartnet\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Med-Slimen",
+            "email": "mohamedamineslimene01@gmail.com"
+        }
+    ]
+}

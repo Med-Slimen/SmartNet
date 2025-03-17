@@ -5,10 +5,6 @@ function onload() {
   let profileSettings = document.querySelector(
     ".header .profile .profile-settings"
   );
-  let notfi = document.querySelector(".header .profile .notification ");
-  let notfiList = document.querySelector(
-    ".header .profile .notification .notification-list "
-  );
   let overlay = document.querySelector(".overlay");
   document.addEventListener("click", function (event) {
     if (mbMenu.contains(event.target)) {
@@ -21,19 +17,14 @@ function onload() {
     if (profileImg.contains(event.target)) {
       profileSettings.style.height = "160px";
       profileSettings.style.padding = "5px";
+      overlay.style.display = "block";
     } else if (
-      document.body.contains(event.target) &&
-      !profileImg.contains(event.target)
+      !profileImg.contains(event.target) &&
+      !mbMenu.contains(event.target)
     ) {
       profileSettings.style.height = "0px";
       profileSettings.style.padding = "0px";
-    }
-    if (notfi.contains(event.target)) {
-      notfiList.style.visibility = "visible";
-      notfiList.style.opacity = "1";
-    } else {
-      notfiList.style.visibility = "hidden";
-      notfiList.style.opacity = "0";
+      overlay.style.display = "none";
     }
   });
   setInterval(notificationShow, 5000);
@@ -43,6 +34,12 @@ function notificationShow() {
     .then((response) => response.json())
     .then((data) => {
       document.querySelectorAll(".menu_links").forEach((link) => {
+        link.setAttribute(
+          "notification",
+          data[link.getAttribute("tabName")] || 0
+        );
+      });
+      document.querySelectorAll(".mobile-menu ul li").forEach((link) => {
         link.setAttribute(
           "notification",
           data[link.getAttribute("tabName")] || 0
@@ -260,4 +257,23 @@ function hideEventDetails() {
   box_details.style.visibility = "hidden";
   box_details.style.opacity = "0";
   box_details.style.transform = "scale(0.7) translate(-50%,-50%)";
+}
+function event_msg(color, text, className) {
+  let sent = document.querySelector(".event_msg");
+  let span = document.querySelector(".event_msg span");
+  let i = document.querySelector(".event_msg i");
+  i.setAttribute("class", className);
+  i.style.color = color;
+  span.innerHTML = text;
+  sent.style.visibility = "visible";
+  sent.style.opacity = "1";
+  sent.style.transform = "scale(1) translateX(-50%)";
+  sent.style.setProperty("--beforeWidth", "100%");
+  sent.style.setProperty("--beforeColor", color);
+  setTimeout(() => {
+    sent.style.visibility = "hidden";
+    sent.style.opacity = "0";
+    sent.style.transform = "scale(0.8) translateX(-50%)";
+    sent.style.setProperty("--beforeWidth", "0%");
+  }, 3000);
 }

@@ -18,7 +18,7 @@ if (isset($_POST["fullname"])) {
             $query3 = $conn->prepare("UPDATE noti SET noti_count=noti_count+1 WHERE noti_name='contact'");
             $query3->execute();
             if ($query3->affected_rows > 0) {
-                echo ("feedback sent !");
+                echo ("done");
             } else {
                 echo ("<script>alert('server probleme')</script>");
             }

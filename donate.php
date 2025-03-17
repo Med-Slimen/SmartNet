@@ -1,6 +1,6 @@
 <?php
 include 'connect.php';
-
+session_start();
 if (isset($_POST["full_name"])) {
     $name = $_POST["full_name"];
     $email = $_POST["email"];
@@ -21,7 +21,9 @@ if (isset($_POST["full_name"])) {
             $query3 = $conn->prepare("UPDATE noti SET noti_count=noti_count+1 WHERE noti_name='donation'");
             $query3->execute();
             if ($query3->affected_rows > 0) {
-                echo ("donations sent !");
+                $_SESSION['status'] = "Thank you for donating !";
+                header("Location: {$_SERVER["HTTP_REFERER"]}");
+                exit(0);
             } else {
                 echo ("<script>alert('server probleme')</script>");
             }

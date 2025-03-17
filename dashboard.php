@@ -43,7 +43,7 @@ if (!isset($_SESSION['logged'])) {
       <ul>
         <a><img src="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/mwlldu11prcamv90qmul"></a>
 
-        <li class="menu_links" tabName="dashboard" notification="0" onclick="showDash(this)" id="dashBtn" class="clicked"><i class="fa-solid fa-chart-simple"></i>
+        <li class="menu_links clicked" tabName="dashboard" notification="0" onclick="showDash(this)" id="dashBtn" class="clicked"><i class="fa-solid fa-chart-simple"></i>
           Dashboard</li>
         <li class="menu_links" tabName="event" notification="0" onclick="showEvents(this)" id="eventBtn"><i class="fa-solid fa-calendar-days"></i>
           Events</li>
@@ -61,17 +61,17 @@ if (!isset($_SESSION['logged'])) {
   <div class="mobile-menu">
     <div class="icon"><i class="fa-solid fa-arrow-down"></i></div>
     <ul>
-      <li onclick="showDash()"><i class="fa-solid fa-chart-simple"></i>
+      <li tabName="dashboard" notification="0" onclick="showDash(this)"><i class="fa-solid fa-chart-simple"></i>
         Dashboard</li>
-      <li onclick="showEvents()"><i class="fa-solid fa-calendar-days"></i>
+      <li tabName="event" notification="0" onclick="showEvents(this)"><i class="fa-solid fa-calendar-days"></i>
         Events</li>
-      <li notification="1" onclick="showDonations()"><i class="fa-solid fa-circle-dollar-to-slot"></i>
+      <li tabName="donation" notification="0" onclick="showDonations(this)"><i class="fa-solid fa-circle-dollar-to-slot"></i>
         Donations</li>
-      <li onclick="showReports()"><i class="fa-solid fa-circle-exclamation"></i>
+      <li tabName="report" notification="0" onclick="showReports(this)"><i class="fa-solid fa-circle-exclamation"></i>
         Reports</li>
-      <li onclick="showContact()"><i class="fa-solid fa-envelope-open-text"></i>
+      <li tabName="contact" notification="0" onclick="showContact(this)"><i class="fa-solid fa-envelope-open-text"></i>
         Contact Submissions</li>
-      <li onclick="showSetting()"><i class="fa-solid fa-gear"></i>
+      <li onclick="showSetting(this)"><i class="fa-solid fa-gear"></i>
         Settings</li>
     </ul>
   </div>
@@ -79,7 +79,7 @@ if (!isset($_SESSION['logged'])) {
     <div class="header">
       <h2>Welcome <?php echo ($_SESSION['firstname'] . " " . $_SESSION['lastname']); ?></h2>
       <div class="profile">
-        <div class="notification">
+        <!-- <div class="notification">
           <i class="fa-solid fa-bell"></i>
           <span>1</span>
           <div class="notification-list">
@@ -87,7 +87,7 @@ if (!isset($_SESSION['logged'])) {
               <p>Donation From Mester Zan9alou</p>
             </div>
           </div>
-        </div>
+        </div> -->
         <img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Outdoors-man-portrait_%28cropped%29.jpg" alt="" />
         <div class="profile-settings">
           <ul>
@@ -104,14 +104,16 @@ if (!isset($_SESSION['logged'])) {
         </div>
       </div>
     </div>
-    <iframe id="iframe_dashboard" src="dashboardPanel.php" style="width: 100%; height: calc( 100vh - 125px ); border: none; display:block ;"></iframe>
-    
-    <iframe id="iframe_events" src="eventPanel.php" style="width: 100%; height: calc( 100vh - 125px ); border: none; display:none ;"></iframe>
-    <iframe id="iframe_donations" src="donationsPanel.php" style="width: 100%; height: calc( 100vh - 125px ); border: none; display:none"></iframe>
+    <div class="iframes_screen">
+      <iframe id="iframe_dashboard" src="dashboardPanel.php" style="width: 100%; height: calc( 100vh - 125px ); border: none; display:block ;"></iframe>
 
-    <iframe id="iframe_reports" src="reportPanel.php" style="width: 100%; height: calc( 100vh - 125px ); border: none; display:none"></iframe>
+      <iframe id="iframe_events" src="eventPanel.php" style="width: 100%; height: calc( 100vh - 125px ); border: none; display:none ;"></iframe>
+      <iframe id="iframe_donations" src="donationsPanel.php" style="width: 100%; height: calc( 100vh - 125px ); border: none; display:none"></iframe>
 
-    <iframe id="iframe_contact" src="contactPanel.php" style="width: 100%; height: calc( 100vh - 125px ); border: none; display:none"></iframe>
+      <iframe id="iframe_reports" src="reportPanel.php" style="width: 100%; height: calc( 100vh - 125px ); border: none; display:none"></iframe>
+
+      <iframe id="iframe_contact" src="contactPanel.php" style="width: 100%; height: calc( 100vh - 125px ); border: none; display:none"></iframe>
+    </div>
   </div>
 </body>
 

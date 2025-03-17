@@ -6,6 +6,7 @@
     --trans:0.3s;
     --scroll-trans:1.5s;
     --section-padding:10px;
+    --beforeWidth:0%;
 }
 
 body{

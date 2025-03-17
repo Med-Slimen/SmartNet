@@ -204,7 +204,7 @@
             </p>
           </div>
           <div class="button">
-            <a id="button-donate" href="donation.html">Donate</a>
+            <a id="button-donate" href="donation.php">Donate</a>
           </div>
         </div>
         <div class="box">
@@ -223,7 +223,7 @@
             </p>
           </div>
           <div class="button">
-            <a id="button-report" href="report.html">Report</a>
+            <a id="button-report" href="report.php">Report</a>
           </div>
         </div>
       </div>
@@ -307,25 +307,25 @@
           </div>
         </div>
         <div class="part2">
-          <form action="contact.php" method="post">
+          <form id="contact_form" onsubmit="return sendFeedback(event);">
             <input
               type="text"
               placeholder="Full Name"
               name="fullname"
-              id=""
+              id="contact_fullname"
               required
             />
             <input
               type="email"
               placeholder="Email"
               name="email"
-              id=""
+              id="contact_email"
               required
             />
             <textarea
               name="description"
               placeholder="Message"
-              id=""
+              id="contact_description"
               cols="30"
               rows="10"
               required
@@ -334,7 +334,18 @@
           </form>
         </div>
       </div>
+      <div class="contact-sent">
+        <span>Feedback sent !</span>
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
     </div>
     <!-- end contact us -->
+    <script src="index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

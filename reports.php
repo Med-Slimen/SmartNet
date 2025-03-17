@@ -1,5 +1,6 @@
 <?php
 include 'connect.php';
+session_start();
 if (isset($_POST["fileimg"])) {
     if (!empty($_POST["fileimg"])) {
         $imgUrl = $_POST["fileimg"];
@@ -25,7 +26,9 @@ if (isset($_POST["fileimg"])) {
             $query3 = $conn->prepare("UPDATE noti SET noti_count=noti_count+1 WHERE noti_name='report'");
             $query3->execute();
             if ($query3->affected_rows > 0) {
-                echo ("report sent !");
+                $_SESSION['status'] = "Your report has been sent successfully !";
+                header("Location: {$_SERVER["HTTP_REFERER"]}");
+                exit(0);
             } else {
                 echo ("<script>alert('server probleme')</script>");
             }

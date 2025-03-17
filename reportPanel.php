@@ -42,7 +42,7 @@ include 'connect.php';
                     </tr>
                 </thead>
                 <?php
-                $rp_qeury = $conn->prepare("SELECT * FROM reports");
+                $rp_qeury = $conn->prepare("SELECT * FROM reports ORDER BY id_report");
                 $rp_qeury->execute();
                 $res = $rp_qeury->get_result();
                 while ($rp = $res->fetch_assoc()) {

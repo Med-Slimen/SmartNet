@@ -146,10 +146,12 @@ a:visited{
 .panel{
     position: absolute;
     left: 17%;
-    padding: 15px;
     top: 0;
     width: 83%;
     background-color: #ededed;
+}
+.iframes_screen{
+    padding: 15px;
 }
 .mobile-menu{
     display: none;
@@ -174,9 +176,25 @@ a:visited{
     padding: 5px;
     color: black;
     font-size: 18px;
+    width: fit-content;
     font-weight: bold;
+    position: relative;
     cursor: pointer;
     margin: 3px;
+}
+.mobile-menu ul li[notification]:not([notification="0"]):after{
+    content: attr(notification);
+    position: absolute;
+    right: -25px;
+    top: 8px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    width: 25px;
+    height: 25px;
+    font-size: 15px;
 }
 @media (max-width: 991px) {
     .menu{
@@ -208,8 +226,9 @@ a:visited{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 75px;
-    margin-top: 10px;
+    height: 90px;
+    padding: 10px;
+    background-color: whitesmoke;
 }
 .header h2{
     font-size: 30px;

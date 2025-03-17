@@ -5,6 +5,8 @@
     --third-color:#CBDCEB;
     --trans:0.3s;
     --section-padding:10px;
+    --beforeWidth:0%;
+    --beforeColor:limegreen;
 }
 
 body{
@@ -267,4 +269,40 @@ li{
 .eventform .details .form input[type="radio"]{
     display: inline-block;
 
+}
+.event_register{
+    position: fixed;
+    bottom: 21px;
+    background-color: white;
+    color: black;
+    padding: 20px;
+    width: fit-content;
+    opacity: 0;
+    transform-origin: left;
+    visibility: hidden;
+    z-index: 50;
+    transition: var(--trans);
+    height: fit-content;
+    text-align: center;
+    left: 50%;
+    transform: scale(0.8) translateX(-50%);
+}
+.event_register span{
+    font-size: 20px;
+    font-weight: bold;
+}
+.event_register i{
+    color: limegreen;
+    font-size: 20px;
+}
+.event_register::before{
+    content: "";
+    position: absolute;
+    width: var(--beforeWidth);
+    transition: all,3s;
+    background-color: var(--beforeColor);
+    height: 9px;
+    left: 0;
+    top: 100%;
+    display: block;
 }

@@ -24,14 +24,12 @@ function menu() {
   document.addEventListener("scroll", () => {
     if (window.scrollY > 50) {
       header.classList.add("header-scrolled");
-      // logo.classList.add("h2-scrolled");
       bars.classList.add("bars-scrolled");
       for (let lien of lesLiens) {
         lien.classList.add("les-liens-scrolled");
       }
     } else {
       header.classList.remove("header-scrolled");
-      // logo.classList.remove("h2-scrolled");
       bars.classList.remove("bars-scrolled");
       for (let lien of lesLiens) {
         lien.classList.remove("les-liens-scrolled");
@@ -192,14 +190,20 @@ function savingData() {
   );
   allButtons.forEach(function (button) {
     button.addEventListener("click", function () {
+      localStorage.setItem("eventId", button.getAttribute("eventId"));
       localStorage.setItem("imgUrl", button.getAttribute("imgUrl"));
+      localStorage.setItem("eventName", button.getAttribute("eventName"));
     });
   });
 }
 function setEventImage() {
   let imgg = document.querySelector(".eventform .details .event .image img");
+  let eventName = document.querySelector(".eventform .details .event h3");
   if (imgg) {
     imgg.setAttribute("src", localStorage.getItem("imgUrl"));
+    document.getElementById("register_eventId").value =
+      localStorage.getItem("eventId");
+    eventName.innerHTML = localStorage.getItem("eventName");
   }
 }
 function reportCheck() {
@@ -215,3 +219,73 @@ function reportCheck() {
     return false;
   }
 }
+function sendFeedback(event) {
+  event.preventDefault();
+  let fullname = document.getElementById("contact_fullname").value;
+  let email = document.getElementById("contact_email").value;
+  let description = document.getElementById("contact_description").value;
+  let form = new FormData();
+  form.append("fullname", fullname);
+  form.append("email", email);
+  form.append("description", description);
+  fetch("contact.php", {
+    method: "POST",
+    body: form,
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      if (data === "done") {
+        Swal.fire({
+          title: "Thank you",
+          text: "Your feedback has been sent successfully !",
+          icon: "success",
+        });
+        document.getElementById("contact_form").reset();
+      } else {
+        console.log("bra or9od");
+      }
+    });
+}
+// function registerEvent(event) {
+//   event.preventDefault();
+//   let register_eventId = document.getElementById("register_eventId").value;
+//   let register_fname = document.getElementById("register_fname").value;
+//   let register_lname = document.getElementById("register_lname").value;
+//   let register_email = document.getElementById("register_email").value;
+//   let male = document.getElementById("male").checked;
+//   let gender = male ? "Male" : "Female";
+//   let form = new FormData();
+//   form.append("register_eventId", register_eventId);
+//   form.append("register_fname", register_fname);
+//   form.append("register_lname", register_lname);
+//   form.append("register_email", register_email);
+//   form.append("gender", gender);
+//   fetch("registerEvent.php", {
+//     method: "POST",
+//     body: form,
+//   })
+//     .then((response) => response.text())
+//     .then((data) => {
+//       if (data === "duplicate") {
+//         Swal.fire({
+//           title: "Whoops...",
+//           text: "You already registered to this event",
+//           icon: "warning",
+//         });
+//       } else if (data == "inserted") {
+//         Swal.fire({
+//           title: "Thank you",
+//           text: "Your've been registered to this event ! Check your email for more details (make sure to check the spam) !",
+//           icon: "success",
+//         });
+//         document.getElementById("register_event_form").reset();
+//       } else if (data == "error") {
+//         Swal.fire({
+//           icon: "error",
+//           title: "Oops...",
+//           text: "Something went wrong!",
+//           footer: '<a href="#">Why do I have this issue?</a>',
+//         });
+//       }
+//     });
+// }

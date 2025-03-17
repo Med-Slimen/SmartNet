@@ -1,8 +1,4 @@
-<?php
-include 'connect.php';
-
-session_start();
-?>
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,7 +12,7 @@ session_start();
   <!--Font Awseome-->
   <link rel="stylesheet" href="css/all.min.css" />
   <!--Main template css file-->
-  <link rel="stylesheet" href="css/events.css" />
+  <link rel="stylesheet" href="css/eventform.css" />
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -56,51 +52,63 @@ session_start();
     <li><a href="index.html#Contact">Contact us</a></li>
   </ul>
   <!-- End Header -->
-  <div class="events">
-    <div class="main-heading">
-      <h2>Events</h2>
-    </div>
-    <div class="container">
-      <?php
-      $query = $conn->prepare("SELECT * FROM events");
-      $query->execute();
-      $result = $query->get_result();
-      if ($result->num_rows <= 0) {
-      ?><div class="no-event">
-          <h1>There is no event at the moment</h1>
-        </div><?php
-            } else {
-              while ($event = $result->fetch_assoc()) {
-              ?>
-          <div class="box">
-            <div class="image">
-              <img src="<?php echo ($event["event_img"]) ?>" alt="" />
-            </div>
-            <div class="text">
-              <h3><?php echo ($event["event_name"]) ?></h3>
-              <p><?php echo ($event["event_date"]) ?></p>
-              <div class="countdown">
-                <div class="timer" date="<?php echo ($event["event_date"]) ?>">
-                  <span class="days"></span>
-                  <span>|</span>
-                  <span class="hours"></span>
-                  <span>|</span>
-                  <span class="minutes"></span>
-                  <span>|</span>
-                  <span class="secondes"></span>
-                </div>
-                <div imgUrl="<?php echo ($event["event_img"]) ?>" eventName="<?php echo ($event["event_name"]) ?>" eventId="<?php echo ($event["id_events"]) ?>" class="button">
-                  <a href="eventform.html">I'm in !</a>
-                </div>
-              </div>
-            </div>
-          </div>
-      <?php }
-            }
-      ?>
+  <div class="eventform">
+    <div class="details">
+      <div class="event">
+        <div class="image">
+          <img loading="lazy" src="" alt="" />
+        </div>
+        <h3></h3>
+      </div>
+      <div class="form">
+        <h3>Enter Your Information</h3>
+
+        <form method="post" id="register_event_form" action="registerEvent.php">
+          <input type="hidden" id="register_eventId" name="register_eventId" />
+          <input type="text" placeholder="First Name here" name="register_fname" id="register_fname" required />
+          <input type="text" placeholder="Last Name here" name="register_lname" id="register_lname" required />
+          <input type="email" placeholder="Email Here" name="register_email" id="register_email" required />
+          <label for="">Gender : </label>
+          <input type="radio" value="male" name="gender" id="male" required />
+          <label for="">Male</label>
+          <input type="radio" value="female" name="gender" id="female" required />
+          <label for="">Female</label>
+          <input type="submit" value="Register" name="" id="" />
+        </form>
+      </div>
+      <div class="event_register">
+        <span>fff</span>
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
     </div>
   </div>
   <script src="index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script>
+    let messageText = "<?= $_SESSION['status'] ?? '' ?>";
+    console.log(messageText);
+    if (messageText == 'inserted') {
+      Swal.fire({
+        title: "Thank you",
+        text: "Thank you for registring",
+        icon: "success"
+      });
+    } else if (messageText == 'duplicate') {
+      Swal.fire({
+        title: "Oops...",
+        text: "You already registred in this event",
+        icon: "warning"
+      });
+    } else if (messageText == 'error') {
+      Swal.fire({
+        title: "Oops...",
+        text: "Something went wrong",
+        icon: "error"
+      });
+    }
+    <?php unset($_SESSION['status']); ?>
+  </script>
 </body>
 
 </html>
