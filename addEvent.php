@@ -5,8 +5,9 @@ if (isset($_POST["eventName"])) {
     $eventDate = $_POST["eventDate"];
     $eventDesc = $_POST["eventDesc"];
     $eventImg = $_POST["eventImg"];
-    $query = $conn->prepare("INSERT INTO events VALUES('',?,?,?,?)");
-    $query->bind_param("ssss", $eventName, $eventDesc, $eventDate, $eventImg);
+    $eventLocation = $_POST["eventLocation"];
+    $query = $conn->prepare("INSERT INTO events VALUES('',?,?,?,?,?,'')");
+    $query->bind_param("sssss", $eventName, $eventDesc, $eventDate, $eventImg, $eventLocation);
     $query->execute();
     if ($query->affected_rows > 0) {
         $activiy_type = "Creation of Event";

@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="css/normalize.css" />
   <!--Font Awseome-->
   <link rel="stylesheet" href="css/all.min.css" />
+  <!-- Common CSS -->
+  <link rel="stylesheet" href="css/commonCSS.css" />
   <!--Main template css file-->
   <link rel="stylesheet" href="css/donation.css" />
   <!-- Google Fonts -->
@@ -21,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playwrite+IN:wght@100..400&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/mwlldu11prcamv90qmul" />
-
+  <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
 </head>
 
 <body onload="menu()">
@@ -54,13 +56,17 @@
   </ul>
   <!-- End Header -->
   <div class="donate">
+    <a id="backButton" href="index.html#Help">
+      Back
+    </a>
     <div class="main-heading">
       <h2>Donation</h2>
     </div>
+
     <div class="container">
       <div class="details">
         <h3>Enter The nessecary informations</h3>
-        <form action="donate.php" method="post">
+        <form action="donate.php" method="post" onsubmit="showLoad()">
           <input type="text" placeholder="Full Name" name="full_name" id="" required />
           <input type="email" placeholder="Email" name="email" id="" required />
           <p>Select Donation Amount :</p>
@@ -92,10 +98,13 @@
       </div>
     </div>
   </div>
+  <div id="overlay" class="overlay"></div>
+  <dotlottie-player id="load" class="loading" src="https://lottie.host/8537750e-cf40-4409-8695-27939803c585/IlI4yC2YtN.json" background="transparent" speed="1" style="width: 300px; height: 300px" direction="1" playMode="normal" loop autoplay></dotlottie-player>
   <script src="index.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   <script>
+    unShowLoad();
     let messageText = "<?= $_SESSION['status'] ?? '' ?>";
     if (messageText != '') {
       Swal.fire({

@@ -80,10 +80,12 @@ function showEditEvent() {
   let eventDesc = document.getElementById("old_event_desc").innerHTML;
   let eventDate = document.getElementById("old_event_date").innerHTML;
   let eventImg = document.getElementById("old_event_img").innerHTML;
+  let eventLocation = document.getElementById("old_event_location").innerHTML;
   document.getElementById("edit_eventName").value = eventName;
   document.getElementById("edit_eventDate").value = eventDate;
   document.getElementById("edit_eventDesc").value = eventDesc;
   document.getElementById("edit_eventImg").value = eventImg;
+  document.getElementById("edit_eventLocation").value = eventLocation;
 }
 function hideEditEvent() {
   let editEvent = document.querySelector(".edit-event");
@@ -241,7 +243,15 @@ function hideFeedback() {
   box_details.style.opacity = "0";
   box_details.style.transform = "scale(0.7) translate(-50%,-50%)";
 }
-function showEventDetails(name, description, date, idEvent, eventImg) {
+function showEventDetails(
+  name,
+  description,
+  date,
+  idEvent,
+  eventImg,
+  eventLocation,
+  registration_count
+) {
   let box_details = document.querySelector(".events .events-list .box-details");
   box_details.style.visibility = "visible";
   box_details.style.opacity = "1";
@@ -251,6 +261,8 @@ function showEventDetails(name, description, date, idEvent, eventImg) {
   document.getElementById("old_event_desc").innerHTML = description;
   document.getElementById("old_event_date").innerHTML = date;
   document.getElementById("old_event_img").innerHTML = eventImg;
+  document.getElementById("old_event_location").innerHTML = eventLocation;
+  document.getElementById("registration_count").innerHTML = registration_count;
 }
 function hideEventDetails() {
   let box_details = document.querySelector(".events .events-list .box-details");

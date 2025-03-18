@@ -207,6 +207,7 @@ function setEventImage() {
   }
 }
 function reportCheck() {
+  showLoad();
   let file = document.getElementById("file").files[0];
   let fileimg = document.getElementById("fileimg");
   if (file) {
@@ -224,27 +225,31 @@ function sendFeedback(event) {
   let fullname = document.getElementById("contact_fullname").value;
   let email = document.getElementById("contact_email").value;
   let description = document.getElementById("contact_description").value;
-  let form = new FormData();
-  form.append("fullname", fullname);
-  form.append("email", email);
-  form.append("description", description);
-  fetch("contact.php", {
-    method: "POST",
-    body: form,
-  })
-    .then((response) => response.text())
-    .then((data) => {
-      if (data === "done") {
-        Swal.fire({
-          title: "Thank you",
-          text: "Your feedback has been sent successfully !",
-          icon: "success",
-        });
-        document.getElementById("contact_form").reset();
-      } else {
-        console.log("bra or9od");
-      }
-    });
+  showLoad();
+  setTimeout(() => {
+    let form = new FormData();
+    form.append("fullname", fullname);
+    form.append("email", email);
+    form.append("description", description);
+    fetch("contact.php", {
+      method: "POST",
+      body: form,
+    })
+      .then((response) => response.text())
+      .then((data) => {
+        if (data === "done") {
+          Swal.fire({
+            title: "Thank you",
+            text: "Your feedback has been sent successfully !",
+            icon: "success",
+          });
+          document.getElementById("contact_form").reset();
+        } else {
+          console.log("bra or9od");
+        }
+        unShowLoad();
+      });
+  }, 2000);
 }
 // function registerEvent(event) {
 //   event.preventDefault();
@@ -289,3 +294,17 @@ function sendFeedback(event) {
 //       }
 //     });
 // }
+function showLoad() {
+  let load = document.getElementById("load");
+  let ovelray = document.getElementById("overlay");
+  load.style.display = "block";
+  ovelray.style.display = "block";
+  ovelray.style.opacity = "0.3";
+}
+function unShowLoad() {
+  let load = document.getElementById("load");
+  let ovelray = document.getElementById("overlay");
+  load.style.display = "none";
+  ovelray.style.opacity = "0";
+  ovelray.style.display = "none";
+}

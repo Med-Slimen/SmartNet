@@ -6,8 +6,9 @@ if (isset($_POST["id_events"])) {
     $eventDate = $_POST["eventDate"];
     $eventDesc = $_POST["eventDesc"];
     $eventImg = $_POST["eventImg"];
-    $query = $conn->prepare("UPDATE events SET event_name=?, event_desc=?, event_date=?, event_img=?  WHERE id_events=?");
-    $query->bind_param("sssss", $eventName, $eventDesc, $eventDate, $eventImg, $eventId);
+    $eventLocation = $_POST["eventLocation"];
+    $query = $conn->prepare("UPDATE events SET event_name=?, event_desc=?, event_date=?, event_img=?,event_location=?  WHERE id_events=?");
+    $query->bind_param("ssssss", $eventName, $eventDesc, $eventDate, $eventImg, $eventLocation, $eventId);
     $query->execute();
     if ($query->affected_rows > 0) {
         $activiy_type = "Event Editing";
@@ -22,6 +23,6 @@ if (isset($_POST["id_events"])) {
             echo ("<script>alert('server probleme')</script>");
         }
     } else {
-        echo ("<script>alert('server probleme')</script>");
+        header("Location: {$_SERVER["HTTP_REFERER"]}");
     }
 }

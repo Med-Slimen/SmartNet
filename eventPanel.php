@@ -40,6 +40,7 @@ include 'connect.php';
           <input type="datetime-local" id="addEvent_date" placeholder="Event Date" name="eventDate" required />
           <input type="text" id="addEvent_desc" placeholder="Event Description" name="eventDesc" required />
           <input type="text" id="addEvent_img" placeholder="Event Image Url" name="eventImg" required />
+          <input type="text" id="addEvent_location" placeholder="Event Location" name="eventLocation" required />
           <input type="submit" name="add" value="Add Event" />
           <input type="reset" name="reset" value="Reset" />
         </form>
@@ -50,6 +51,7 @@ include 'connect.php';
       $dt_qeury = $conn->prepare("SELECT * FROM events ORDER BY id_events DESC");
       $dt_qeury->execute();
       $res = $dt_qeury->get_result();
+
       if ($res->num_rows > 0) {
         while ($dt =
           $res->fetch_assoc()
@@ -62,7 +64,7 @@ include 'connect.php';
               </span>
             </div>
             <div class="button">
-              <button onclick="showEventDetails('<?php echo ($dt['event_name']) ?>','<?php echo ($dt['event_desc']) ?>','<?php echo ($dt['event_date']) ?>','<?php echo ($dt['id_events']) ?>','<?php echo ($dt['event_img']) ?>')">
+              <button onclick="showEventDetails('<?php echo ($dt['event_name']) ?>','<?php echo ($dt['event_desc']) ?>','<?php echo ($dt['event_date']) ?>','<?php echo ($dt['id_events']) ?>','<?php echo ($dt['event_img']) ?>','<?php echo ($dt['event_location']) ?>','<?php echo ($dt['registration_count']) ?>')">
                 More Details
               </button>
               <button id="delbtn" onclick="showConf(<?php echo ($dt['id_events']) ?>)" class="delbt">
@@ -91,6 +93,10 @@ include 'connect.php';
           <span id="old_event_desc"></span>
           <p>Date :</p>
           <span id="old_event_date"></span>
+          <p>Location :</p>
+          <span id="old_event_location"></span>
+          <p style="font-size: 18px;">People registred : <span id="registration_count"></span> <i class="fa-solid fa-person"></i></p>
+
           <span style="visibility: hidden;" id="old_event_img"></span>
         </div>
         <button id="editbtn" onclick="showEditEvent()" class="editbtn">
@@ -117,15 +123,12 @@ include 'connect.php';
           <input type="datetime-local" placeholder="Event Date" id="edit_eventDate" name="eventDate" required />
           <input type="text" placeholder="Event Description" id="edit_eventDesc" name="eventDesc" required />
           <input type="text" placeholder="Event Image Url" id="edit_eventImg" name="eventImg" required />
+          <input type="text" placeholder="Event Location" id="edit_eventLocation" name="eventLocation" required />
           <input type="hidden" id="idEvent" name="id_events" />
           <input type="submit" name="add" value="Edit Event" />
           <input type="reset" name="reset" value="Reset" />
         </form>
       </div>
-    </div>
-    <div class="event_msg">
-      <span>fff</span>
-      <i class="fa-solid fa-circle-check"></i>
     </div>
   </div>
 </body>

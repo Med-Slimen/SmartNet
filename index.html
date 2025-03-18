@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="css/normalize.css" />
     <!--Font Awseome-->
     <link rel="stylesheet" href="css/all.min.css" />
+    <!-- Common CSS -->
+    <link rel="stylesheet" href="css/commonCSS.css" />
     <!--Main template css file-->
     <link rel="stylesheet" href="css/smartNet.css" />
     <!-- Google Fonts -->
@@ -29,7 +31,10 @@
       type="image/png"
       href="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/mwlldu11prcamv90qmul"
     />
-    <script src="index.js"></script>
+    <script
+      src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"
+      type="module"
+    ></script>
   </head>
   <body onload="menu()">
     <!-- Start Header -->
@@ -340,6 +345,19 @@
       </div>
     </div>
     <!-- end contact us -->
+    <div id="overlay" class="overlay"></div>
+    <dotlottie-player
+      id="load"
+      class="loading"
+      src="https://lottie.host/8537750e-cf40-4409-8695-27939803c585/IlI4yC2YtN.json"
+      background="transparent"
+      speed="1"
+      style="width: 300px; height: 300px"
+      direction="1"
+      playMode="normal"
+      loop
+      autoplay
+    ></dotlottie-player>
     <script src="index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script

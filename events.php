@@ -15,6 +15,8 @@ session_start();
   <link rel="stylesheet" href="css/normalize.css" />
   <!--Font Awseome-->
   <link rel="stylesheet" href="css/all.min.css" />
+  <!-- Common CSS -->
+  <link rel="stylesheet" href="css/commonCSS.css" />
   <!--Main template css file-->
   <link rel="stylesheet" href="css/events.css" />
   <!-- Google Fonts -->
@@ -60,6 +62,9 @@ session_start();
     <div class="main-heading">
       <h2>Events</h2>
     </div>
+    <a id="backButton" href="index.html#Help">
+      Back
+    </a>
     <div class="container">
       <?php
       $query = $conn->prepare("SELECT * FROM events");
@@ -90,7 +95,7 @@ session_start();
                   <span class="secondes"></span>
                 </div>
                 <div imgUrl="<?php echo ($event["event_img"]) ?>" eventName="<?php echo ($event["event_name"]) ?>" eventId="<?php echo ($event["id_events"]) ?>" class="button">
-                  <a href="eventform.html">I'm in !</a>
+                  <a href="eventform.php">I'm in !</a>
                 </div>
               </div>
             </div>

@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="css/normalize.css" />
   <!--Font Awseome-->
   <link rel="stylesheet" href="css/all.min.css" />
+  <!-- Common CSS -->
+  <link rel="stylesheet" href="css/commonCSS.css" />
   <!--Main template css file-->
   <link rel="stylesheet" href="css/eventform.css" />
   <!-- Google Fonts -->
@@ -21,6 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playwrite+IN:wght@100..400&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/mwlldu11prcamv90qmul" />
+  <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
 </head>
 
 <body onload="menu()">
@@ -53,7 +56,11 @@
   </ul>
   <!-- End Header -->
   <div class="eventform">
+    <a id="backButton" href="events.php">
+      Back
+    </a>
     <div class="details">
+
       <div class="event">
         <div class="image">
           <img loading="lazy" src="" alt="" />
@@ -63,7 +70,7 @@
       <div class="form">
         <h3>Enter Your Information</h3>
 
-        <form method="post" id="register_event_form" action="registerEvent.php">
+        <form method="post" id="register_event_form" action="registerEvent.php" onsubmit="showLoad()">
           <input type="hidden" id="register_eventId" name="register_eventId" />
           <input type="text" placeholder="First Name here" name="register_fname" id="register_fname" required />
           <input type="text" placeholder="Last Name here" name="register_lname" id="register_lname" required />
@@ -82,6 +89,9 @@
       </div>
     </div>
   </div>
+  <div id="overlay" class="overlay">
+  </div>
+  <dotlottie-player id="load" class="loading" src="https://lottie.host/8537750e-cf40-4409-8695-27939803c585/IlI4yC2YtN.json" background="transparent" speed="1" style="width: 300px; height: 300px" direction="1" playMode="normal" loop autoplay></dotlottie-player>
   <script src="index.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>

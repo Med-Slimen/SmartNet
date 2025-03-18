@@ -223,4 +223,5 @@ li{
     background-color: var(--first-color);
     color: white;
     text-align: center;
+    cursor: pointer;
 }

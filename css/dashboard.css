@@ -742,7 +742,7 @@ tbody tr:nth-child(even){
  .box-details span{
     font-size: 17px;
 }
- .box-details i {
+ .box-details > i {
     float: right;
     font-size: 25px;
     font-weight: bold;
