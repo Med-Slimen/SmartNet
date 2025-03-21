@@ -30,43 +30,64 @@ include 'connect.php';
     <div id="reports" class="reports">
         <h1>Reports</h1>
         <div class="reports-list">
-            <table border="3">
-                <thead>
-                    <tr>
-                        <th>Full Name</th>
-                        <th>Email</th>
-                        <th>Location</th>
-                        <th>Issue Type</th>
-                        <th>Description</th>
-                        <th>Attached Photo</th>
-                    </tr>
-                </thead>
-                <?php
-                $rp_qeury = $conn->prepare("SELECT * FROM reports ORDER BY id_report");
-                $rp_qeury->execute();
-                $res = $rp_qeury->get_result();
-                while ($rp = $res->fetch_assoc()) {
-                ?>
-                    <tr>
-                        <td title="Full Name :">
-                            <?php echo ($rp["report_fullname"]) ?>
-                        </td>
-                        <td title="Email :">
-                            <?php echo ($rp["report_email"]) ?>
-                        </td>
-                        <td title="Location :"><?php echo ($rp["report_location"]) ?></td>
-                        <td title="Issue Type :"><?php echo ($rp["report_issue_type"]) ?></td>
-                        <td title="Description :"><?php echo ($rp["report_description"]) ?></td>
-                        <td title="Attached Photo :"><button id="showimg" onclick="showImg('<?php echo ($rp['report_img']) ?>')">Show Image</button></td>
-                    </tr>
-                <?php
-                }
-                ?>
-            </table>
+            <?php
+            $rp_qeury = $conn->prepare("SELECT * FROM reports ORDER BY id_report DESC");
+            $rp_qeury->execute();
+            $res = $rp_qeury->get_result();
+            while ($rp = $res->fetch_assoc()) {
+            ?>
+                <div class="box">
+                    <div class="text">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>Report From <?php echo ($rp["report_fullname"]) ?> </span>
+                    </div>
+                    <div class="button">
+                        <button onclick="showReport('<?php echo ($rp['report_fullname']) ?>','<?php echo ($rp['report_email']) ?>','<?php echo ($rp['report_location']) ?>','<?php echo ($rp['report_issue_type']) ?>','<?php echo ($rp['report_description']) ?>','<?php echo ($rp['report_img']) ?>')">More Details</button>
+                        <button id="delbtn" onclick="showConf('<?php echo ($rp['id_report']) ?>','idReport')" class="delbt">
+                            Delete
+                        </button>
+
+                    </div>
+                </div>
+            <?php
+            }
+            ?>
             <div class="imgShow">
                 <i class="fa-solid fa-xmark xmark" onclick="hideImg()"></i>
                 <p id="noimg"></p>
                 <img id="attachedPhoto" src="">
+            </div>
+            <div class="box-details">
+                <i class="fa-solid fa-xmark xmark" onclick="hideReport()"></i>
+                <h1>Feedback</h1>
+                <div class="text">
+                    <p>Full Name :</p>
+                    <span id="report_fullname"></span>
+                    <p>Email :</p>
+                    <span id="report_email"></span>
+                    <p>Location :</p>
+                    <span id="report_location"></span>
+                    <p>Issue Type :</p>
+                    <span id="report_issue_type"></span>
+                    <p>Description :</p>
+                    <span id="report_description"></span><br>
+                </div>
+                <div class="button">
+                    <button id="showimg" img_src="" onclick="showImg()">Show Image</button>
+                    <button id="reply" onclick="showReply()">Reply</button>
+                </div>
+            </div>
+            <div id="delete-conf" class="delete-conf">
+                <h2>Are you sure ?</h2>
+                <div class="choice">
+                    <a id="no" href="#">
+                        <h3>No</h3>
+                    </a>
+                    <form action="deleteReport.php" method="post">
+                        <input type="hidden" id="idReport" name="id_report" />
+                        <input type="submit" id="yes" value="Yes" />
+                    </form>
+                </div>
             </div>
         </div>
     </div>

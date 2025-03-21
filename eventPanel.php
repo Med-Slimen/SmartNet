@@ -67,7 +67,7 @@ include 'connect.php';
               <button onclick="showEventDetails('<?php echo ($dt['event_name']) ?>','<?php echo ($dt['event_desc']) ?>','<?php echo ($dt['event_date']) ?>','<?php echo ($dt['id_events']) ?>','<?php echo ($dt['event_img']) ?>','<?php echo ($dt['event_location']) ?>','<?php echo ($dt['registration_count']) ?>')">
                 More Details
               </button>
-              <button id="delbtn" onclick="showConf(<?php echo ($dt['id_events']) ?>)" class="delbt">
+              <button id="delbtn" onclick="showConf(<?php echo ($dt['id_events']) ?>,'idEvent')" class="delbt">
                 Delete
               </button>
             </div>
@@ -95,9 +95,10 @@ include 'connect.php';
           <span id="old_event_date"></span>
           <p>Location :</p>
           <span id="old_event_location"></span>
-          <p style="font-size: 18px;">People registred : <span id="registration_count"></span> <i class="fa-solid fa-person"></i></p>
+          <p style="font-size: 18px;">People registred : </p>
+          <span id="registration_count"> <i class="fa-solid fa-person"></i></span>
 
-          <span style="visibility: hidden;" id="old_event_img"></span>
+          <span style="visibility: hidden;display:none;" id="old_event_img"></span>
         </div>
         <button id="editbtn" onclick="showEditEvent()" class="editbtn">
           Edit

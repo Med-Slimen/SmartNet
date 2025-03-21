@@ -44,10 +44,10 @@ include 'connect.php';
                         </div>
                         <div class="button">
                             <button onclick="showFeedback('<?php echo ($ct['contact_fullname']) ?>','<?php echo ($ct['contact_email']) ?>','<?php echo ($ct['contact_description']) ?>')">More Details</button>
-                            <form action="deleteContact.php" method="post">
-                                <input type="hidden" name="id_contact" value="<?php echo ($ct['id_contact']) ?>">
-                                <input type="submit" id="done" value="Done">
-                            </form>
+                            <button id="delbtn" onclick="showConf('<?php echo ($ct['id_contact']) ?>','idContact')" class="delbt">
+                                Delete
+                            </button>
+
                         </div>
                     </div>
                 <?php
@@ -70,6 +70,18 @@ include 'connect.php';
                     <span id="contact_email"></span>
                     <p>Message :</p>
                     <span id="contact_description"></span>
+                </div>
+            </div>
+            <div id="delete-conf" class="delete-conf">
+                <h2>Are you sure ?</h2>
+                <div class="choice">
+                    <a id="no" href="#">
+                        <h3>No</h3>
+                    </a>
+                    <form action="deleteContact.php" method="post">
+                        <input type="hidden" id="idContact" name="id_contact" />
+                        <input type="submit" id="yes" value="Yes" />
+                    </form>
                 </div>
             </div>
         </div>

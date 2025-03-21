@@ -27,22 +27,33 @@ include 'connect.php';
 </head>
 
 <body>
+    <?php
+    $donations = $conn->prepare("SELECT SUM(dt_amount) as totalDonations FROM donations");
+    $donations->execute();
+    $totalAmount = (($donations->get_result())->fetch_assoc())["totalDonations"];
+    $donations_today = $conn->prepare("SELECT SUM(dt_amount) as totalDonations_today FROM donations WHERE DAY(dt_date)=DAY(NOW())");
+    $donations_today->execute();
+    $totalDonations_today = (($donations_today->get_result())->fetch_assoc())["totalDonations_today"];
+    $totalDonors = $conn->prepare("SELECT COUNT(DISTINCT dt_email) as totalDonors FROM donations");
+    $totalDonors->execute();
+    $totalDonors_count = (($totalDonors->get_result())->fetch_assoc())["totalDonors"];
+    ?>
     <div id="donations" class="donations">
         <h1>Donations</h1>
         <div class="card-section">
             <div class="card">
                 <h3>Total donation</h3>
-                <p>100$</p>
+                <p><?= $totalAmount ?? 0 ?>$</p>
                 <i class="fa-solid fa-hand-holding-dollar"></i>
             </div>
             <div class="card">
                 <h3>Donations Today</h3>
-                <p>20$</p>
+                <p><?= $totalDonations_today ?? 0 ?>$</p>
                 <i class="fa-solid fa-money-bill-trend-up"></i>
             </div>
             <div class="card">
                 <h3>Total Donors</h3>
-                <p>70</p>
+                <p><?= $totalDonors_count ?? 0 ?></p>
                 <i class="fa-solid fa-users"></i>
             </div>
         </div>

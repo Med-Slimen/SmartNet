@@ -27,11 +27,22 @@ include 'connect.php';
 </head>
 
 <body>
+    <?php
+    $donations = $conn->prepare("SELECT SUM(dt_amount) as totalDonations FROM donations");
+    $donations->execute();
+    $totalAmount = (($donations->get_result())->fetch_assoc())["totalDonations"];
+    $events_c = $conn->prepare("SELECT COUNT(id_events) as totalEvents FROM events");
+    $events_c->execute();
+    $totalEvents = (($events_c->get_result())->fetch_assoc())["totalEvents"];
+    $reports_c = $conn->prepare("SELECT COUNT(id_report) as totalreports FROM reports");
+    $reports_c->execute();
+    $totalreports = (($reports_c->get_result())->fetch_assoc())["totalreports"];
+    ?>
     <div id="dashboard" class="dashboard">
         <h2>Dashboard</h2>
         <div class="card-section">
             <div class="card">
-                <p>100$</p>
+                <p><?= $totalAmount ?? 0 ?>$</p>
                 <h3>Total donation</h3>
                 <i class="fa-solid fa-hand-holding-dollar"></i>
             </div>
@@ -43,12 +54,12 @@ include 'connect.php';
                 </svg>
             </div>
             <div class="card">
-                <p>70</p>
+                <p><?= $totalEvents ?></p>
                 <h3>Active events</h3>
                 <i class="fa-solid fa-circle-check"></i>
             </div>
             <div class="card">
-                <p>15</p>
+                <p><?= $totalreports ?></p>
                 <h3>Valleys Reports</h3>
                 <i class="fa-solid fa-file-circle-exclamation"></i>
             </div>
@@ -79,9 +90,9 @@ include 'connect.php';
                                 <td title="Description :"><?php echo ($act["activity_description"]) ?></td>
                             </tr>
                         <?php
-                        if ($i==10) {
-                            break;
-                        }
+                            if ($i == 10) {
+                                break;
+                            }
                         }
                         ?>
 

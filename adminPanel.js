@@ -47,21 +47,21 @@ function notificationShow() {
       });
     });
 }
-function showConf(idEvent) {
+function showConf(idEvent, id) {
   document.getElementById("delete-conf").style.visibility = "visible";
   document.getElementById("delete-conf").style.transform =
     "scale(1) translate(-50%,-50%)";
   document.getElementById("delete-conf").style.opacity = "1";
-  let yes = document.getElementById("idEvent");
+  let hidden_id = document.getElementById(id);
   let no = document.getElementById("no");
-  yes.setAttribute("value", idEvent);
+  hidden_id.setAttribute("value", idEvent);
   document.addEventListener("click", (event) => {
     if (no.contains(event.target)) {
       document.getElementById("delete-conf").style.visibility = "hidden";
       document.getElementById("delete-conf").style.transform =
         "scale(0.6) translate(-50%,-50%)";
       document.getElementById("delete-conf").style.opacity = "0";
-      yes.setAttribute("value", "");
+      hidden_id.setAttribute("value", "");
     }
   });
 }
@@ -205,7 +205,8 @@ function showContact(element) {
   document.getElementById("contactBtn").classList.add("clicked");
   document.getElementById("settingBtn").classList.remove("clicked");
 }
-function showImg(imgUrl) {
+function showImg() {
+  let imgUrl = document.getElementById("showimg").getAttribute("img_src");
   let showImgDiv = document.querySelector(".reports .imgShow");
   showImgDiv.style.visibility = "visible";
   showImgDiv.style.opacity = "1";
@@ -223,6 +224,28 @@ function hideImg() {
   showImgDiv.style.visibility = "hidden";
   showImgDiv.style.opacity = "0";
   showImgDiv.style.transform = "scale(0.7) translate(-50%,-50%)";
+}
+function showReport(fullname, email, location, type, description, img) {
+  let box_details = document.querySelector(
+    ".reports .reports-list .box-details"
+  );
+  box_details.style.visibility = "visible";
+  box_details.style.opacity = "1";
+  box_details.style.transform = "scale(1) translate(-50%,-50%)";
+  document.getElementById("report_fullname").innerHTML = fullname;
+  document.getElementById("report_email").innerHTML = email;
+  document.getElementById("report_location").innerHTML = location;
+  document.getElementById("report_issue_type").innerHTML = type;
+  document.getElementById("report_description").innerHTML = description;
+  document.getElementById("showimg").setAttribute("img_src", img);
+}
+function hideReport() {
+  let box_details = document.querySelector(
+    ".reports .reports-list .box-details"
+  );
+  box_details.style.visibility = "hidden";
+  box_details.style.opacity = "0";
+  box_details.style.transform = "scale(0.7) translate(-50%,-50%)";
 }
 function showFeedback(fullname, email, description) {
   let box_details = document.querySelector(
@@ -262,7 +285,9 @@ function showEventDetails(
   document.getElementById("old_event_date").innerHTML = date;
   document.getElementById("old_event_img").innerHTML = eventImg;
   document.getElementById("old_event_location").innerHTML = eventLocation;
-  document.getElementById("registration_count").innerHTML = registration_count;
+  document.getElementById("registration_count").innerHTML =
+    registration_count +
+    document.getElementById("registration_count").innerHTML;
 }
 function hideEventDetails() {
   let box_details = document.querySelector(".events .events-list .box-details");

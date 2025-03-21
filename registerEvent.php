@@ -1,9 +1,8 @@
 <?php
 include 'connect.php';
 require 'vendor/autoload.php';
-ob_start();
-include 'email_template.php';
-$emailBody = ob_get_clean();
+
+session_start();
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -44,10 +43,14 @@ if (isset($_POST["register_fname"])) {
                 $event_date = $resEvent["event_date"];
                 $event_location = $resEvent["event_location"];
                 $_SESSION['fname'] =  $fname;
+                $_SESSION['lname'] =  $lname;
                 $_SESSION['event_name'] =  $event_name;
                 $_SESSION['event_img'] =  $event_img;
                 $_SESSION['event_date'] =  $event_date;
                 $_SESSION['event_location'] =  $event_location;
+                ob_start();
+                include 'email_template.php';
+                $emailBody = ob_get_clean();
                 try {
                     //Server settings
                     $mail->SMTPDebug = 0;                      //Enable verbose debug output
@@ -60,8 +63,8 @@ if (isset($_POST["register_fname"])) {
                     $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
                     //Recipients
-                    $mail->setFrom('mohamedamineslimene01@gmail.com', 'Med');
-                    $mail->addAddress($email, 'Med');     //Add a recipient
+                    $mail->setFrom('mohamedamineslimene01@gmail.com', 'SmartNet');
+                    $mail->addAddress($email, 'SmartNet');     //Add a recipient
                     //Content
                     $mail->CharSet = 'UTF-8';
                     $mail->Encoding = 'base64';
