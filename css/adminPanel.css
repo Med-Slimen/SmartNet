@@ -226,9 +226,10 @@ li{
     margin: 0 auto;
     width: fit-content;
 }
-.login .container .login-form input{
+.login .container .login-form input:not(input[type="checkbox"]){
     padding: 12px;
     margin: 15px;
+    display: block;
     width: 250px;
     border-radius: 5px;
     outline: none;

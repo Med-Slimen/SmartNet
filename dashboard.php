@@ -1,14 +1,24 @@
 <?php
 include 'connect.php';
-
 session_start();
-
-if (!isset($_SESSION['logged'])) {
+if (isset($_COOKIE["token"])) {
+  $token = $_COOKIE["token"];
+  $token_check = $conn->prepare("SELECT* FROM admins WHERE admin_token=? ");
+  $token_check->bind_param("s", $token);
+  $token_check->execute();
+  $res_token = $token_check->get_result();
+  if ($res_token->num_rows > 0) {
+    $res_token = $res_token->fetch_assoc();
+    $_SESSION['firstname'] = $res_token['firstName'];
+    $_SESSION['lastname'] = $res_token['lastName'];
+    $_SESSION["email"] = $res_token['email'];
+  } else {
+    setcookie("token", "", 1);
+    header("Location: adminPanel.php");
+  }
+} elseif (!isset($_SESSION["logged"])) {
   header("Location: adminPanel.php");
 }
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
