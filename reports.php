@@ -1,11 +1,18 @@
 <?php
 include 'connect.php';
 session_start();
-if (isset($_POST["fileimg"])) {
-    if (!empty($_POST["fileimg"])) {
-        $imgUrl = $_POST["fileimg"];
+if ($_POST["fullname"]) {
+    if (isset($_FILES["report_img"]) && $_FILES["report_img"]["error"] == 0) {
+        $targetDir = "images/";
+        $fileName = time() . "_" . basename($_FILES["report_img"]["name"]);
+        $targetFilePath = $targetDir . $fileName;
+        if (move_uploaded_file($_FILES["report_img"]["tmp_name"], $targetFilePath)) {
+            $imagePath = $targetFilePath;
+        } else {
+            die("Error uploading file.");
+        }
     } else {
-        $imgUrl = "No Image Attached";
+        $imagePath = NULL;
     }
     $fullname = $_POST["fullname"];
     $email = $_POST["email"];
@@ -13,7 +20,7 @@ if (isset($_POST["fileimg"])) {
     $issue = $_POST["issue"];
     $description = $_POST["description"];
     $query = $conn->prepare("INSERT INTO reports VALUES('',?,?,?,?,?,?)");
-    $query->bind_param("ssssss", $fullname, $email, $location, $issue, $description, $imgUrl);
+    $query->bind_param("ssssss", $fullname, $email, $location, $issue, $description, $imagePath);
     $query->execute();
     if ($query->affected_rows > 0) {
         $activiy_type = "New Report";

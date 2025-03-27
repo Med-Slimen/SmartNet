@@ -1,6 +1,8 @@
-
+<?php $language = $_COOKIE["language"] ?? "en";
+include $language . '.php';
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html dir=<?= $language == "en" ? "ltr" : "rtl" ?> lang="<?= $language ?>">
 
 <head>
   <meta charset="UTF-8" />
@@ -10,7 +12,8 @@
   <!--Render all elements normally-->
   <link rel="stylesheet" href="css/normalize.css" />
   <!--Font Awseome-->
-  <link rel="stylesheet" href="css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
   <!-- Common CSS -->
   <link rel="stylesheet" href="css/commonCSS.css" />
   <!--Main template css file-->
@@ -27,6 +30,34 @@
 </head>
 
 <body onload="menu()">
+  <?php
+  if (!isset($_COOKIE["language"])) {
+  ?>
+    <div class="language-popup">
+      <div class="text">
+        <h3>Chose Your prefered language</h3>
+      </div>
+      <div class="choose">
+        <p>Chose what language you want to browse the website with ( you can switch the language later if you want )</p>
+        <form action="updateLang.php" method="post">
+          <select name="lang">
+            <option value="en">English 	&#x1f1fa;</option>
+            <option value="ar">Arabic</option>
+          </select>
+          <input type="submit" value="Choose">
+        </form>
+      </div>
+    </div>
+  <?php
+  }
+  ?>
+  <form id="selectLang" action="updateLang.php" method="post">
+    <select name="lang">
+      <option value="en">English 🇺🇸</option>
+      <option value="ar">Arabic 🇸🇦</option>
+    </select>
+    <input type="submit" value="Choose">
+  </form>
   <!-- Start Header -->
   <div id="header" class="header">
     <div class="container">
@@ -37,12 +68,12 @@
         <i class="fa-solid fa-bars"></i>
       </div>
       <ul class="links">
-        <li><a class="les-liens" href="#home">Home</a></li>
-        <li><a class="les-liens" href="#About">About</a></li>
-        <li><a class="les-liens" href="#Impact">Impact</a></li>
-        <li><a class="les-liens" href="#Help">Help us</a></li>
-        <li><a class="les-liens" href="#App">Our App</a></li>
-        <li><a class="les-liens" href="#Contact">Contact us</a></li>
+        <li><a class="les-liens" href="#home"><?= $lang["Home"] ?></a></li>
+        <li><a class="les-liens" href="#About"><?= $lang["About"] ?></a></li>
+        <li><a class="les-liens" href="#Impact"><?= $lang["Impact"] ?></a></li>
+        <li><a class="les-liens" href="#Help"><?= $lang["Help"] ?></a></li>
+        <li><a class="les-liens" href="#App"><?= $lang["App"] ?></a></li>
+        <li><a class="les-liens" href="#Contact"><?= $lang["Contact"] ?></a></li>
       </ul>
 
 
@@ -50,12 +81,12 @@
 
   </div>
   <ul id="menu" class="menu">
-    <li><a href="#home">Home</a></li>
-    <li><a href="#About">About</a></li>
-    <li><a href="#Impact">Impact</a></li>
-    <li><a href="#Help">Help us</a></li>
-    <li><a href="#App">Our App</a></li>
-    <li><a href="#Contact">Contact us</a></li>
+    <li><a href="#home"><?= $lang["Home"] ?></a></li>
+    <li><a href="#About"><?= $lang["About"] ?></a></li>
+    <li><a href="#Impact"><?= $lang["Impact"] ?></a></li>
+    <li><a href="#Help"><?= $lang["Help"] ?></a></li>
+    <li><a href="#App"><?= $lang["App"] ?></a></li>
+    <li><a href="#Contact"><?= $lang["Contact"] ?></a></li>
   </ul>
   <!-- End Header -->
   <!-- Start landing -->
@@ -66,15 +97,14 @@
     </video>
     <div class="container">
       <div class="text">
-        <h1>Protecting Our Valleys, Saving Our Seas</h1>
+        <h1><?= $lang["heroText"] ?></h1>
         <p>
-          Smart Net stops waste in valleys before it pollutes the ocean.
-          Together, we can protect marine life and create a cleaner planet
+          <?= $lang["heroTextp"] ?>
         </p>
       </div>
       <div class="buttons">
-        <a href="#Help">Get Involved</a>
-        <a href="#About">Lear More</a>
+        <a href="#Help"><?= $lang["landingBtn1"] ?></a>
+        <a href="#About"><?= $lang["landingBtn2"] ?></a>
       </div>
     </div>
   </div>
@@ -89,20 +119,15 @@
   <!-- About section -->
   <div id="About" class="about">
     <div class="main-heading">
-      <h2>About us</h2>
+      <h2><?= $lang["About"] ?></h2>
     </div>
     <div class="container">
       <div class="text">
-        <h3>Our Mission</h3>
+        <h3><?= $lang["mission"] ?></h3>
         <p>
-          Smart Net is an innovative solution designed to stop waste from
-          reaching the ocean. Using advanced net technology, Smart Net
-          intercepts garbage in valleys and waterways, preventing pollution at
-          its source. Our goal is simple: protect marine ecosystems and keep
-          our waters clean through smart, efficient, and sustainable
-          solutions.
+          <?= $lang["missionP"] ?>
         </p>
-        <a href="team.html">Check Our Team !</a>
+        <a href="team.html"><?= $lang["team"] ?></a>
       </div>
       <div class="image">
         <img loading="lazy" src="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/zratzoydcpm8txecwejl" alt="" />
@@ -113,14 +138,14 @@
   <!-- Start stats -->
   <div id="Impact" class="stats">
     <div class="main-heading">
-      <h2>Impact</h2>
+      <h2><?= $lang["Impact"] ?></h2>
     </div>
     <div class="container">
       <div class="stats-list">
         <div class="box">
           <i class="fa-solid fa-water"></i>
           <h4 unit="" number="150">0</h4>
-          <p>Valleys Cleaned</p>
+          <p><?= $lang["Valleys Cleaned"] ?></p>
         </div>
         <div class="box">
           <svg xmlns="http://www.w3.org/2000/svg" width="28px" height="28px" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1)">
@@ -128,18 +153,18 @@
           </svg>
           <h4 number="135">0</h4>
           <span>kg</span>
-          <p>Garbage Collected</p>
+          <p><?= $lang["Garbage Collected"] ?></p>
         </div>
         <div class="box">
           <i class="fa-solid fa-people-group"></i>
           <h4 number="50">0</h4>
-          <p>People Voluntered</p>
+          <p><?= $lang["People Voluntered"] ?></p>
         </div>
         <div class="box">
           <i class="fa-solid fa-droplet"></i>
           <h4 unit="L" number="500">0</h4>
           <span>L</span>
-          <p>Water Saved</p>
+          <p><?= $lang["Water Saved"] ?></p>
         </div>
       </div>
     </div>
@@ -148,7 +173,7 @@
   <!-- Start help us -->
   <div id="Help" class="help">
     <div class="main-heading">
-      <h2>Help Us</h2>
+      <h2><?= $lang["Help"] ?></h2>
     </div>
     <div class="container">
       <div class="box">
@@ -156,27 +181,25 @@
           <img loading="lazy" src="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/ecxnnvjqcpjoqgivjfyt" alt="" />
         </div>
         <div class="text">
-          <h3>Volunteer</h3>
+          <h3><?= $lang["Volunteer"] ?></h3>
           <p>
-            Help protect our environment by joining cleanup events and making
-            a difference in our valleys.
+            <?= $lang["VolunteerP"] ?>
           </p>
         </div>
-        <div class="button"><a href="events.php">Get Involved</a></div>
+        <div class="button"><a href="events.php"><?= $lang["landingBtn1"] ?></a></div>
       </div>
       <div class="box">
         <div id="image-donate" class="image">
           <img loading="lazy" src="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/pxkeitacgkh3uellux6p" alt="" />
         </div>
         <div class="text">
-          <h3>Donate</h3>
+          <h3><?= $lang["Donate"] ?></h3>
           <p>
-            Your donation supports projects to protect valleys and promote
-            environmental awareness.
+            <?= $lang["DonateP"] ?>
           </p>
         </div>
         <div class="button">
-          <a id="button-donate" href="donation.php">Donate</a>
+          <a id="button-donate" href="donation.php"><?= $lang["Donate"] ?></a>
         </div>
       </div>
       <div class="box">
@@ -184,14 +207,13 @@
           <img loading="lazy" src="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/cgtfejw3sreqrlitclzg" alt="" />
         </div>
         <div class="text">
-          <h3>Report A Valley</h3>
+          <h3><?= $lang["Report"] ?></h3>
           <p>
-            Report pollution or concerns in valleys to help us take quick
-            action for restoration.
+            <?= $lang["ReportP"] ?>
           </p>
         </div>
         <div class="button">
-          <a id="button-report" href="report.php">Report</a>
+          <a id="button-report" href="report.php"><?= $lang["ReportBtn"] ?></a>
         </div>
       </div>
     </div>
@@ -200,16 +222,13 @@
   <!-- Start app -->
   <div id="App" class="app">
     <div class="main-heading">
-      <h2>Our App</h2>
+      <h2><?= $lang["App"] ?></h2>
     </div>
     <div class="container">
       <div class="text">
-        <h3>Try Our App !</h3>
+        <h3><?= $lang["Try Our App !"] ?></h3>
         <p>
-          Experience Smart Net on the go! Download our app and stay connected
-          to real-time updates, environmental initiatives, and innovative
-          solutions to protect our valleys. Join us in making a lasting impact
-          with just a tap.
+          <?= $lang["TryP"] ?>
         </p>
         <div class="download">
           <a href=""><img src="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/tpxi0pkrbat62sbtfvvm" alt="" /></a>
@@ -226,16 +245,14 @@
   <!-- Start contact us -->
   <div id="Contact" class="contact">
     <div class="main-heading">
-      <h2>Contact Us</h2>
+      <h2><?= $lang["Contact"] ?></h2>
     </div>
     <div class="container">
       <div class="part1">
         <div class="text">
-          <h3>Get In Touch With Us</h3>
+          <h3><?= $lang["Get In Touch With Us"] ?></h3>
           <p>
-            We'd love to hear from you! Whether you have questions,
-            suggestions, or just want to share your thoughts, feel free to
-            reach out. Our team is here to help and connect with you.
+            <?= $lang["TouchP"] ?>
           </p>
         </div>
         <div class="socials">
@@ -246,11 +263,11 @@
         <div class="details">
           <div class="dt">
             <i class="fa-solid fa-location-dot"></i>
-            <p>Hammamet</p>
+            <p><?= $lang["Hammamet"] ?></p>
           </div>
           <div class="dt">
             <i class="fa-solid fa-clock"></i>
-            <p>Business Hours: From 9:00 To 18:00</p>
+            <p><?= $lang["Business Hours"] ?></p>
           </div>
           <div class="dt">
             <i class="fa-solid fa-phone"></i>
@@ -263,13 +280,9 @@
           <input type="text" placeholder="Full Name" name="fullname" id="contact_fullname" required />
           <input type="email" placeholder="Email" name="email" id="contact_email" required />
           <textarea name="description" placeholder="Message" id="contact_description" cols="30" rows="10" required></textarea>
-          <input type="submit" value="Send" name="" id="" />
+          <input type="submit" value="<?= $lang["Send"] ?>" name="" id="" />
         </form>
       </div>
-    </div>
-    <div class="contact-sent">
-      <span>Feedback sent !</span>
-      <i class="fa-solid fa-circle-check"></i>
     </div>
   </div>
   <!-- end contact us -->

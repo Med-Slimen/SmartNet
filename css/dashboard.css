@@ -73,6 +73,9 @@ a:visited{
     width: 100%;
     height: 100%;
 }
+.dashboard,.events,.reports,.donations{
+    padding: 15px;
+}
 .menu{
     padding: 20px;
     background-color: #f9f9f9;
@@ -150,9 +153,6 @@ a:visited{
     width: 83%;
     background-color: #ededed;
 }
-.iframes_screen{
-    padding: 15px;
-}
 .mobile-menu{
     display: none;
     cursor: pointer;
@@ -204,7 +204,7 @@ a:visited{
         width: 100%;
         position: relative;
         left: 0%;
-        padding-top: 50px;
+        top: 30px;
     }
     .mobile-menu{
         position: fixed;
@@ -724,6 +724,7 @@ tbody tr:nth-child(even){
     visibility: hidden;
     opacity: 0;
     z-index: 2;
+    overflow: auto;
     transition: var(--trans);
     position: fixed;
     left: 50%;
@@ -733,6 +734,7 @@ tbody tr:nth-child(even){
     top: 50%;
     transform: scale(0.7) translate(-50%,-50%);
     min-height: 300px;
+    max-height: 100%;
     box-shadow: 1px 0px 12px -4px black;
 }
 .box-details .text{

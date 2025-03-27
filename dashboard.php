@@ -63,7 +63,7 @@ if (isset($_COOKIE["token"])) {
           Reports</li>
         <li class="menu_links" tabName="contact" notification="0" onclick="showContact(this)" id="contactBtn"><i class="fa-solid fa-envelope-open-text"></i>
           Contact Submissions</li>
-        <li onclick="showSetting()" id="settingBtn"><i class="fa-solid fa-gear"></i>
+        <li onclick="showSetting(this)" tabName="settings" notification="0" id="settingBtn"><i class="fa-solid fa-gear"></i>
           Settings</li>
       </ul>
     </div>
@@ -123,6 +123,7 @@ if (isset($_COOKIE["token"])) {
       <iframe id="iframe_reports" src="reportPanel.php" style="width: 100%; height: calc( 100vh - 125px ); border: none; display:none"></iframe>
 
       <iframe id="iframe_contact" src="contactPanel.php" style="width: 100%; height: calc( 100vh - 125px ); border: none; display:none"></iframe>
+      <iframe id="iframe_settings" src="settingsPanel.php" style="width: 100%; height: calc( 100vh - 125px ); border: none; display:none ;"></iframe>
     </div>
   </div>
 </body>

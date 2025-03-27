@@ -206,20 +206,6 @@ function setEventImage() {
     eventName.innerHTML = localStorage.getItem("eventName");
   }
 }
-function reportCheck() {
-  showLoad();
-  let file = document.getElementById("file").files[0];
-  let fileimg = document.getElementById("fileimg");
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = function (event) {
-      fileimg.value = event.target.result;
-      document.getElementById("form").submit();
-    };
-    reader.readAsDataURL(file);
-    return false;
-  }
-}
 function sendFeedback(event) {
   event.preventDefault();
   let fullname = document.getElementById("contact_fullname").value;
@@ -251,49 +237,6 @@ function sendFeedback(event) {
       });
   }, 2000);
 }
-// function registerEvent(event) {
-//   event.preventDefault();
-//   let register_eventId = document.getElementById("register_eventId").value;
-//   let register_fname = document.getElementById("register_fname").value;
-//   let register_lname = document.getElementById("register_lname").value;
-//   let register_email = document.getElementById("register_email").value;
-//   let male = document.getElementById("male").checked;
-//   let gender = male ? "Male" : "Female";
-//   let form = new FormData();
-//   form.append("register_eventId", register_eventId);
-//   form.append("register_fname", register_fname);
-//   form.append("register_lname", register_lname);
-//   form.append("register_email", register_email);
-//   form.append("gender", gender);
-//   fetch("registerEvent.php", {
-//     method: "POST",
-//     body: form,
-//   })
-//     .then((response) => response.text())
-//     .then((data) => {
-//       if (data === "duplicate") {
-//         Swal.fire({
-//           title: "Whoops...",
-//           text: "You already registered to this event",
-//           icon: "warning",
-//         });
-//       } else if (data == "inserted") {
-//         Swal.fire({
-//           title: "Thank you",
-//           text: "Your've been registered to this event ! Check your email for more details (make sure to check the spam) !",
-//           icon: "success",
-//         });
-//         document.getElementById("register_event_form").reset();
-//       } else if (data == "error") {
-//         Swal.fire({
-//           icon: "error",
-//           title: "Oops...",
-//           text: "Something went wrong!",
-//           footer: '<a href="#">Why do I have this issue?</a>',
-//         });
-//       }
-//     });
-// }
 function showLoad() {
   let load = document.getElementById("load");
   let ovelray = document.getElementById("overlay");
@@ -307,4 +250,7 @@ function unShowLoad() {
   load.style.display = "none";
   ovelray.style.opacity = "0";
   ovelray.style.display = "none";
+}
+function checkReport() {
+  showLoad();
 }

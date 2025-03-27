@@ -31,32 +31,32 @@
   <div id="header" class="header">
     <div class="container">
       <div class="logo">
-        <a href="index.html"><img src="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/mwlldu11prcamv90qmul" alt="" /></a>
+        <a href="index.php"><img src="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/mwlldu11prcamv90qmul" alt="" /></a>
       </div>
       <div onclick="showMenu()" id="bars" class="bars">
         <i class="fa-solid fa-bars"></i>
       </div>
       <ul class="links">
-        <li><a class="les-liens" href="index.html#home">Home</a></li>
-        <li><a class="les-liens" href="index.html#About">About</a></li>
-        <li><a class="les-liens" href="index.html#Impact">Impact</a></li>
-        <li><a class="les-liens" href="index.html#Help">Help us</a></li>
-        <li><a class="les-liens" href="index.html#App">Our App</a></li>
-        <li><a class="les-liens" href="index.html#Contact">Contact us</a></li>
+        <li><a class="les-liens" href="index.php#home">Home</a></li>
+        <li><a class="les-liens" href="index.php#About">About</a></li>
+        <li><a class="les-liens" href="index.php#Impact">Impact</a></li>
+        <li><a class="les-liens" href="index.php#Help">Help us</a></li>
+        <li><a class="les-liens" href="index.php#App">Our App</a></li>
+        <li><a class="les-liens" href="index.php#Contact">Contact us</a></li>
       </ul>
     </div>
   </div>
   <ul id="menu" class="menu">
-    <li><a href="index.html#home">Home</a></li>
-    <li><a href="index.html#About">About</a></li>
-    <li><a href="index.html#Impact">Impact</a></li>
-    <li><a href="index.html#Help">Help us</a></li>
-    <li><a href="index.html#App">Our App</a></li>
-    <li><a href="index.html#Contact">Contact us</a></li>
+    <li><a href="index.php#home">Home</a></li>
+    <li><a href="index.php#About">About</a></li>
+    <li><a href="index.php#Impact">Impact</a></li>
+    <li><a href="index.php#Help">Help us</a></li>
+    <li><a href="index.php#App">Our App</a></li>
+    <li><a href="index.php#Contact">Contact us</a></li>
   </ul>
   <!-- End Header -->
   <div class="report">
-    <a id="backButton" href="index.html#Help">
+    <a id="backButton" href="index.php#Help">
       Back
     </a>
     <div class="main-heading">
@@ -69,7 +69,7 @@
     </p>
     <div class="container">
       <div class="form">
-        <form action="reports.php" method="post" id="form" onsubmit="return reportCheck()">
+        <form action="reports.php" method="post" id="form" onsubmit="return checkReport()" enctype="multipart/form-data">
           <label for="">Full Name</label>
           <input type="text" placeholder="Enter Your Full Name" name="fullname" id="fullname" required />
           <label for="">Email </label>
@@ -86,7 +86,7 @@
           <label for="">Description</label>
           <textarea name="description" placeholder="Profide additional details" id="" cols="30" rows="10" required></textarea>
           <label for="">Attach a photo</label>
-          <input type="file" name="file" id="file" />
+          <input type="file" name="report_img" id="report_img" accept="image/*" />
           <input type="hidden" name="fileimg" id="fileimg" />
           <input type="submit" name="" id="" />
         </form>

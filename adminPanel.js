@@ -118,6 +118,7 @@ function showDash(element) {
   document.getElementById("iframe_donations").style.display = "none";
   document.getElementById("iframe_reports").style.display = "none";
   document.getElementById("iframe_contact").style.display = "none";
+  document.getElementById("iframe_settings").style.display = "none";
   document.getElementById("dashBtn").classList.add("clicked");
   document.getElementById("eventBtn").classList.remove("clicked");
   document.getElementById("donationBtn").classList.remove("clicked");
@@ -138,6 +139,7 @@ function showEvents(element) {
   document.getElementById("iframe_donations").style.display = "none";
   document.getElementById("iframe_reports").style.display = "none";
   document.getElementById("iframe_contact").style.display = "none";
+  document.getElementById("iframe_settings").style.display = "none";
   document.getElementById("dashBtn").classList.remove("clicked");
   document.getElementById("eventBtn").classList.add("clicked");
   document.getElementById("donationBtn").classList.remove("clicked");
@@ -158,6 +160,7 @@ function showDonations(element) {
   document.getElementById("iframe_donations").style.display = "block";
   document.getElementById("iframe_reports").style.display = "none";
   document.getElementById("iframe_contact").style.display = "none";
+  document.getElementById("iframe_settings").style.display = "none";
   document.getElementById("dashBtn").classList.remove("clicked");
   document.getElementById("eventBtn").classList.remove("clicked");
   document.getElementById("donationBtn").classList.add("clicked");
@@ -178,6 +181,7 @@ function showReports(element) {
   document.getElementById("iframe_donations").style.display = "none";
   document.getElementById("iframe_reports").style.display = "block";
   document.getElementById("iframe_contact").style.display = "none";
+  document.getElementById("iframe_settings").style.display = "none";
   document.getElementById("dashBtn").classList.remove("clicked");
   document.getElementById("eventBtn").classList.remove("clicked");
   document.getElementById("donationBtn").classList.remove("clicked");
@@ -198,6 +202,7 @@ function showContact(element) {
   document.getElementById("iframe_donations").style.display = "none";
   document.getElementById("iframe_reports").style.display = "none";
   document.getElementById("iframe_contact").style.display = "block";
+  document.getElementById("iframe_settings").style.display = "none";
   document.getElementById("dashBtn").classList.remove("clicked");
   document.getElementById("eventBtn").classList.remove("clicked");
   document.getElementById("donationBtn").classList.remove("clicked");
@@ -205,18 +210,39 @@ function showContact(element) {
   document.getElementById("contactBtn").classList.add("clicked");
   document.getElementById("settingBtn").classList.remove("clicked");
 }
+function showSetting(element) {
+  element.setAttribute("notification", 0);
+  fetch("updateNotification.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: `tabName=${element.getAttribute("tabName")}`,
+  }).catch((error) => console.error("Error:", error));
+  document.getElementById("iframe_contact").src = "contactPanel.php";
+  document.getElementById("iframe_dashboard").style.display = "none";
+  document.getElementById("iframe_events").style.display = "none";
+  document.getElementById("iframe_donations").style.display = "none";
+  document.getElementById("iframe_reports").style.display = "none";
+  document.getElementById("iframe_contact").style.display = "none";
+  document.getElementById("iframe_settings").style.display = "block";
+  document.getElementById("dashBtn").classList.remove("clicked");
+  document.getElementById("eventBtn").classList.remove("clicked");
+  document.getElementById("donationBtn").classList.remove("clicked");
+  document.getElementById("reportBtn").classList.remove("clicked");
+  document.getElementById("contactBtn").classList.remove("clicked");
+  document.getElementById("settingBtn").classList.add("clicked");
+}
 function showImg() {
   let imgUrl = document.getElementById("showimg").getAttribute("img_src");
   let showImgDiv = document.querySelector(".reports .imgShow");
   showImgDiv.style.visibility = "visible";
   showImgDiv.style.opacity = "1";
   showImgDiv.style.transform = "scale(1) translate(-50%,-50%)";
-  if (imgUrl != "No Image Attached") {
-    document.getElementById("attachedPhoto").src = imgUrl;
-    document.getElementById("noimg").innerHTML = "";
-  } else {
+  if (imgUrl == "") {
     document.getElementById("noimg").innerHTML = "No Image Attached";
     document.getElementById("attachedPhoto").src = "";
+  } else {
+    document.getElementById("attachedPhoto").src = imgUrl;
+    document.getElementById("noimg").innerHTML = "";
   }
 }
 function hideImg() {

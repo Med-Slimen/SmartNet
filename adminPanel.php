@@ -51,16 +51,14 @@ if (isset($_COOKIE["token"])) {
   <div id="header" class="header">
     <div class="container">
       <div class="logo">
-        <a href="index.html"><img src="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/mwlldu11prcamv90qmul" alt="" /></a>
-      </div>
-      <div onclick="showMenu()" id="bars" class="bars">
-        <i class="fa-solid fa-bars"></i>
+        <a href="index.php"><img src="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/mwlldu11prcamv90qmul" alt="" /></a>
       </div>
       <ul class="links">
-        <li><a class="les-liens" href="#home">Back to client side</a></li>
+        <li><a class="les-liens" href="index.php#home">Back to client side</a></li>
       </ul>
     </div>
   </div>
+  <div class="bars"></div>
   <ul id="menu" class="menu">
     <li><a href="#home">Back to client side</a></li>
   </ul>

@@ -31,23 +31,31 @@ include 'connect.php';
         <h1>Reports</h1>
         <div class="reports-list">
             <?php
-            $rp_qeury = $conn->prepare("SELECT * FROM reports ORDER BY id_report DESC");
+            $rp_qeury = $conn->prepare("SELECT* FROM reports ORDER BY id_report DESC");
             $rp_qeury->execute();
             $res = $rp_qeury->get_result();
-            while ($rp = $res->fetch_assoc()) {
+            if ($res->num_rows > 0) {
+                while ($rp = $res->fetch_assoc()) {
             ?>
-                <div class="box">
-                    <div class="text">
-                        <i class="fa-solid fa-envelope"></i>
-                        <span>Report From <?php echo ($rp["report_fullname"]) ?> </span>
-                    </div>
-                    <div class="button">
-                        <button onclick="showReport('<?php echo ($rp['report_fullname']) ?>','<?php echo ($rp['report_email']) ?>','<?php echo ($rp['report_location']) ?>','<?php echo ($rp['report_issue_type']) ?>','<?php echo ($rp['report_description']) ?>','<?php echo ($rp['report_img']) ?>')">More Details</button>
-                        <button id="delbtn" onclick="showConf('<?php echo ($rp['id_report']) ?>','idReport')" class="delbt">
-                            Delete
-                        </button>
+                    <div class="box">
+                        <div class="text">
+                            <i class="fa-solid fa-envelope"></i>
+                            <span>Report From <?php echo ($rp["report_fullname"]) ?> </span>
+                        </div>
+                        <div class="button">
+                            <button onclick="showReport('<?php echo ($rp['report_fullname']) ?>','<?php echo ($rp['report_email']) ?>','<?php echo ($rp['report_location']) ?>','<?php echo ($rp['report_issue_type']) ?>','<?php echo ($rp['report_description']) ?>','<?php echo ($rp['report_img']) ?>')">More Details</button>
+                            <button id="delbtn" onclick="showConf('<?php echo ($rp['id_report']) ?>','idReport')" class="delbt">
+                                Delete
+                            </button>
 
+                        </div>
                     </div>
+                <?php
+                }
+            } else {
+                ?>
+                <div class="noContact">
+                    <h2 style="text-align: center; margin-top:50px;">There is no Report at the moment</h2>
                 </div>
             <?php
             }

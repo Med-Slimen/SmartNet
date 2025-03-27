@@ -31,28 +31,28 @@
   <div id="header" class="header">
     <div class="container">
       <div class="logo">
-        <a href="index.html"><img src="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/mwlldu11prcamv90qmul" alt="" /></a>
+        <a href="index.php"><img src="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/mwlldu11prcamv90qmul" alt="" /></a>
       </div>
       <div onclick="showMenu()" id="bars" class="bars">
         <i class="fa-solid fa-bars"></i>
       </div>
       <ul class="links">
-        <li><a class="les-liens" href="index.html#home">Home</a></li>
-        <li><a class="les-liens" href="index.html#About">About</a></li>
-        <li><a class="les-liens" href="index.html#Impact">Impact</a></li>
-        <li><a class="les-liens" href="index.html#Help">Help us</a></li>
-        <li><a class="les-liens" href="index.html#App">Our App</a></li>
-        <li><a class="les-liens" href="index.html#Contact">Contact us</a></li>
+        <li><a class="les-liens" href="index.php#home">Home</a></li>
+        <li><a class="les-liens" href="index.php#About">About</a></li>
+        <li><a class="les-liens" href="index.php#Impact">Impact</a></li>
+        <li><a class="les-liens" href="index.php#Help">Help us</a></li>
+        <li><a class="les-liens" href="index.php#App">Our App</a></li>
+        <li><a class="les-liens" href="index.php#Contact">Contact us</a></li>
       </ul>
     </div>
   </div>
   <ul id="menu" class="menu">
-    <li><a href="index.html#home">Home</a></li>
-    <li><a href="index.html#About">About</a></li>
-    <li><a href="index.html#Impact">Impact</a></li>
-    <li><a href="index.html#Help">Help us</a></li>
-    <li><a href="index.html#App">Our App</a></li>
-    <li><a href="index.html#Contact">Contact us</a></li>
+    <li><a href="index.php#home">Home</a></li>
+    <li><a href="index.php#About">About</a></li>
+    <li><a href="index.php#Impact">Impact</a></li>
+    <li><a href="index.php#Help">Help us</a></li>
+    <li><a href="index.php#App">Our App</a></li>
+    <li><a href="index.php#Contact">Contact us</a></li>
   </ul>
   <!-- End Header -->
   <div class="eventform">
