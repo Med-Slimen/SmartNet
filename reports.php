@@ -33,16 +33,22 @@ if ($_POST["fullname"]) {
             $query3 = $conn->prepare("UPDATE noti SET noti_count=noti_count+1 WHERE noti_name='report'");
             $query3->execute();
             if ($query3->affected_rows > 0) {
-                $_SESSION['status'] = "Your report has been sent successfully !";
+                $_SESSION['status'] = "done";
                 header("Location: {$_SERVER["HTTP_REFERER"]}");
                 exit(0);
             } else {
-                echo ("<script>alert('server probleme')</script>");
+                $_SESSION['status'] = "error";
+                header("Location: {$_SERVER["HTTP_REFERER"]}");
+                exit(0);
             }
         } else {
-            echo ("<script>alert('server probleme')</script>");
+            $_SESSION['status'] = "error";
+            header("Location: {$_SERVER["HTTP_REFERER"]}");
+            exit(0);
         }
     } else {
-        echo ("error");
+        $_SESSION['status'] = "error";
+        header("Location: {$_SERVER["HTTP_REFERER"]}");
+        exit(0);
     }
 }

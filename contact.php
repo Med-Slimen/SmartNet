@@ -1,5 +1,6 @@
 <?php
 include 'connect.php';
+session_start();
 if (isset($_POST["fullname"])) {
     $fullname = $_POST["fullname"];
     $email = $_POST["email"];
@@ -18,14 +19,20 @@ if (isset($_POST["fullname"])) {
             $query3 = $conn->prepare("UPDATE noti SET noti_count=noti_count+1 WHERE noti_name='contact'");
             $query3->execute();
             if ($query3->affected_rows > 0) {
-                echo ("done");
+                $_SESSION["sent"] = "sent";
+                header("Location: {$_SERVER["HTTP_REFERER"]}");
+                exit();
             } else {
-                echo ("<script>alert('server probleme')</script>");
+                $_SESSION["sent"] = "nope";
+                header("Location: {$_SERVER["HTTP_REFERER"]}");
+                exit();
             }
         } else {
-            echo ("<script>alert('server probleme')</script>");
+            header("Location: {$_SERVER["HTTP_REFERER"]}");
+            exit();
         }
     } else {
-        echo ("error");
+        header("Location: {$_SERVER["HTTP_REFERER"]}");
+        exit();
     }
 }

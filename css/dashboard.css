@@ -780,3 +780,43 @@ tbody tr:nth-child(even){
         margin: 0;
     }
 }
+/* Start settings */
+.settings{
+    padding: 10px;
+}
+.settings .settings-list{
+    background-color: rgb(226 226 226 / 58%);;
+}
+.settings .settings-list,.settings .settings-list .mini-setting select{
+    padding: 5px;
+}
+.settings .settings-list .mini-setting{
+    
+    padding: 5px;
+    font-size: 19px;
+}
+.settings .settings-list .mini-setting p{
+    font-size: 21px;
+    font-weight: bold;
+}
+.settings .settings-list .mini-setting form{
+    padding: 15px;
+}
+
+.settings .settings-list input:not(input[type="file"]){
+    padding: 5px;
+    margin: 10px;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid #777;
+    width: 200px;
+
+}
+.settings .settings-list input[type="submit"]{
+    padding: 10px;
+    margin: 0 auto;
+}
+.settings .settings-list .mini-setting input[type="file"]{
+    padding: 10px;
+    font-size: 17px;
+}

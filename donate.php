@@ -21,16 +21,22 @@ if (isset($_POST["full_name"])) {
             $query3 = $conn->prepare("UPDATE noti SET noti_count=noti_count+1 WHERE noti_name='donation'");
             $query3->execute();
             if ($query3->affected_rows > 0) {
-                $_SESSION['status'] = "Thank you for donating !";
+                $_SESSION['status'] = "done";
                 header("Location: {$_SERVER["HTTP_REFERER"]}");
                 exit(0);
             } else {
-                echo ("<script>alert('server probleme')</script>");
+                $_SESSION['status'] = "error";
+                header("Location: {$_SERVER["HTTP_REFERER"]}");
+                exit(0);
             }
         } else {
-            echo ("<script>alert('server probleme')</script>");
+            $_SESSION['status'] = "error";
+            header("Location: {$_SERVER["HTTP_REFERER"]}");
+            exit(0);
         }
     } else {
-        echo ("whoops....");
+        $_SESSION['status'] = "error";
+        header("Location: {$_SERVER["HTTP_REFERER"]}");
+        exit(0);
     }
 }

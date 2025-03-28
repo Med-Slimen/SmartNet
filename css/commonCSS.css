@@ -41,3 +41,16 @@
    background-color:white ;
    color: var(--first-color);
 }
+/* Language */
+#selectLang{
+   position: fixed;
+   left: 0;
+   z-index: 98;
+   top: 95px;
+}
+#selectLang select{
+   padding: 5px;
+}
+#selectLang input[type="submit"]{
+   padding: 5px;
+}

@@ -1,6 +1,13 @@
-<?php session_start(); ?>
+<?php
+$language = $_COOKIE["language"] ?? "en";
+include $language . '.php';
+include 'connect.php';
+$settings = $conn->prepare("SELECT setting_value as Logo FROM settings WHERE setting_name='Logo'");
+$settings->execute();
+$logo = (($settings->get_result())->fetch_assoc())['Logo'];
+session_start(); ?>
 <!DOCTYPE html>
-<html lang="en">
+<html dir=<?= $language == "en" ? "ltr" : "rtl" ?> lang="<?= $language ?>">
 
 <head>
   <meta charset="UTF-8" />
@@ -22,42 +29,48 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playwrite+IN:wght@100..400&display=swap" rel="stylesheet" />
-  <link rel="icon" type="image/png" href="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/mwlldu11prcamv90qmul" />
+  <link rel="icon" type="image/png" href="<?= $logo ?>" />
   <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
 </head>
 
 <body onload="menu()">
+  <form id="selectLang" action="updateLang.php" method="post">
+    <select name="lang" onchange="this.form.submit()">
+      <option value="<?= $language ?>"><?= $language == "en" ? "English 🇺🇸" : "Arabic 🇸🇦" ?></option>
+      <option value="<?= $language == "en" ? "ar" : "en" ?>"><?= $language == "en" ? "Arabic 🇸🇦" : "English 🇺🇸" ?></option>
+    </select>
+  </form>
   <!-- Start Header -->
   <div id="header" class="header">
     <div class="container">
       <div class="logo">
-        <a href="index.php"><img src="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/mwlldu11prcamv90qmul" alt="" /></a>
+        <a href="index.php"><img src="<?= $logo ?>" alt="" /></a>
       </div>
       <div onclick="showMenu()" id="bars" class="bars">
         <i class="fa-solid fa-bars"></i>
       </div>
       <ul class="links">
-        <li><a class="les-liens" href="index.php#home">Home</a></li>
-        <li><a class="les-liens" href="index.php#About">About</a></li>
-        <li><a class="les-liens" href="index.php#Impact">Impact</a></li>
-        <li><a class="les-liens" href="index.php#Help">Help us</a></li>
-        <li><a class="les-liens" href="index.php#App">Our App</a></li>
-        <li><a class="les-liens" href="index.php#Contact">Contact us</a></li>
+        <li><a class="les-liens" href="index.php#home"><?= $lang["Home"] ?></a></li>
+        <li><a class="les-liens" href="index.php#About"><?= $lang["About"] ?></a></li>
+        <li><a class="les-liens" href="index.php#Impact"><?= $lang["Impact"] ?></a></li>
+        <li><a class="les-liens" href="index.php#Help"><?= $lang["Help"] ?></a></li>
+        <li><a class="les-liens" href="index.php#App"><?= $lang["App"] ?></a></li>
+        <li><a class="les-liens" href="index.php#Contact"><?= $lang["Contact"] ?></a></li>
       </ul>
     </div>
   </div>
   <ul id="menu" class="menu">
-    <li><a href="index.php#home">Home</a></li>
-    <li><a href="index.php#About">About</a></li>
-    <li><a href="index.php#Impact">Impact</a></li>
-    <li><a href="index.php#Help">Help us</a></li>
-    <li><a href="index.php#App">Our App</a></li>
-    <li><a href="index.php#Contact">Contact us</a></li>
+    <li><a class="les-liens" href="index.php#home"><?= $lang["Home"] ?></a></li>
+    <li><a class="les-liens" href="index.php#About"><?= $lang["About"] ?></a></li>
+    <li><a class="les-liens" href="index.php#Impact"><?= $lang["Impact"] ?></a></li>
+    <li><a class="les-liens" href="index.php#Help"><?= $lang["Help"] ?></a></li>
+    <li><a class="les-liens" href="index.php#App"><?= $lang["App"] ?></a></li>
+    <li><a class="les-liens" href="index.php#Contact"><?= $lang["Contact"] ?></a></li>
   </ul>
   <!-- End Header -->
   <div class="eventform">
     <a id="backButton" href="events.php">
-      Back
+      <?= $lang["Back"] ?>
     </a>
     <div class="details">
 
@@ -68,24 +81,20 @@
         <h3></h3>
       </div>
       <div class="form">
-        <h3>Enter Your Information</h3>
+        <h3><?= $lang["Enter Your Information"] ?></h3>
 
         <form method="post" id="register_event_form" action="registerEvent.php" onsubmit="showLoad()">
           <input type="hidden" id="register_eventId" name="register_eventId" />
-          <input type="text" placeholder="First Name here" name="register_fname" id="register_fname" required />
-          <input type="text" placeholder="Last Name here" name="register_lname" id="register_lname" required />
-          <input type="email" placeholder="Email Here" name="register_email" id="register_email" required />
-          <label for="">Gender : </label>
+          <input type="text" placeholder="<?= $lang["First Name here"] ?>" name="register_fname" id="register_fname" required />
+          <input type="text" placeholder="<?= $lang["Last Name here"] ?>" name="register_lname" id="register_lname" required />
+          <input type="email" placeholder="<?= $lang["Email"] ?>" name="register_email" id="register_email" required />
+          <label for=""><?= $lang["Gender :"] ?> </label>
           <input type="radio" value="male" name="gender" id="male" required />
-          <label for="">Male</label>
+          <label for=""><?= $lang["Male"] ?></label>
           <input type="radio" value="female" name="gender" id="female" required />
-          <label for="">Female</label>
-          <input type="submit" value="Register" name="" id="" />
+          <label for=""><?= $lang["Female"] ?></label>
+          <input type="submit" value="<?= $lang["Register"] ?>" name="" id="" />
         </form>
-      </div>
-      <div class="event_register">
-        <span>fff</span>
-        <i class="fa-solid fa-circle-check"></i>
       </div>
     </div>
   </div>
@@ -97,23 +106,22 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   <script>
     let messageText = "<?= $_SESSION['status'] ?? '' ?>";
-    console.log(messageText);
     if (messageText == 'inserted') {
       Swal.fire({
-        title: "Thank you",
-        text: "Thank you for registring",
+        title: "<?= $lang["Done"] ?>",
+        text: "<?= $lang["Thank you for registring"] ?>",
         icon: "success"
       });
     } else if (messageText == 'duplicate') {
       Swal.fire({
-        title: "Oops...",
-        text: "You already registred in this event",
+        title: "<?= $lang["Oops..."] ?>",
+        text: "<?= $lang["You already registred in this event"] ?>",
         icon: "warning"
       });
     } else if (messageText == 'error') {
       Swal.fire({
-        title: "Oops...",
-        text: "Something went wrong",
+        title: "<?= $lang["Oops..."] ?>",
+        text: "<?= $lang["Something went wrong"] ?>",
         icon: "error"
       });
     }

@@ -1,6 +1,13 @@
-<?php session_start(); ?>
+<?php
+$language = $_COOKIE["language"] ?? "en";
+include $language . '.php';
+include 'connect.php';
+$settings = $conn->prepare("SELECT setting_value as Logo FROM settings WHERE setting_name='Logo'");
+$settings->execute();
+$logo = (($settings->get_result())->fetch_assoc())['Logo'];
+session_start(); ?>
 <!DOCTYPE html>
-<html lang="en">
+<html dir=<?= $language == "en" ? "ltr" : "rtl" ?> lang="<?= $language ?>">
 
 <head>
   <meta charset="UTF-8" />
@@ -22,73 +29,78 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playwrite+IN:wght@100..400&display=swap" rel="stylesheet" />
-  <link rel="icon" type="image/png" href="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/mwlldu11prcamv90qmul" />
+  <link rel="icon" type="image/png" href="<?= $logo ?>" />
   <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
 </head>
 
 <body onload="menu()">
+  <form id="selectLang" action="updateLang.php" method="post">
+    <select name="lang" onchange="this.form.submit()">
+      <option value="<?= $language ?>"><?= $language == "en" ? "English 🇺🇸" : "Arabic 🇸🇦" ?></option>
+      <option value="<?= $language == "en" ? "ar" : "en" ?>"><?= $language == "en" ? "Arabic 🇸🇦" : "English 🇺🇸" ?></option>
+    </select>
+  </form>
   <!-- Start Header -->
   <div id="header" class="header">
     <div class="container">
       <div class="logo">
-        <a href="index.php"><img src="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/mwlldu11prcamv90qmul" alt="" /></a>
+        <a href="index.php"><img src="<?= $logo ?>" alt="" /></a>
       </div>
       <div onclick="showMenu()" id="bars" class="bars">
         <i class="fa-solid fa-bars"></i>
       </div>
       <ul class="links">
-        <li><a class="les-liens" href="index.php#home">Home</a></li>
-        <li><a class="les-liens" href="index.php#About">About</a></li>
-        <li><a class="les-liens" href="index.php#Impact">Impact</a></li>
-        <li><a class="les-liens" href="index.php#Help">Help us</a></li>
-        <li><a class="les-liens" href="index.php#App">Our App</a></li>
-        <li><a class="les-liens" href="index.php#Contact">Contact us</a></li>
+        <li><a class="les-liens" href="index.php#home"><?= $lang["Home"] ?></a></li>
+        <li><a class="les-liens" href="index.php#About"><?= $lang["About"] ?></a></li>
+        <li><a class="les-liens" href="index.php#Impact"><?= $lang["Impact"] ?></a></li>
+        <li><a class="les-liens" href="index.php#Help"><?= $lang["Help"] ?></a></li>
+        <li><a class="les-liens" href="index.php#App"><?= $lang["App"] ?></a></li>
+        <li><a class="les-liens" href="index.php#Contact"><?= $lang["Contact"] ?></a></li>
       </ul>
     </div>
   </div>
   <ul id="menu" class="menu">
-    <li><a href="index.php#home">Home</a></li>
-    <li><a href="index.php#About">About</a></li>
-    <li><a href="index.php#Impact">Impact</a></li>
-    <li><a href="index.php#Help">Help us</a></li>
-    <li><a href="index.php#App">Our App</a></li>
-    <li><a href="index.php#Contact">Contact us</a></li>
+    <li><a class="les-liens" href="index.php#home"><?= $lang["Home"] ?></a></li>
+    <li><a class="les-liens" href="index.php#About"><?= $lang["About"] ?></a></li>
+    <li><a class="les-liens" href="index.php#Impact"><?= $lang["Impact"] ?></a></li>
+    <li><a class="les-liens" href="index.php#Help"><?= $lang["Help"] ?></a></li>
+    <li><a class="les-liens" href="index.php#App"><?= $lang["App"] ?></a></li>
+    <li><a class="les-liens" href="index.php#Contact"><?= $lang["Contact"] ?></a></li>
   </ul>
   <!-- End Header -->
   <div class="report">
     <a id="backButton" href="index.php#Help">
-      Back
+      <?= $lang["Back"] ?>
     </a>
     <div class="main-heading">
-      <h2>Report A Valley</h2>
+      <h2> <?= $lang["Report A Valley"] ?></h2>
     </div>
 
     <p>
-      Help us keep our environment clean by reporting valley pollution or
-      hazards.
+      <?= $lang["Help us keep our environment clean by reporting valley pollution or hazards."] ?>
     </p>
     <div class="container">
       <div class="form">
         <form action="reports.php" method="post" id="form" onsubmit="return checkReport()" enctype="multipart/form-data">
-          <label for="">Full Name</label>
-          <input type="text" placeholder="Enter Your Full Name" name="fullname" id="fullname" required />
-          <label for="">Email </label>
-          <input type="email" placeholder="Enter Your Email" name="email" id="email" required />
-          <label for="">Location</label>
-          <input type="text" placeholder="Enter The Valley Location" name="location" id="" required />
-          <label for="">Type of Issue </label>
+          <label for=""><?= $lang["Full Name"] ?></label>
+          <input type="text" placeholder="<?= $lang["Full Name"] ?>" name="fullname" id="fullname" required />
+          <label for=""><?= $lang["Email"] ?></label>
+          <input type="email" placeholder="<?= $lang["Email"] ?>" name="email" id="email" required />
+          <label for=""><?= $lang["Valley Location"] ?></label>
+          <input type="text" placeholder="<?= $lang["Valley Location"] ?>" name="location" id="" required />
+          <label for=""><?= $lang["Type of Issue"] ?></label>
           <select name="issue" id="" required>
-            <option value="Littering">Littering</option>
-            <option value="Water Polluting">Water Polluting</option>
-            <option value="Blockage/Debris">Blockage/Debris</option>
-            <option value="Other">Other</option>
+            <option value="Littering"><?= $lang["Littering"] ?></option>
+            <option value="Water Polluting"><?= $lang["Water Polluting"] ?></option>
+            <option value="Blockage/Debris"><?= $lang["Blockage/Debris"] ?></option>
+            <option value="Other"><?= $lang["Other"] ?></option>
           </select>
-          <label for="">Description</label>
-          <textarea name="description" placeholder="Profide additional details" id="" cols="30" rows="10" required></textarea>
-          <label for="">Attach a photo</label>
+          <label for=""><?= $lang["Description"] ?></label>
+          <textarea name="description" placeholder="<?= $lang["Provide additional details"] ?>" id="" cols="30" rows="10" required></textarea>
+          <label for=""><?= $lang["Attach a photo ( optional )"] ?></label>
           <input type="file" name="report_img" id="report_img" accept="image/*" />
           <input type="hidden" name="fileimg" id="fileimg" />
-          <input type="submit" name="" id="" />
+          <input type="submit" value="<?= $lang["Send"] ?>" name="" id="" />
         </form>
       </div>
     </div>
@@ -101,14 +113,20 @@
   <script>
     unShowLoad();
     let messageText = "<?= $_SESSION['status'] ?? '' ?>";
-    if (messageText != '') {
+    if (messageText == 'done') {
       Swal.fire({
-        title: "Thank you",
-        text: messageText,
+        title: "<?= $lang["Done"] ?>",
+        text: "<?= $lang["Your report has been sent successfully !"] ?>",
         icon: "success"
       });
-      <?php unset($_SESSION['status']); ?>
+    } else if (messageText == "error") {
+      Swal.fire({
+        title: "<?= $lang["Oops..."] ?>",
+        text: "<?= $lang["Something went wrong"] ?>",
+        icon: "error",
+      })
     }
+    <?php unset($_SESSION['status']); ?>
   </script>
 </body>
 

@@ -206,37 +206,6 @@ function setEventImage() {
     eventName.innerHTML = localStorage.getItem("eventName");
   }
 }
-function sendFeedback(event) {
-  event.preventDefault();
-  let fullname = document.getElementById("contact_fullname").value;
-  let email = document.getElementById("contact_email").value;
-  let description = document.getElementById("contact_description").value;
-  showLoad();
-  setTimeout(() => {
-    let form = new FormData();
-    form.append("fullname", fullname);
-    form.append("email", email);
-    form.append("description", description);
-    fetch("contact.php", {
-      method: "POST",
-      body: form,
-    })
-      .then((response) => response.text())
-      .then((data) => {
-        if (data === "done") {
-          Swal.fire({
-            title: "Thank you",
-            text: "Your feedback has been sent successfully !",
-            icon: "success",
-          });
-          document.getElementById("contact_form").reset();
-        } else {
-          console.log("bra or9od");
-        }
-        unShowLoad();
-      });
-  }, 2000);
-}
 function showLoad() {
   let load = document.getElementById("load");
   let ovelray = document.getElementById("overlay");
@@ -253,4 +222,7 @@ function unShowLoad() {
 }
 function checkReport() {
   showLoad();
+}
+function updateLang() {
+  fetch("updateLang.php");
 }

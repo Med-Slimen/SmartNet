@@ -217,7 +217,7 @@ function showSetting(element) {
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: `tabName=${element.getAttribute("tabName")}`,
   }).catch((error) => console.error("Error:", error));
-  document.getElementById("iframe_contact").src = "contactPanel.php";
+  document.getElementById("iframe_settings").src = "settingsPanel.php";
   document.getElementById("iframe_dashboard").style.display = "none";
   document.getElementById("iframe_events").style.display = "none";
   document.getElementById("iframe_donations").style.display = "none";

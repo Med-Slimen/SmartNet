@@ -1,5 +1,16 @@
 <?php $language = $_COOKIE["language"] ?? "en";
 include $language . '.php';
+include 'connect.php';
+$settings = $conn->prepare("SELECT* FROM settings");
+$settings->execute();
+$res = $settings->get_result();
+$settingsArray = array();
+while ($res2 = $res->fetch_assoc()) {
+  $settingsArray[$res2["setting_name"]] = $res2["setting_value"];
+}
+$from = substr($settingsArray["buisness_hours"], 0, 5);
+$to = substr($settingsArray["buisness_hours"], 6, 6);
+session_start();
 ?>
 <!DOCTYPE html>
 <html dir=<?= $language == "en" ? "ltr" : "rtl" ?> lang="<?= $language ?>">
@@ -25,44 +36,22 @@ include $language . '.php';
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playwrite+IN:wght@100..400&display=swap" rel="stylesheet" />
-  <link rel="icon" type="image/png" href="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/mwlldu11prcamv90qmul" />
+  <link rel="icon" type="image/png" href="<?= $settingsArray['Logo'] ?>" />
   <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
 </head>
 
 <body onload="menu()">
-  <?php
-  if (!isset($_COOKIE["language"])) {
-  ?>
-    <div class="language-popup">
-      <div class="text">
-        <h3>Chose Your prefered language</h3>
-      </div>
-      <div class="choose">
-        <p>Chose what language you want to browse the website with ( you can switch the language later if you want )</p>
-        <form action="updateLang.php" method="post">
-          <select name="lang">
-            <option value="en">English 	&#x1f1fa;</option>
-            <option value="ar">Arabic</option>
-          </select>
-          <input type="submit" value="Choose">
-        </form>
-      </div>
-    </div>
-  <?php
-  }
-  ?>
   <form id="selectLang" action="updateLang.php" method="post">
-    <select name="lang">
-      <option value="en">English 🇺🇸</option>
-      <option value="ar">Arabic 🇸🇦</option>
+    <select name="lang" onchange="this.form.submit()">
+      <option value="<?= $language ?>"><?= $language == "en" ? "English 🇺🇸" : "Arabic 🇸🇦" ?></option>
+      <option value="<?= $language == "en" ? "ar" : "en" ?>"><?= $language == "en" ? "Arabic 🇸🇦" : "English 🇺🇸" ?></option>
     </select>
-    <input type="submit" value="Choose">
   </form>
   <!-- Start Header -->
   <div id="header" class="header">
     <div class="container">
       <div class="logo">
-        <a href="index.html"><img src="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/mwlldu11prcamv90qmul" alt="" /></a>
+        <a href="index.php"><img src="<?= $settingsArray['Logo'] ?>" alt="" /></a>
       </div>
       <div onclick="showMenu()" id="bars" class="bars">
         <i class="fa-solid fa-bars"></i>
@@ -256,9 +245,10 @@ include $language . '.php';
           </p>
         </div>
         <div class="socials">
-          <a href=""><i class="fa-brands fa-square-facebook"></i></a>
-          <a href=""><i class="fa-brands fa-square-twitter"></i></a>
-          <a href="mailto: mohamedamineslimene01@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+          <a href="<?= $settingsArray["facebook"] ?>" target="_blank"><i class="fa-brands fa-square-facebook"></i></a>
+          <a href="<?= $settingsArray["instagram"] ?>" target="_blank"><i class="fa-brands fa-square-instagram"></i></a>
+          <a href="<?= $settingsArray["linkedin"] ?>" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="mailto: <?= $settingsArray["email"] ?>" target="_blank"><i class="fa-solid fa-envelope"></i></a>
         </div>
         <div class="details">
           <div class="dt">
@@ -267,19 +257,19 @@ include $language . '.php';
           </div>
           <div class="dt">
             <i class="fa-solid fa-clock"></i>
-            <p><?= $lang["Business Hours"] ?></p>
+            <p><?= $lang["From"] . $from . $lang["To"] . $to ?></p>
           </div>
           <div class="dt">
             <i class="fa-solid fa-phone"></i>
-            <p>+216 xxxxxxxx</p>
+            <p>+216 <?= $settingsArray["Pnumber"] ?></p>
           </div>
         </div>
       </div>
       <div class="part2">
-        <form id="contact_form" onsubmit="return sendFeedback(event);">
-          <input type="text" placeholder="Full Name" name="fullname" id="contact_fullname" required />
-          <input type="email" placeholder="Email" name="email" id="contact_email" required />
-          <textarea name="description" placeholder="Message" id="contact_description" cols="30" rows="10" required></textarea>
+        <form id="contact_form" action="contact.php" method="post">
+          <input type="text" placeholder="<?= $lang["Full Name"] ?>" name="fullname" id="contact_fullname" required />
+          <input type="email" placeholder="<?= $lang["Email"] ?>" name="email" id="contact_email" required />
+          <textarea name="description" placeholder="<?= $lang["Message"] ?>" id="contact_description" cols="30" rows="10" required></textarea>
           <input type="submit" value="<?= $lang["Send"] ?>" name="" id="" />
         </form>
       </div>
@@ -291,6 +281,23 @@ include $language . '.php';
   <script src="index.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script>
+    message = "<?= $_SESSION["sent"] ?? "" ?>";
+    if (message === "sent") {
+      Swal.fire({
+        title: "<?= $lang["Done"] ?>",
+        text: "<?= $lang["Your feedback has been sent successfully !"] ?>",
+        icon: "success",
+      })
+    } else if (message === "nope") {
+      Swal.fire({
+        title: "<?= $lang["Oops..."] ?>",
+        text: "<?= $lang["Something went wrong"] ?>",
+        icon: "error",
+      })
+    }
+    <?php unset($_SESSION["sent"]); ?>
+  </script>
 </body>
 
 </html>

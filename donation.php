@@ -1,6 +1,13 @@
-<?php session_start(); ?>
+<?php
+$language = $_COOKIE["language"] ?? "en";
+include $language . '.php';
+include 'connect.php';
+$settings = $conn->prepare("SELECT setting_value as Logo FROM settings WHERE setting_name='Logo'");
+$settings->execute();
+$logo = (($settings->get_result())->fetch_assoc())['Logo'];
+session_start(); ?>
 <!DOCTYPE html>
-<html lang="en">
+<html dir=<?= $language == "en" ? "ltr" : "rtl" ?> lang="<?= $language ?>">
 
 <head>
   <meta charset="UTF-8" />
@@ -22,78 +29,84 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playwrite+IN:wght@100..400&display=swap" rel="stylesheet" />
-  <link rel="icon" type="image/png" href="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/mwlldu11prcamv90qmul" />
+  <link rel="icon" type="image/png" href="<?= $logo ?>" />
   <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
 </head>
 
 <body onload="menu()">
+  <form id="selectLang" action="updateLang.php" method="post">
+    <select name="lang" onchange="this.form.submit()">
+      <option value="<?= $language ?>"><?= $language == "en" ? "English 🇺🇸" : "Arabic 🇸🇦" ?></option>
+      <option value="<?= $language == "en" ? "ar" : "en" ?>"><?= $language == "en" ? "Arabic 🇸🇦" : "English 🇺🇸" ?></option>
+    </select>
+  </form>
   <!-- Start Header -->
   <div id="header" class="header">
     <div class="container">
       <div class="logo">
-        <a href="index.php"><img src="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/mwlldu11prcamv90qmul" alt="" /></a>
+        <a href="index.php"><img src="<?= $logo ?>" alt="" /></a>
       </div>
       <div onclick="showMenu()" id="bars" class="bars">
         <i class="fa-solid fa-bars"></i>
       </div>
       <ul class="links">
-        <li><a class="les-liens" href="index.php#home">Home</a></li>
-        <li><a class="les-liens" href="index.php#About">About</a></li>
-        <li><a class="les-liens" href="index.php#Impact">Impact</a></li>
-        <li><a class="les-liens" href="index.php#Help">Help us</a></li>
-        <li><a class="les-liens" href="index.php#App">Our App</a></li>
-        <li><a class="les-liens" href="index.php#Contact">Contact us</a></li>
+        <li><a class="les-liens" href="index.php#home"><?= $lang["Home"] ?></a></li>
+        <li><a class="les-liens" href="index.php#About"><?= $lang["About"] ?></a></li>
+        <li><a class="les-liens" href="index.php#Impact"><?= $lang["Impact"] ?></a></li>
+        <li><a class="les-liens" href="index.php#Help"><?= $lang["Help"] ?></a></li>
+        <li><a class="les-liens" href="index.php#App"><?= $lang["App"] ?></a></li>
+        <li><a class="les-liens" href="index.php#Contact"><?= $lang["Contact"] ?></a></li>
       </ul>
     </div>
   </div>
   <ul id="menu" class="menu">
-    <li><a href="index.php#home">Home</a></li>
-    <li><a href="index.php#About">About</a></li>
-    <li><a href="index.php#Impact">Impact</a></li>
-    <li><a href="index.php#Help">Help us</a></li>
-    <li><a href="index.php#App">Our App</a></li>
-    <li><a href="index.php#Contact">Contact us</a></li>
+    <li><a class="les-liens" href="index.php#home"><?= $lang["Home"] ?></a></li>
+    <li><a class="les-liens" href="index.php#About"><?= $lang["About"] ?></a></li>
+    <li><a class="les-liens" href="index.php#Impact"><?= $lang["Impact"] ?></a></li>
+    <li><a class="les-liens" href="index.php#Help"><?= $lang["Help"] ?></a></li>
+    <li><a class="les-liens" href="index.php#App"><?= $lang["App"] ?></a></li>
+    <li><a class="les-liens" href="index.php#Contact"><?= $lang["Contact"] ?></a></li>
   </ul>
   <!-- End Header -->
   <div class="donate">
     <a id="backButton" href="index.php#Help">
-      Back
+      <?= $lang["Back"] ?>
     </a>
     <div class="main-heading">
-      <h2>Donation</h2>
+      <h2><?= $lang["Donation"] ?></h2>
     </div>
 
     <div class="container">
       <div class="details">
-        <h3>Enter The nessecary informations</h3>
+        <h3><?= $lang["Enter the required information"] ?></h3>
         <form action="donate.php" method="post" onsubmit="showLoad()">
-          <input type="text" placeholder="Full Name" name="full_name" id="" required />
-          <input type="email" placeholder="Email" name="email" id="" required />
-          <p>Select Donation Amount :</p>
+          <input type="text" placeholder="<?= $lang["Full Name"] ?>" name="full_name" id="" required />
+          <input type="email" placeholder="<?= $lang["Email"] ?>" name="email" id="" required />
+          <p><?= $lang["Select Donation Amount :"] ?></p>
           <div class="amounts">
             <span onclick="setdonate('5')">5dt</span>
             <span onclick="setdonate('10')">10dt</span>
             <span onclick="setdonate('50')">50dt</span>
             <span onclick="setdonate('100')">100dt</span>
           </div>
-          <p>Or enter amount</p>
+          <p><?= $lang["Or enter amount"] ?></p>
           <input type="number" name="amount" id="dt" required />
 
-          <p>Payment Method</p>
+          <p><?= $lang["Payment Method"] ?></p>
           <input type="radio" onclick="check()" name="rd" id="cr" value="Credit Card" required />
           <img src="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/ejvsftjqtmbmsdhcfzjm" alt="" />
           <input type="radio" onclick="check()" name="rd" id="tel" value="Solde" required />
           <img src="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/kurmgjpvs4o16zu4rnql" alt="" />
           <div id="phone" class="phone">
-            <input type="text" placeholder="Your Phone Number" name="" id="" required />
+            <input type="text" placeholder="<?= $lang["Your Phone Number"] ?>" name="" id="" required />
           </div>
           <div id="credit-card" class="credit-card">
-            <input type="text" placeholder="Card Number" name="card_number" id="" />
-            <input type="text" placeholder="Card Holder's Name " name="holder_name" id="" /><br />
+            <input type="text" placeholder="<?= $lang["Card Number"] ?>" name="card_number" id="" />
+            <input type="text" placeholder="<?= $lang["Card Holder's Name"] ?> " name="holder_name" id="" /><br />
             <input type="month" name="" id="" />
             <input type="password" placeholder="CVC/CVV" name="card_cvc" id="" />
           </div>
-          <input type="submit" value="Donate" name="" id="" />
+          <input type="submit" value="<?= $lang["Donate"] ?>" name="" id="" />
         </form>
       </div>
     </div>
@@ -106,14 +119,20 @@
   <script>
     unShowLoad();
     let messageText = "<?= $_SESSION['status'] ?? '' ?>";
-    if (messageText != '') {
+    if (messageText == 'done') {
       Swal.fire({
-        title: "Thank you",
-        text: "messageText",
+        title: "<?= $lang["Done"] ?>",
+        text: "<?= $lang["Because of your kindness, we can continue our mission and make a real difference , Thank you !"] ?>",
         icon: "success"
       });
-      <?php unset($_SESSION['status']); ?>
+    } else if (messageText == "error") {
+      Swal.fire({
+        title: "<?= $lang["Oops..."] ?>",
+        text: "<?= $lang["Something went wrong"] ?>",
+        icon: "error",
+      })
     }
+    <?php unset($_SESSION['status']); ?>
   </script>
 </body>
 

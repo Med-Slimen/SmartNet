@@ -1,10 +1,13 @@
 <?php
+$language = $_COOKIE["language"] ?? "en";
+include $language . '.php';
 include 'connect.php';
-
-session_start();
-?>
+$settings = $conn->prepare("SELECT setting_value as Logo FROM settings WHERE setting_name='Logo'");
+$settings->execute();
+$logo = (($settings->get_result())->fetch_assoc())['Logo'];
+session_start(); ?>
 <!DOCTYPE html>
-<html lang="en">
+<html dir=<?= $language == "en" ? "ltr" : "rtl" ?> lang="<?= $language ?>">
 
 <head>
   <meta charset="UTF-8" />
@@ -26,44 +29,50 @@ session_start();
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playwrite+IN:wght@100..400&display=swap" rel="stylesheet" />
-  <link rel="icon" type="image/png" href="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/mwlldu11prcamv90qmul" />
+  <link rel="icon" type="image/png" href="<?= $logo ?>" />
 </head>
 
 <body onload="menu()">
+  <form id="selectLang" action="updateLang.php" method="post">
+    <select name="lang" onchange="this.form.submit()">
+      <option value="<?= $language ?>"><?= $language == "en" ? "English 🇺🇸" : "Arabic 🇸🇦" ?></option>
+      <option value="<?= $language == "en" ? "ar" : "en" ?>"><?= $language == "en" ? "Arabic 🇸🇦" : "English 🇺🇸" ?></option>
+    </select>
+  </form>
   <!-- Start Header -->
   <div id="header" class="header">
     <div class="container">
       <div class="logo">
-        <a href="index.php"><img src="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/mwlldu11prcamv90qmul" alt="" /></a>
+        <a href="index.php"><img src="<?= $logo ?>" alt="" /></a>
       </div>
       <div onclick="showMenu()" id="bars" class="bars">
         <i class="fa-solid fa-bars"></i>
       </div>
       <ul class="links">
-        <li><a class="les-liens" href="index.php#home">Home</a></li>
-        <li><a class="les-liens" href="index.php#About">About</a></li>
-        <li><a class="les-liens" href="index.php#Impact">Impact</a></li>
-        <li><a class="les-liens" href="index.php#Help">Help us</a></li>
-        <li><a class="les-liens" href="index.php#App">Our App</a></li>
-        <li><a class="les-liens" href="index.php#Contact">Contact us</a></li>
+        <li><a class="les-liens" href="index.php#home"><?= $lang["Home"] ?></a></li>
+        <li><a class="les-liens" href="index.php#About"><?= $lang["About"] ?></a></li>
+        <li><a class="les-liens" href="index.php#Impact"><?= $lang["Impact"] ?></a></li>
+        <li><a class="les-liens" href="index.php#Help"><?= $lang["Help"] ?></a></li>
+        <li><a class="les-liens" href="index.php#App"><?= $lang["App"] ?></a></li>
+        <li><a class="les-liens" href="index.php#Contact"><?= $lang["Contact"] ?></a></li>
       </ul>
     </div>
   </div>
   <ul id="menu" class="menu">
-    <li><a href="index.php#home">Home</a></li>
-    <li><a href="index.php#About">About</a></li>
-    <li><a href="index.php#Impact">Impact</a></li>
-    <li><a href="index.php#Help">Help us</a></li>
-    <li><a href="index.php#App">Our App</a></li>
-    <li><a href="index.php#Contact">Contact us</a></li>
+    <li><a class="les-liens" href="index.php#home"><?= $lang["Home"] ?></a></li>
+    <li><a class="les-liens" href="index.php#About"><?= $lang["About"] ?></a></li>
+    <li><a class="les-liens" href="index.php#Impact"><?= $lang["Impact"] ?></a></li>
+    <li><a class="les-liens" href="index.php#Help"><?= $lang["Help"] ?></a></li>
+    <li><a class="les-liens" href="index.php#App"><?= $lang["App"] ?></a></li>
+    <li><a class="les-liens" href="index.php#Contact"><?= $lang["Contact"] ?></a></li>
   </ul>
   <!-- End Header -->
   <div class="events">
     <div class="main-heading">
-      <h2>Events</h2>
+      <h2><?= $lang["Events"] ?></h2>
     </div>
     <a id="backButton" href="index.php#Help">
-      Back
+      <?= $lang["Back"] ?>
     </a>
     <div class="container">
       <?php
@@ -72,7 +81,7 @@ session_start();
       $result = $query->get_result();
       if ($result->num_rows <= 0) {
       ?><div class="no-event">
-          <h1>There is no event at the moment</h1>
+          <h1><?= $lang["There is no event at the moment"] ?></h1>
         </div><?php
             } else {
               while ($event = $result->fetch_assoc()) {
@@ -95,7 +104,7 @@ session_start();
                   <span class="secondes"></span>
                 </div>
                 <div imgUrl="<?php echo ($event["event_img"]) ?>" eventName="<?php echo ($event["event_name"]) ?>" eventId="<?php echo ($event["id_events"]) ?>" class="button">
-                  <a href="eventform.php">I'm in !</a>
+                  <a href="eventform.php"><?= $lang["I'm in !"] ?></a>
                 </div>
               </div>
             </div>
