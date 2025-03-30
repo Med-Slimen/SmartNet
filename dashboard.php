@@ -1,24 +1,14 @@
 <?php
 include 'connect.php';
 session_start();
-if (isset($_COOKIE["token"])) {
-  $token = $_COOKIE["token"];
-  $token_check = $conn->prepare("SELECT* FROM admins WHERE admin_token=? ");
-  $token_check->bind_param("s", $token);
-  $token_check->execute();
-  $res_token = $token_check->get_result();
-  if ($res_token->num_rows > 0) {
-    $res_token = $res_token->fetch_assoc();
-    $_SESSION['firstname'] = $res_token['firstName'];
-    $_SESSION['lastname'] = $res_token['lastName'];
-    $_SESSION["email"] = $res_token['email'];
-  } else {
-    setcookie("token", "", 1);
+if (isset($_SESSION["logged"])) {
+  if (!$_SESSION["logged"]) {
     header("Location: adminPanel.php");
   }
-} elseif (!isset($_SESSION["logged"])) {
+} else {
   header("Location: adminPanel.php");
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -89,22 +79,13 @@ if (isset($_COOKIE["token"])) {
     <div class="header">
       <h2>Welcome <?php echo ($_SESSION['firstname'] . " " . $_SESSION['lastname']); ?></h2>
       <div class="profile">
-        <!-- <div class="notification">
-          <i class="fa-solid fa-bell"></i>
-          <span>1</span>
-          <div class="notification-list">
-            <div class="notification-box">
-              <p>Donation From Mester Zan9alou</p>
-            </div>
-          </div>
-        </div> -->
-        <img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Outdoors-man-portrait_%28cropped%29.jpg" alt="" />
+        <img src="<?= $_SESSION['avatar'] ?>" alt="" />
         <div class="profile-settings">
           <ul>
-            <a href="">
+            <a href="#" onclick="showProfile()">
               <li>Profile</li>
             </a>
-            <a href="">
+            <a href="#" onclick="showSetting(this)">
               <li>Settings</li>
             </a>
             <a href="logout.php">
@@ -124,6 +105,7 @@ if (isset($_COOKIE["token"])) {
 
       <iframe id="iframe_contact" src="contactPanel.php" style="width: 100%; height: calc( 100vh - 125px ); border: none; display:none"></iframe>
       <iframe id="iframe_settings" src="settingsPanel.php" style="width: 100%; height: calc( 100vh - 125px ); border: none; display:none ;"></iframe>
+      <iframe id="iframe_profile" src="profilePanel.php" style="width: 100%; height: calc( 100vh - 125px ); border: none; display:none ;"></iframe>
     </div>
   </div>
 </body>

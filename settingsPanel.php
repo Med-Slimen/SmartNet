@@ -64,7 +64,7 @@ session_start();
           <label for="">Buisness Hours :</label><br>
           <div style="padding-left: 10px;">
             <label for="">From :</label>
-            <input type="time" name="from" value="<?= $from ?>" id="" required />
+            <input type="time" name="from" value="<?= $from ?>" id="" required /><br>
             <label for="">To :</label>
             <input type="time" name="to" value="<?= $to ?>" id="" required /><br />
           </div>

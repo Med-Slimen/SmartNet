@@ -1,6 +1,17 @@
 <?php
 include 'connect.php';
 session_start();
+$verified = $_SESSION["verified"] ?? "";
+if ($verified == "true") {
+   $token = $_SESSION["remeber_token"];
+   $expire = $_SESSION["remeber_token_expire"];
+   $admin_id = $_SESSION["admin_id"];
+   $set_token = $conn->prepare("UPDATE admins SET admin_token=?,admin_token_expire=? WHERE admin_id=?");
+   $set_token->bind_param("sii", $token, $expire, $admin_id);
+   $set_token->execute();
+   setcookie("token", $token, $expire);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +44,7 @@ session_start();
    <div id="header" class="header">
       <div class="container">
          <div class="logo">
-            <a href="index.html"><img src="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/mwlldu11prcamv90qmul" alt="" /></a>
+            <a href="index.php"><img src="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/mwlldu11prcamv90qmul" alt="" /></a>
          </div>
          <div onclick="showMenu()" id="bars" class="bars">
             <i class="fa-solid fa-bars"></i>
@@ -59,19 +70,33 @@ session_start();
     padding: 0 0 0 15px;
     font-size: 17px;
     font-weight: bold;" id="wrong"></p>
+            <label>Trust this device ?</label>
+            <input type="checkbox" checked onclick="showDeviceName()">
+            <input type="text" id="deviceName" required="true" name="deviceName" placeholder="Device Name : e.g., 'Office PC' or 'Home Laptop'">
             <input type="submit" value="Check">
          </form>
       </div>
    </div>
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
    <script>
       let verified = "<?= $_SESSION["verified"] ?? "" ?>"
-      let logged = "<?= $_SESSION["logged"] ?? "" ?>"
-      if (verified == "true") {
-         window.location.replace("http://localhost/smart%20Net/dashboard.php");
-      } else if (verified == "false") {
-         document.getElementById("wrong").innerHTML = "Wrong code !!"
+      let trust = "<?= $_SESSION["trust"] ?? "" ?>"
+      if (trust == 'false') {
+         Swal.fire({
+            title: "Oops...",
+            text: "Server Probleme",
+            icon: "error"
+         });
+      } else {
+         if (verified == "true") {
+            window.location.replace("dashboard.php");
+         } else if (verified == "false") {
+            document.getElementById("wrong").innerHTML = "Wrong code !!"
+         }
       }
       <?php unset($_SESSION['verified']); ?>
+      <?php unset($_SESSION['trust']); ?>
    </script>
 </body>
 

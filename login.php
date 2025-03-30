@@ -17,13 +17,14 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     $result = $checkAcc->get_result();
     if ($result->num_rows > 0) {
         $data = $result->fetch_assoc();
-        $admin_id = $data['id'];
+        $admin_id = $data['admin_id'];
+        $_SESSION['admin_id'] = $admin_id;
+        $_SESSION['avatar']=$data['avatar'];
         $_SESSION['firstname'] = $data['firstName'];
         $_SESSION['lastname'] = $data['lastName'];
         $mail = new PHPMailer(true);
         $verifCode = rand(0, 1000000);
         $_SESSION["email"] = $data['email'];
-        $_SESSION["logged"] = true;
         $_SESSION["code"] = $verifCode;
         $remeb = $_POST['remeb'] ?? "";
         ob_start();
@@ -49,24 +50,37 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             $mail->isHTML(true);                                  //Set email format to HTML
             $mail->Subject = 'Email verification';
             $mail->Body    = $emailBody;
-            if ($mail->send()) {
-                if ($remeb == "on") {
-                    do {
-                        $token = bin2hex(random_bytes(32));
-                        $token_check = $conn->prepare("SELECT admin_token FROM admins WHERE admin_token=? ");
-                        $token_check->bind_param("s", $token);
-                        $token_check->execute();
-                        $res_token = $token_check->get_result();
-                    } while ($res_token->num_rows > 0);
-                    $expire = strtotime("+1 year");
-                    $set_token = $conn->prepare("UPDATE admins SET admin_token=?,admin_token_expire=? WHERE id=?");
-                    $set_token->bind_param("sii", $token, $expire, $admin_id);
-                    $set_token->execute();
-                    setcookie("token", $token, $expire);
+            if ($remeb == "on") {
+                do {
+                    $token = bin2hex(random_bytes(32));
+                    $token_check = $conn->prepare("SELECT admin_token FROM admins WHERE admin_token=? ");
+                    $token_check->bind_param("s", $token);
+                    $token_check->execute();
+                    $res_token = $token_check->get_result();
+                } while ($res_token->num_rows > 0);
+                $expire = strtotime("+1 year");
+                $_SESSION["remeber_token"] = $token;
+                $_SESSION["remeber_token_expire"] = $expire;
+            }
+            if (isset($_COOKIE["trusted_token"])) {
+                $trusted_token = $_COOKIE["trusted_token"];
+                $checkTrust = $conn->prepare("SELECT* FROM trusted_devices WHERE trusted_token=? AND admin_id=?");
+                $checkTrust->bind_param("si", $trusted_token, $admin_id);
+                $checkTrust->execute();
+                $checkTrustRes = $checkTrust->get_result();
+                if ($checkTrustRes->num_rows > 0) {
+                    $_SESSION["logged"] = true;
+                    header("Location: dashboard.php");
+                    exit();
+                } else {
+                    setcookie("trusted_token", "", 0);
                 }
+            }
+            if ($mail->send()) {
                 header("Location: login_verification.php");
                 exit();
             } else {
+                setcookie("token", "", 0);
                 echo ("oops");
             }
         } catch (Exception $e) {

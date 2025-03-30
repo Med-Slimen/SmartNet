@@ -231,11 +231,11 @@ a:visited{
     background-color: whitesmoke;
 }
 .header h2{
-    font-size: 30px;
+    font-size: 25px;
 }
 @media (max-width: 767px) {
     .header h2{
-        font-size: 23px;
+        font-size: 16px;
     }
 }
 .header .profile{
@@ -781,42 +781,110 @@ tbody tr:nth-child(even){
     }
 }
 /* Start settings */
-.settings{
+.settings,.profile{
     padding: 10px;
 }
-.settings .settings-list{
-    background-color: rgb(226 226 226 / 58%);;
+.settings .settings-list,.profile .profile-list{
+    background-color: rgb(226 226 226 / 58%);
+    padding: 15px;
 }
-.settings .settings-list,.settings .settings-list .mini-setting select{
+@media (max-width: 767px) {
+    .settings .settings-list,.profile .profile-list{
+        padding: 0;
+    }
+}
+.settings .settings-list label,.profile .profile-list label{
+    font-size: 21px;
+}
+.settings .settings-list .mini-setting select{
     padding: 5px;
 }
-.settings .settings-list .mini-setting{
-    
+.settings .settings-list .mini-setting,.profile .profile-list .mini-profile{
     padding: 5px;
     font-size: 19px;
 }
+
 .settings .settings-list .mini-setting p{
     font-size: 21px;
     font-weight: bold;
 }
-.settings .settings-list .mini-setting form{
+/* Requirement Password */
+.profile .profile-list .mini-profile .req{
+    font-size: 18px;
+    font-weight: normal;
+}
+/* End req */
+.eye{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 20px;
+    cursor: pointer;
+
+}
+.settings .settings-list .mini-setting form,.profile .profile-list .mini-profile form{
     padding: 15px;
 }
-
-.settings .settings-list input:not(input[type="file"]){
-    padding: 5px;
-    margin: 10px;
+@media (max-width: 767px) {
+    .settings .settings-list .mini-setting form,.profile .profile-list .mini-profile form{
+        padding: 0;
+    }
+}
+.settings .settings-list input,.profile .profile-list input{
+    max-width: 100%;
+    width: 300px;
+    padding: 10px;
+}
+.settings .settings-list input:not(input[type="file"]),.profile .profile-list input:not(input[type="file"]){
+    margin: 10px 0;
     border-radius: 5px;
     outline: none;
     border: 1px solid #777;
-    width: 200px;
-
 }
-.settings .settings-list input[type="submit"]{
+.settings .settings-list input[type="submit"],.profile .profile-list input[type="submit"]{
     padding: 10px;
     margin: 0 auto;
 }
-.settings .settings-list .mini-setting input[type="file"]{
-    padding: 10px;
+.settings .settings-list .mini-setting input[type="file"],.profile .profile-list .mini-profile input[type="file"]{
+    padding: 30px;
     font-size: 17px;
+}
+/* Trust Device */
+.device{
+    background-color: white;
+    padding: 25px;
+    display: flex;
+    margin: 10px;
+    border-radius: 8px;
+    font-size: 22px;
+    align-items: center;
+    gap: 30px;
+    max-width: 100%;
+    width: 650px;
+}
+@media (max-width: 767px) {
+    .device{
+        flex-direction: column;
+    }
+}
+.device .details{
+    flex-basis: 70%;
+}
+.device .details span{
+    padding: 10px;
+    margin-left: 15px;
+    font-weight: bold;
+}
+.device .button{
+    flex-basis: 30%;
+}
+.device .button button{
+    padding: 8px;
+    cursor: pointer;
+    width: 170px;
+    text-align: center;
+    background-color: tomato;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
 }

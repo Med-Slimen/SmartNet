@@ -8,7 +8,7 @@ function onload() {
   let overlay = document.querySelector(".overlay");
   document.addEventListener("click", function (event) {
     if (mbMenu.contains(event.target)) {
-      mbMenu.style.height = "280px";
+      mbMenu.style.height = "330px";
       overlay.style.display = "block";
     } else if (!mbMenu.contains(event.target)) {
       mbMenu.style.height = "40px";
@@ -116,6 +116,7 @@ function showDash(element) {
   document.getElementById("iframe_dashboard").style.display = "block";
   document.getElementById("iframe_events").style.display = "none";
   document.getElementById("iframe_donations").style.display = "none";
+  document.getElementById("iframe_profile").style.display = "none";
   document.getElementById("iframe_reports").style.display = "none";
   document.getElementById("iframe_contact").style.display = "none";
   document.getElementById("iframe_settings").style.display = "none";
@@ -138,6 +139,7 @@ function showEvents(element) {
   document.getElementById("iframe_events").style.display = "block";
   document.getElementById("iframe_donations").style.display = "none";
   document.getElementById("iframe_reports").style.display = "none";
+  document.getElementById("iframe_profile").style.display = "none";
   document.getElementById("iframe_contact").style.display = "none";
   document.getElementById("iframe_settings").style.display = "none";
   document.getElementById("dashBtn").classList.remove("clicked");
@@ -160,6 +162,7 @@ function showDonations(element) {
   document.getElementById("iframe_donations").style.display = "block";
   document.getElementById("iframe_reports").style.display = "none";
   document.getElementById("iframe_contact").style.display = "none";
+  document.getElementById("iframe_profile").style.display = "none";
   document.getElementById("iframe_settings").style.display = "none";
   document.getElementById("dashBtn").classList.remove("clicked");
   document.getElementById("eventBtn").classList.remove("clicked");
@@ -181,6 +184,7 @@ function showReports(element) {
   document.getElementById("iframe_donations").style.display = "none";
   document.getElementById("iframe_reports").style.display = "block";
   document.getElementById("iframe_contact").style.display = "none";
+  document.getElementById("iframe_profile").style.display = "none";
   document.getElementById("iframe_settings").style.display = "none";
   document.getElementById("dashBtn").classList.remove("clicked");
   document.getElementById("eventBtn").classList.remove("clicked");
@@ -203,6 +207,7 @@ function showContact(element) {
   document.getElementById("iframe_reports").style.display = "none";
   document.getElementById("iframe_contact").style.display = "block";
   document.getElementById("iframe_settings").style.display = "none";
+  document.getElementById("iframe_profile").style.display = "none";
   document.getElementById("dashBtn").classList.remove("clicked");
   document.getElementById("eventBtn").classList.remove("clicked");
   document.getElementById("donationBtn").classList.remove("clicked");
@@ -223,6 +228,7 @@ function showSetting(element) {
   document.getElementById("iframe_donations").style.display = "none";
   document.getElementById("iframe_reports").style.display = "none";
   document.getElementById("iframe_contact").style.display = "none";
+  document.getElementById("iframe_profile").style.display = "none";
   document.getElementById("iframe_settings").style.display = "block";
   document.getElementById("dashBtn").classList.remove("clicked");
   document.getElementById("eventBtn").classList.remove("clicked");
@@ -230,6 +236,22 @@ function showSetting(element) {
   document.getElementById("reportBtn").classList.remove("clicked");
   document.getElementById("contactBtn").classList.remove("clicked");
   document.getElementById("settingBtn").classList.add("clicked");
+}
+function showProfile() {
+  document.getElementById("iframe_profile").src = "profilePanel.php";
+  document.getElementById("iframe_dashboard").style.display = "none";
+  document.getElementById("iframe_events").style.display = "none";
+  document.getElementById("iframe_donations").style.display = "none";
+  document.getElementById("iframe_reports").style.display = "none";
+  document.getElementById("iframe_contact").style.display = "none";
+  document.getElementById("iframe_settings").style.display = "none";
+  document.getElementById("iframe_profile").style.display = "block";
+  document.getElementById("dashBtn").classList.remove("clicked");
+  document.getElementById("eventBtn").classList.remove("clicked");
+  document.getElementById("donationBtn").classList.remove("clicked");
+  document.getElementById("reportBtn").classList.remove("clicked");
+  document.getElementById("contactBtn").classList.remove("clicked");
+  document.getElementById("settingBtn").classList.remove("clicked");
 }
 function showImg() {
   let imgUrl = document.getElementById("showimg").getAttribute("img_src");
@@ -339,4 +361,75 @@ function event_msg(color, text, className) {
     sent.style.transform = "scale(0.8) translateX(-50%)";
     sent.style.setProperty("--beforeWidth", "0%");
   }, 3000);
+}
+function checkPass() {
+  let pass = document.getElementById("pass").value;
+  let newPass = document.getElementById("newPass").value;
+  let confNewPass = document.getElementById("confNewPass").value;
+  test = true;
+  if (
+    newPass.length < 8 ||
+    !/[A-Z]/.test(newPass) ||
+    !/\d/.test(newPass) ||
+    newPass == pass ||
+    newPass != confNewPass
+  ) {
+    Swal.fire("You need to meet all the requirements !");
+    test = false;
+  }
+  return test;
+}
+function verifPass() {
+  let newPass = document.getElementById("newPass").value;
+  let confNewPass = document.getElementById("confNewPass").value;
+  if (newPass != "") {
+    if (newPass.length < 8) {
+      document.getElementById("eight").style.color = "red";
+    } else {
+      document.getElementById("eight").style.color = "limegreen";
+    }
+    if (!/[A-Z]/.test(newPass)) {
+      document.getElementById("oneC").style.color = "red";
+    } else {
+      document.getElementById("oneC").style.color = "limegreen";
+    }
+    if (!/\d/.test(newPass)) {
+      document.getElementById("oneN").style.color = "red";
+    } else {
+      document.getElementById("oneN").style.color = "limegreen";
+    }
+    if (newPass != confNewPass) {
+      document.getElementById("match").style.color = "red";
+    } else {
+      document.getElementById("match").style.color = "limegreen";
+    }
+  } else {
+    document.getElementById("eight").style.color = "black";
+    document.getElementById("oneC").style.color = "black";
+    document.getElementById("oneN").style.color = "black";
+    document.getElementById("match").style.color = "black";
+  }
+}
+function match() {
+  let newPass = document.getElementById("newPass").value;
+  let confNewPass = document.getElementById("confNewPass").value;
+  if (confNewPass != "") {
+    if (newPass != confNewPass) {
+      document.getElementById("match").style.color = "red";
+    } else {
+      document.getElementById("match").style.color = "limegreen";
+    }
+  } else {
+    document.getElementById("match").style.color = "black";
+  }
+}
+function showPass(open, close, id) {
+  document.getElementById(id).setAttribute("type", "text");
+  document.getElementById(open).style.display = "none";
+  document.getElementById(close).style.display = "block";
+}
+function unshowShowPass(open, close, id) {
+  document.getElementById(id).setAttribute("type", "password");
+  document.getElementById(open).style.display = "none";
+  document.getElementById(close).style.display = "block";
 }

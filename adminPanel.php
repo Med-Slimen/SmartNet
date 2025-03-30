@@ -12,6 +12,7 @@ if (isset($_COOKIE["token"])) {
     $_SESSION['firstname'] = $res_token['firstName'];
     $_SESSION['lastname'] = $res_token['lastName'];
     $_SESSION["email"] = $res_token['email'];
+    $_SESSION["logged"] = true;
     header("Location: dashboard.php");
   } else {
     setcookie("token", "", 1);

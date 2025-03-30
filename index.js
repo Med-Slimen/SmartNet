@@ -226,3 +226,13 @@ function checkReport() {
 function updateLang() {
   fetch("updateLang.php");
 }
+function showDeviceName() {
+  let deviceName = document.getElementById("deviceName");
+  deviceName.classList.toggle("show");
+  let required = deviceName.getAttribute("required");
+  if (required == "true") {
+    deviceName.removeAttribute("required");
+  } else {
+    deviceName.setAttribute("required", "true");
+  }
+}
