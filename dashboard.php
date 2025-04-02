@@ -1,6 +1,23 @@
 <?php
 include 'connect.php';
 session_start();
+$timeout_duration = 1800; // 30 minutes (in seconds)
+
+// Check if the last activity time is set
+if (isset($_SESSION['LAST_ACTIVITY'])) {
+  $time_since_last_activity = time() - $_SESSION['LAST_ACTIVITY'];
+
+  // If the user has been inactive for too long, destroy the session
+  if ($time_since_last_activity > $timeout_duration) {
+    session_unset();  // Clear session data
+    session_destroy(); // Destroy the session
+    header("Location: adminPanel.php?timeout=true"); // Redirect to login
+    exit();
+  }
+}
+
+// Update last activity timestamp
+$_SESSION['LAST_ACTIVITY'] = time();
 if (isset($_SESSION["logged"])) {
   if (!$_SESSION["logged"]) {
     header("Location: adminPanel.php");
@@ -18,6 +35,7 @@ $profile = $profile_detials->fetch_assoc();
 $_SESSION['firstname'] = $profile["firstName"];
 $_SESSION['lastname'] = $profile["lastName"];
 $_SESSION["avatar"] = $profile["avatar"];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -88,6 +106,7 @@ $_SESSION["avatar"] = $profile["avatar"];
     <div class="header">
       <h2>Welcome <?php echo ($_SESSION['firstname'] . " " . $_SESSION['lastname']); ?></h2>
       <div class="profile">
+        <a href="chatroom.php" target="_blank">Chatroom <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
         <img src="<?= $_SESSION['avatar'] ?>" alt="" />
         <div class="profile-settings">
           <ul>

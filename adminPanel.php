@@ -44,10 +44,9 @@ if (isset($_COOKIE["token"])) {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playwrite+IN:wght@100..400&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/mwlldu11prcamv90qmul" />
-  <script src="index.js"></script>
 </head>
 
-<body onload="menu()">
+<body>
   <!-- Start Header -->
   <div id="header" class="header">
     <div class="container">

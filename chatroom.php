@@ -1,6 +1,25 @@
 <?php
 include 'connect.php';
-session_start(); ?>
+session_start(); // Start the session
+
+$timeout_duration = 1800; // 30 minutes (in seconds)
+
+// Check if the last activity time is set
+if (isset($_SESSION['LAST_ACTIVITY'])) {
+  $time_since_last_activity = time() - $_SESSION['LAST_ACTIVITY'];
+
+  // If the user has been inactive for too long, destroy the session
+  if ($time_since_last_activity > $timeout_duration) {
+    session_unset();  // Clear session data
+    session_destroy(); // Destroy the session
+    header("Location: adminPanel.php?timeout=true"); // Redirect to login
+    exit();
+  }
+}
+
+// Update last activity timestamp
+$_SESSION['LAST_ACTIVITY'] = time();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,11 +46,14 @@ session_start(); ?>
 </head>
 
 <body onload="onload()">
+  <div id="dropDown-chat-arrow"><i class="fa-solid fa-arrow-down"></i></div>
   <div class="chatrooms">
-    <h1>Chatrooms</h1>
-    <p onclick="showCreateChatroom()" id="plus">
-      <i class="fa-solid fa-plus"></i>
-    </p>
+    <div class="chatrooms_header">
+      <h1>Chatrooms</h1>
+      <p onclick="showCreateChatroom()" id="plus">
+        <i class="fa-solid fa-plus"></i>
+      </p>
+    </div>
     <!-- <div  class="room">
       <div class="text">
         <h3>Chatroom Name</h3>
@@ -43,8 +65,12 @@ session_start(); ?>
     <div class="overlay">
       <p>No Chatroom Selected</p>
     </div>
-    <div class="header">
-      <h3 id="chatName">Chatroom Name</h3>
+    <div style="z-index: 100;position: relative;" class="header">
+      <h3 id="chatName"></h3>
+      <div class="profile">
+        <a href="dashboard.php" target="_blank">Dashboard <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        <img src="<?= $_SESSION['avatar'] ?>" alt="" />
+      </div>
     </div>
     <div class="messages" admin_id="<?= $_SESSION["admin_id"] ?>">
       <!-- <div class="message">

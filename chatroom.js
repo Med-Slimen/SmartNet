@@ -1,5 +1,19 @@
 function onload() {
   displayChatrooms();
+  document.addEventListener("click", function (event) {
+    let arrow = document.getElementById("dropDown-chat-arrow");
+    let chatrooms = document.querySelector(".chatrooms");
+    if (screen.width < 768) {
+      if (arrow.contains(event.target)) {
+        chatrooms.style.left = "0%";
+      } else if (
+        document.contains(event.target) &&
+        !chatrooms.contains(event.target)
+      ) {
+        chatrooms.style.left = "-55%";
+      }
+    }
+  });
 }
 function displayChatrooms() {
   let chatroomsDiv = document.querySelector(".chatrooms");
@@ -136,7 +150,7 @@ function showCreateChatroom() {
   createChatroom_div.style.opacity = "1";
   createChatroom_div.style.visibility = "visible";
   createChatroom_div.style.transform = "scale(1) translate(-50%,-50%)";
-  createChatroom_div.style.zIndex = "99";
+  createChatroom_div.style.zIndex = "102";
 }
 function unshowCreateChatroom() {
   let createChatroom_div = document.querySelector(".createChatroom");

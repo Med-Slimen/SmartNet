@@ -2,6 +2,23 @@
 session_start();
 include 'connect.php';
 require 'vendor/autoload.php';
+$timeout_duration = 1800; // 30 minutes (in seconds)
+
+// Check if the last activity time is set
+if (isset($_SESSION['LAST_ACTIVITY'])) {
+  $time_since_last_activity = time() - $_SESSION['LAST_ACTIVITY'];
+
+  // If the user has been inactive for too long, destroy the session
+  if ($time_since_last_activity > $timeout_duration) {
+    session_unset();  // Clear session data
+    session_destroy(); // Destroy the session
+    header("Location: adminPanel.php?timeout=true"); // Redirect to login
+    exit();
+  }
+}
+
+// Update last activity timestamp
+$_SESSION['LAST_ACTIVITY'] = time();
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
