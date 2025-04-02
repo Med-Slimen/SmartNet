@@ -9,12 +9,8 @@ if (isset($_POST["chatroomName"])) {
    $query->bind_param("sss", $chatroomName, $chatroomDescription, $created_at);
    $query->execute();
    if ($query->affected_rows > 0) {
-      $_SESSION["chatCreated"] = "done";
-      header("Location: {$_SERVER["HTTP_REFERER"]}");
-      exit();
+      echo (json_encode(("done")));
    } else {
-      $_SESSION["chatCreated"] = "error";
-      header("Location: {$_SERVER["HTTP_REFERER"]}");
-      exit();
+      echo (json_encode(("error")));
    }
 }

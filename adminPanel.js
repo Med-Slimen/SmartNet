@@ -28,26 +28,29 @@ function onload() {
     }
   });
   setInterval(notificationShow, 5000);
-  
 }
 
 function notificationShow() {
-  fetch("notification.php")
-    .then((response) => response.json())
-    .then((data) => {
-      document.querySelectorAll(".menu_links").forEach((link) => {
-        link.setAttribute(
-          "notification",
-          data[link.getAttribute("tabName")] || 0
-        );
+  try {
+    fetch("notification.php")
+      .then((response) => response.json())
+      .then((data) => {
+        document.querySelectorAll(".menu_links").forEach((link) => {
+          link.setAttribute(
+            "notification",
+            data[link.getAttribute("tabName")] || 0
+          );
+        });
+        document.querySelectorAll(".mobile-menu ul li").forEach((link) => {
+          link.setAttribute(
+            "notification",
+            data[link.getAttribute("tabName")] || 0
+          );
+        });
       });
-      document.querySelectorAll(".mobile-menu ul li").forEach((link) => {
-        link.setAttribute(
-          "notification",
-          data[link.getAttribute("tabName")] || 0
-        );
-      });
-    });
+  } catch (error) {
+    console.log(error);
+  }
 }
 function showConf(idEvent, id) {
   document.getElementById("delete-conf").style.visibility = "visible";
@@ -453,4 +456,3 @@ function unshowShowPass(open, close, id) {
   document.getElementById(open).style.display = "none";
   document.getElementById(close).style.display = "block";
 }
-

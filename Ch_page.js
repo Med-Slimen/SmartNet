@@ -17,29 +17,35 @@ function onload() {
 }
 function displayChatrooms() {
   let chatroomsDiv = document.querySelector(".chatrooms");
-  fetch("get_chatrooms.php")
-    .then((response) => response.json())
-    .then((chatrooms) => {
-      let divrooms = document.querySelectorAll(".room");
-      divrooms.forEach((div) => div.remove());
-      for (room of chatrooms) {
-        let divRoom = document.createElement("div");
-        divRoom.setAttribute("chatroomId", room["chatroom_id"]);
-        divRoom.setAttribute("chatroomName", room["chatroom_name"]);
-        divRoom.setAttribute("onclick", "selectChatroom(this)");
-        divRoom.classList.add("room");
-        let divRoomText = document.createElement("div");
-        divRoomText.classList.add("text");
-        let divRoomTextH3 = document.createElement("h3");
-        divRoomTextH3.innerHTML = room["chatroom_name"];
-        let divRoomTextP = document.createElement("p");
-        divRoomTextP.innerHTML = room["chatroom_description"];
-        divRoomText.append(divRoomTextH3);
-        divRoomText.append(divRoomTextP);
-        divRoom.append(divRoomText);
-        chatroomsDiv.append(divRoom);
-      }
-    });
+  try {
+    fetch("get_Ch.php")
+      .then((response) => response.json())
+      .then((chatrooms) => {
+        if (chatrooms != "nope") {
+          let divrooms = document.querySelectorAll(".room");
+          divrooms.forEach((div) => div.remove());
+          for (room of chatrooms) {
+            let divRoom = document.createElement("div");
+            divRoom.setAttribute("chatroomId", room["chatroom_id"]);
+            divRoom.setAttribute("chatroomName", room["chatroom_name"]);
+            divRoom.setAttribute("onclick", "selectChatroom(this)");
+            divRoom.classList.add("room");
+            let divRoomText = document.createElement("div");
+            divRoomText.classList.add("text");
+            let divRoomTextH3 = document.createElement("h3");
+            divRoomTextH3.innerHTML = room["chatroom_name"];
+            let divRoomTextP = document.createElement("p");
+            divRoomTextP.innerHTML = room["chatroom_description"];
+            divRoomText.append(divRoomTextH3);
+            divRoomText.append(divRoomTextP);
+            divRoom.append(divRoomText);
+            chatroomsDiv.append(divRoom);
+          }
+        }
+      });
+  } catch (error) {
+    console.log(error);
+  }
 }
 let messageInterval = null;
 
@@ -158,4 +164,25 @@ function unshowCreateChatroom() {
   createChatroom_div.style.visibility = "hidden";
   createChatroom_div.style.transform = "scale(0.7) translate(-50%,-50%)";
   createChatroom_div.style.zIndex = "-1";
+}
+function createChatroom(e) {
+  e.preventDefault();
+  try {
+    let form = new FormData(e.target);
+    fetch("createCh.php", {
+      method: "POST",
+      body: form,
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        if (result == "done") {
+          unshowCreateChatroom();
+          displayChatrooms();
+        } else if (result == "error") {
+          alert("error");
+        }
+      });
+  } catch (error) {
+    console.log(error);
+  }
 }

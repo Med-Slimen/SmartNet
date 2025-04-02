@@ -1,6 +1,15 @@
 <?php
 include 'connect.php';
 session_start();
+if (isset($_SESSION["logged"])) {
+  if (!$_SESSION["logged"]) {
+    header("Location: adminPanel.php");
+    exit();
+  }
+} else {
+  header("Location: adminPanel.php");
+  exit();
+}
 $timeout_duration = 1800; // 30 minutes (in seconds)
 
 // Check if the last activity time is set
@@ -11,22 +20,14 @@ if (isset($_SESSION['LAST_ACTIVITY'])) {
   if ($time_since_last_activity > $timeout_duration) {
     session_unset();  // Clear session data
     session_destroy(); // Destroy the session
-    header("Location: adminPanel.php?timeout=true"); // Redirect to login
+    header("Location: adminPanel.php"); // Redirect to login
     exit();
   }
 }
 
 // Update last activity timestamp
 $_SESSION['LAST_ACTIVITY'] = time();
-if (isset($_SESSION["logged"])) {
-  if (!$_SESSION["logged"]) {
-    header("Location: adminPanel.php");
-    exit();
-  }
-} else {
-  header("Location: adminPanel.php");
-  exit();
-}
+
 $query = $conn->prepare("SELECT* FROM admins WHERE admin_id = ?");
 $query->bind_param("i", $_SESSION["admin_id"]);
 $query->execute();
@@ -106,7 +107,7 @@ $_SESSION["avatar"] = $profile["avatar"];
     <div class="header">
       <h2>Welcome <?php echo ($_SESSION['firstname'] . " " . $_SESSION['lastname']); ?></h2>
       <div class="profile">
-        <a href="chatroom.php" target="_blank">Chatroom <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        <a href="Ch_page.php" target="_blank">Chatroom <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
         <img src="<?= $_SESSION['avatar'] ?>" alt="" />
         <div class="profile-settings">
           <ul>

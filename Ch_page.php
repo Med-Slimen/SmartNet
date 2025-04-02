@@ -1,7 +1,15 @@
 <?php
 include 'connect.php';
 session_start(); // Start the session
-
+if (isset($_SESSION["logged"])) {
+  if (!$_SESSION["logged"]) {
+    header("Location: adminPanel.php");
+    exit();
+  }
+} else {
+  header("Location: adminPanel.php");
+  exit();
+}
 $timeout_duration = 1800; // 30 minutes (in seconds)
 
 // Check if the last activity time is set
@@ -42,7 +50,7 @@ $_SESSION['LAST_ACTIVITY'] = time();
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playwrite+IN:wght@100..400&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="https://res.cloudinary.com/dut839epn/image/upload/f_auto,q_auto/mwlldu11prcamv90qmul" />
-  <script src="chatroom.js"></script>
+  <script src="Ch_page.js"></script>
 </head>
 
 <body onload="onload()">
@@ -101,7 +109,7 @@ $_SESSION['LAST_ACTIVITY'] = time();
     <p onclick="unshowCreateChatroom()" id="close">
       <i class="fa-solid fa-xmark"></i>
     </p>
-    <form onsubmit="sendMessage()">
+    <form onsubmit="createChatroom(event)">
       <label for="">Chatroom Name :</label><br />
       <input type="text" name="chatroomName" required /><br />
       <label for="">Chatroom Description :</label><br />
