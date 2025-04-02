@@ -43,16 +43,16 @@ $profile = $profile_detials->fetch_assoc();
                   <label>Change Profile Picture :</label>
                   <input type="file" name="pf" id="" /><br />
                   <label for="">First Name :</label>
-                  <input type="text" name="firstName" value="<?= $profile["firstName"] ?>" id="" required /><br />
+                  <input type="text" name="firstName" value="<?= $profile["firstName"] ?>" id="firstName" required /><br />
                   <label for="">Last Name :</label>
-                  <input type="text" name="lastName" id="" value="<?= $profile["lastName"] ?>" required /><br />
+                  <input type="text" name="lastName" id="lastName" value="<?= $profile["lastName"] ?>" required /><br />
                   <label for="">Email :</label>
-                  <input type="text" name="email" id="" value="<?= $profile["email"] ?>" required /><br />
+                  <input type="text" name="email" id="email" value="<?= $profile["email"] ?>" required /><br />
                   <input type="submit" value="Update Profile">
                </div>
             </form>
             <h3>Security Settings :</h3>
-            <form action="updatePassword.php" onsubmit="return checkPass()" method="post" enctype="multipart/form-data">
+            <form action="updatePassword.php" onsubmit="return checkPass()" method="post">
                <div style="padding: 10px;">
                   <label for="">Change Passwoard :</label><br>
                   <div style="max-width: 100%;position: relative;display: inline-block;">

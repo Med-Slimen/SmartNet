@@ -73,4 +73,6 @@ $lang = array(
    "Provide additional details" => "Provide additional details",
    "Attach a photo ( optional )" => "Attach a photo ( optional )",
    "Your report has been sent successfully !" => "Your report has been sent successfully !",
+   "A confirmation email with event details has been sent to your inbox." => "A confirmation email with event details has been sent to your inbox.",
+   "Please check your spam/junk folder if you don’t see it within a few minutes."=>"Please check your spam/junk folder if you don’t see it within a few minutes.",
 );

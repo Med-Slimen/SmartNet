@@ -1,0 +1,147 @@
+function onload() {
+  displayChatrooms();
+}
+function displayChatrooms() {
+  let chatroomsDiv = document.querySelector(".chatrooms");
+  fetch("get_chatrooms.php")
+    .then((response) => response.json())
+    .then((chatrooms) => {
+      let divrooms = document.querySelectorAll(".room");
+      divrooms.forEach((div) => div.remove());
+      for (room of chatrooms) {
+        let divRoom = document.createElement("div");
+        divRoom.setAttribute("chatroomId", room["chatroom_id"]);
+        divRoom.setAttribute("chatroomName", room["chatroom_name"]);
+        divRoom.setAttribute("onclick", "selectChatroom(this)");
+        divRoom.classList.add("room");
+        let divRoomText = document.createElement("div");
+        divRoomText.classList.add("text");
+        let divRoomTextH3 = document.createElement("h3");
+        divRoomTextH3.innerHTML = room["chatroom_name"];
+        let divRoomTextP = document.createElement("p");
+        divRoomTextP.innerHTML = room["chatroom_description"];
+        divRoomText.append(divRoomTextH3);
+        divRoomText.append(divRoomTextP);
+        divRoom.append(divRoomText);
+        chatroomsDiv.append(divRoom);
+      }
+    });
+}
+let messageInterval = null;
+
+async function selectChatroom(element) {
+  document.querySelector(".chatroom_messages .overlay").style.display = "none";
+  let allOldMessages = document.querySelectorAll(
+    ".chatroom_messages .messages .message"
+  );
+  allOldMessages.forEach((oldMsg) => oldMsg.remove());
+  if (messageInterval) {
+    clearTimeout(messageInterval);
+  }
+  let chatroomName = element.getAttribute("chatroomName");
+  let chatroomId = element.getAttribute("chatroomId");
+  document.getElementById("inputChatroomId").value = chatroomId;
+  let messages = document.querySelector(".chatroom_messages .messages");
+  let admin_id = messages.getAttribute("admin_id");
+  document.getElementById("chatName").innerHTML = chatroomName;
+  let existMessages = new Array();
+  await loadMessages(chatroomId, admin_id, messages, existMessages);
+  let test = document.querySelectorAll(".message");
+  if (test.length > 0) {
+    test[test.length - 1].scrollIntoView();
+  }
+  autoUpdate(chatroomId, admin_id, messages, existMessages);
+}
+async function autoUpdate(chatroomId, admin_id, messages, existMessages) {
+  await loadMessages(chatroomId, admin_id, messages, existMessages);
+  messageInterval = setTimeout(
+    () => autoUpdate(chatroomId, admin_id, messages, existMessages),
+    1000
+  );
+}
+async function loadMessages(chatroomId, admin_id, messages, existMessages) {
+  try {
+    const response = await fetch("get_messages.php");
+    const messages_details = await response.json();
+    if (messages_details != "nope") {
+      for (oneMessgae of messages_details) {
+        if (oneMessgae["chatroom_id"] == chatroomId) {
+          if (!exist(oneMessgae["msg_id"], existMessages)) {
+            let message = document.createElement("div");
+            message.classList.add("message");
+            message.setAttribute("message_id", oneMessgae["msg_id"]);
+            let msg = document.createElement("div");
+            msg.classList.add("msg");
+            if (oneMessgae["admin_id"] == admin_id) {
+              message.classList.add("current_user");
+              msg.classList.add("current_user");
+            }
+            let content = document.createElement("div");
+            content.classList.add("content");
+            let adminName = document.createElement("p");
+            adminName.innerHTML = oneMessgae["admin_name"];
+            let msgtext = document.createElement("p");
+            msgtext.innerHTML = oneMessgae["message"];
+            content.append(adminName);
+            content.append(msgtext);
+            let avatar = document.createElement("div");
+            avatar.classList.add("avatar");
+            let img = document.createElement("img");
+            img.setAttribute("src", oneMessgae["avatar"]);
+            avatar.append(img);
+            msg.append(content);
+            msg.append(avatar);
+            message.append(msg);
+            messages.append(message);
+            existMessages.push(oneMessgae["msg_id"]);
+            message.scrollIntoView();
+          }
+        }
+      }
+    } else {
+      console.log("no message found");
+    }
+  } catch (error) {
+    console.error("Failed to load messages:", error);
+  }
+}
+function exist(msg_id, existMessages) {
+  return existMessages.some((msgId) => msg_id == msgId);
+}
+function sendMessage(e) {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  fetch("send_message.php", {
+    method: "POST",
+    body: formData,
+  })
+    .then((response) => response.json())
+    .then((result) => {
+      if (result == "sent") {
+        console.log("done");
+      } else {
+        console.log("nope");
+      }
+    });
+  e.target.reset();
+}
+function enter(e) {
+  if (e.key == "Enter") {
+    e.preventDefault();
+    document.getElementById("sendBtn").click();
+  }
+}
+function showCreateChatroom() {
+  let createChatroom_div = document.querySelector(".createChatroom");
+  createChatroom_div.style.opacity = "1";
+  createChatroom_div.style.visibility = "visible";
+  createChatroom_div.style.transform = "scale(1) translate(-50%,-50%)";
+  createChatroom_div.style.zIndex = "99";
+}
+function unshowCreateChatroom() {
+  let createChatroom_div = document.querySelector(".createChatroom");
+  createChatroom_div.style.opacity = "0";
+  createChatroom_div.style.visibility = "hidden";
+  createChatroom_div.style.transform = "scale(0.7) translate(-50%,-50%)";
+  createChatroom_div.style.zIndex = "-1";
+}

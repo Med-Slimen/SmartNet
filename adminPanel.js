@@ -28,7 +28,9 @@ function onload() {
     }
   });
   setInterval(notificationShow, 5000);
+  
 }
+
 function notificationShow() {
   fetch("notification.php")
     .then((response) => response.json())
@@ -237,6 +239,28 @@ function showSetting(element) {
   document.getElementById("contactBtn").classList.remove("clicked");
   document.getElementById("settingBtn").classList.add("clicked");
 }
+function showChatroom(element) {
+  element.setAttribute("notification", 0);
+  fetch("updateNotification.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: `tabName=${element.getAttribute("tabName")}`,
+  }).catch((error) => console.error("Error:", error));
+  document.getElementById("iframe_contact").src = "contactPanel.php";
+  document.getElementById("iframe_dashboard").style.display = "none";
+  document.getElementById("iframe_events").style.display = "none";
+  document.getElementById("iframe_donations").style.display = "none";
+  document.getElementById("iframe_reports").style.display = "none";
+  document.getElementById("iframe_contact").style.display = "block";
+  document.getElementById("iframe_settings").style.display = "none";
+  document.getElementById("iframe_profile").style.display = "none";
+  document.getElementById("dashBtn").classList.remove("clicked");
+  document.getElementById("eventBtn").classList.remove("clicked");
+  document.getElementById("donationBtn").classList.remove("clicked");
+  document.getElementById("reportBtn").classList.remove("clicked");
+  document.getElementById("contactBtn").classList.add("clicked");
+  document.getElementById("settingBtn").classList.remove("clicked");
+}
 function showProfile() {
   document.getElementById("iframe_profile").src = "profilePanel.php";
   document.getElementById("iframe_dashboard").style.display = "none";
@@ -333,9 +357,7 @@ function showEventDetails(
   document.getElementById("old_event_date").innerHTML = date;
   document.getElementById("old_event_img").innerHTML = eventImg;
   document.getElementById("old_event_location").innerHTML = eventLocation;
-  document.getElementById("registration_count").innerHTML =
-    registration_count +
-    document.getElementById("registration_count").innerHTML;
+  document.getElementById("registration_count").innerHTML = registration_count;
 }
 function hideEventDetails() {
   let box_details = document.querySelector(".events .events-list .box-details");
@@ -363,7 +385,6 @@ function event_msg(color, text, className) {
   }, 3000);
 }
 function checkPass() {
-  let pass = document.getElementById("pass").value;
   let newPass = document.getElementById("newPass").value;
   let confNewPass = document.getElementById("confNewPass").value;
   test = true;
@@ -371,7 +392,6 @@ function checkPass() {
     newPass.length < 8 ||
     !/[A-Z]/.test(newPass) ||
     !/\d/.test(newPass) ||
-    newPass == pass ||
     newPass != confNewPass
   ) {
     Swal.fire("You need to meet all the requirements !");
@@ -433,3 +453,4 @@ function unshowShowPass(open, close, id) {
   document.getElementById(open).style.display = "none";
   document.getElementById(close).style.display = "block";
 }
+

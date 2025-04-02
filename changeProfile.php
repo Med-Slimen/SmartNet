@@ -24,7 +24,6 @@ if (isset($_POST["email"])) {
          error_log("failed for updating pf ");
       }
    }
-
    $firstName = $_POST["firstName"];
    $lastName = $_POST["lastName"];
    $email = $_POST["email"];

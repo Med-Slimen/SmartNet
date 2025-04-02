@@ -4,11 +4,20 @@ session_start();
 if (isset($_SESSION["logged"])) {
   if (!$_SESSION["logged"]) {
     header("Location: adminPanel.php");
+    exit();
   }
 } else {
   header("Location: adminPanel.php");
+  exit();
 }
-
+$query = $conn->prepare("SELECT* FROM admins WHERE admin_id = ?");
+$query->bind_param("i", $_SESSION["admin_id"]);
+$query->execute();
+$profile_detials = $query->get_result();
+$profile = $profile_detials->fetch_assoc();
+$_SESSION['firstname'] = $profile["firstName"];
+$_SESSION['lastname'] = $profile["lastName"];
+$_SESSION["avatar"] = $profile["avatar"];
 ?>
 <!DOCTYPE html>
 <html lang="en">

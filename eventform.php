@@ -109,7 +109,7 @@ session_start(); ?>
     if (messageText == 'inserted') {
       Swal.fire({
         title: "<?= $lang["Done"] ?>",
-        text: "<?= $lang["Thank you for registring"] ?>",
+        html: "<?= $lang["Thank you for registring"] ?><br><?= $lang["A confirmation email with event details has been sent to your inbox."] ?><br><?= $lang["Please check your spam/junk folder if you don’t see it within a few minutes."] ?>",
         icon: "success"
       });
     } else if (messageText == 'duplicate') {

@@ -74,4 +74,6 @@ $lang = array(
    "Attach a photo ( optional )" => "إرفاق صورة (اختياري)",
    "Your report has been sent successfully !" => "تم إرسال بلاغك بنجاح !",
    "Submit" => "أخرى",
+   "A confirmation email with event details has been sent to your inbox." => "تم إرسال بريد تأكيد يحتوي على تفاصيل الفعالية إلى صندوق الوارد الخاص بك",
+   "Please check your spam/junk folder if you don’t see it within a few minutes." => "إذا لم تجد الرسالة، يُرجى التحقق من مجلد البريد العشوائي/غير المرغوب فيه خلال الدقائق القليلة القادمة.",
 );

@@ -96,8 +96,10 @@ include 'connect.php';
           <p>Location :</p>
           <span id="old_event_location"></span>
           <p style="font-size: 18px;">People registred : </p>
-          <span id="registration_count"> <i class="fa-solid fa-person"></i></span>
-
+          <div>
+            <span id="registration_count"></span>
+            <i class="fa-solid fa-person"></i>
+          </div>
           <span style="visibility: hidden;display:none;" id="old_event_img"></span>
         </div>
         <button id="editbtn" onclick="showEditEvent()" class="editbtn">
