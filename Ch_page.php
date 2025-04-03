@@ -1,6 +1,5 @@
 <?php
 include 'connect.php';
-session_start(); // Start the session
 if (isset($_SESSION["logged"])) {
   if (!$_SESSION["logged"]) {
     header("Location: adminPanel.php");

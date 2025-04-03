@@ -1,6 +1,5 @@
 <?php
 include 'connect.php';
-session_start();
 if ($_POST["fullname"]) {
     if (isset($_FILES["report_img"]) && $_FILES["report_img"]["error"] == 0) {
         $targetDir = "images/";

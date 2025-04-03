@@ -4,8 +4,7 @@ include $language . '.php';
 include 'connect.php';
 $settings = $conn->prepare("SELECT setting_value as Logo FROM settings WHERE setting_name='Logo'");
 $settings->execute();
-$logo = (($settings->get_result())->fetch_assoc())['Logo'];
-session_start(); ?>
+$logo = (($settings->get_result())->fetch_assoc())['Logo']; ?>
 <!DOCTYPE html>
 <html dir=<?= $language == "en" ? "ltr" : "rtl" ?> lang="<?= $language ?>">
 

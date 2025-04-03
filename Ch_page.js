@@ -1,5 +1,13 @@
+let notiInterval = null;
 function onload() {
   displayChatrooms();
+  let admin_id = document
+    .querySelector(".chatroom_messages .messages")
+    .getAttribute("admin_id");
+  if (notiInterval != null) {
+    clearTimeout(notiInterval);
+  }
+  autoReloadNoti(admin_id);
   document.addEventListener("click", function (event) {
     let arrow = document.getElementById("dropDown-chat-arrow");
     let chatrooms = document.querySelector(".chatrooms");
@@ -15,6 +23,32 @@ function onload() {
     }
   });
 }
+async function loadNoti(admin_id) {
+  let form = new FormData();
+  form.append("admin_id", admin_id);
+  fetch("get_ch_noti.php", {
+    method: "POST",
+    body: form,
+  })
+    .then((response) => response.json())
+    .then((chatroom_noti) => {
+      if (chatroom_noti != "empty") {
+        let rooms = document.querySelectorAll(".chatrooms .room");
+        rooms.forEach((room) => {
+          if (chatroom_noti[room.getAttribute("chatroomid")]) {
+            room.setAttribute(
+              "notification",
+              chatroom_noti[room.getAttribute("chatroomid")]
+            );
+          }
+        });
+      }
+    });
+}
+async function autoReloadNoti(admin_id) {
+  await loadNoti(admin_id);
+  notiInterval = setTimeout(() => autoReloadNoti(admin_id), 1000);
+}
 function displayChatrooms() {
   let chatroomsDiv = document.querySelector(".chatrooms");
   try {
@@ -29,6 +63,7 @@ function displayChatrooms() {
             divRoom.setAttribute("chatroomId", room["chatroom_id"]);
             divRoom.setAttribute("chatroomName", room["chatroom_name"]);
             divRoom.setAttribute("onclick", "selectChatroom(this)");
+            divRoom.setAttribute("notification", "0");
             divRoom.classList.add("room");
             let divRoomText = document.createElement("div");
             divRoomText.classList.add("text");
@@ -60,9 +95,11 @@ async function selectChatroom(element) {
   }
   let chatroomName = element.getAttribute("chatroomName");
   let chatroomId = element.getAttribute("chatroomId");
+
   document.getElementById("inputChatroomId").value = chatroomId;
   let messages = document.querySelector(".chatroom_messages .messages");
   let admin_id = messages.getAttribute("admin_id");
+  resetChatroomNoti(element, chatroomId, admin_id);
   document.getElementById("chatName").innerHTML = chatroomName;
   let existMessages = new Array();
   await loadMessages(chatroomId, admin_id, messages, existMessages);
@@ -71,6 +108,21 @@ async function selectChatroom(element) {
     test[test.length - 1].scrollIntoView();
   }
   autoUpdate(chatroomId, admin_id, messages, existMessages);
+}
+function resetChatroomNoti(element, chatroomId, admin_id) {
+  let form = new FormData();
+  form.append("chatroomId", chatroomId);
+  form.append("admin_id", admin_id);
+  fetch("resetChatroomNoti.php", {
+    method: "POST",
+    body: form,
+  })
+    .then((response) => response.json())
+    .then((result) => {
+      if (result != "nope") {
+        element.setAttribute("notification", 0);
+      }
+    });
 }
 async function autoUpdate(chatroomId, admin_id, messages, existMessages) {
   await loadMessages(chatroomId, admin_id, messages, existMessages);
@@ -130,15 +182,24 @@ function exist(msg_id, existMessages) {
 }
 function sendMessage(e) {
   e.preventDefault();
-  const formData = new FormData(e.target);
+  let form = new FormData(e.target);
   fetch("send_message.php", {
     method: "POST",
-    body: formData,
+    body: form,
   })
     .then((response) => response.json())
     .then((result) => {
       if (result == "sent") {
-        console.log("done");
+        fetch("updateChNoti.php", {
+          method: "POST",
+          body: form,
+        })
+          .then((response2) => response2.json())
+          .then((result2) => {
+            if (result2 == "nope") {
+              alert("server probleme");
+            }
+          });
       } else {
         console.log("nope");
       }

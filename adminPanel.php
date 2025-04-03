@@ -1,6 +1,5 @@
 <?php
 include 'connect.php';
-session_start();
 if (isset($_COOKIE["token"])) {
   $token = $_COOKIE["token"];
   $token_check = $conn->prepare("SELECT* FROM admins WHERE admin_token=? ");
@@ -18,6 +17,7 @@ if (isset($_COOKIE["token"])) {
     setcookie("token", "", 1);
   }
 } elseif (isset($_SESSION["logged"])) {
+
   header("Location: dashboard.php");
 }
 ?>

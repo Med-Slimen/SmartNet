@@ -1,6 +1,5 @@
 <?php
 include 'connect.php';
-session_start();
 if (isset($_POST["msg"])) {
    $msg = $_POST["msg"];
    $chatroomId = $_POST["chatroomId"];

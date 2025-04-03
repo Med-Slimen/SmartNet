@@ -10,7 +10,6 @@ while ($res2 = $res->fetch_assoc()) {
 }
 $from = substr($settingsArray["buisness_hours"], 0, 5);
 $to = substr($settingsArray["buisness_hours"], 6, 6);
-session_start();
 ?>
 <!DOCTYPE html>
 <html dir=<?= $language == "en" ? "ltr" : "rtl" ?> lang="<?= $language ?>">

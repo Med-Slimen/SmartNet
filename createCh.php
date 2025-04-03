@@ -1,6 +1,5 @@
 <?php
 include 'connect.php';
-session_start();
 if (isset($_POST["chatroomName"])) {
    $chatroomName = $_POST["chatroomName"];
    $chatroomDescription = $_POST["chatroomDescription"];

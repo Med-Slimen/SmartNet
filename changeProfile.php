@@ -1,6 +1,5 @@
 <?php
 include 'connect.php';
-session_start();
 $conn->autocommit(false);
 $success = true;
 if (isset($_POST["email"])) {

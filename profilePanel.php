@@ -1,5 +1,4 @@
 <?php
-session_start();
 include 'connect.php';
 $query = $conn->prepare("SELECT* FROM admins WHERE admin_id = ?");
 $query->bind_param("i", $_SESSION["admin_id"]);

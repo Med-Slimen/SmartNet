@@ -1,6 +1,5 @@
 <?php
 include 'connect.php';
-session_start();
 $timeout_duration = 1800; // 30 minutes (in seconds)
 
 // Check if the last activity time is set

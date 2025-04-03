@@ -1,6 +1,5 @@
 <?php
 include 'connect.php';
-session_start();
 $query = $conn->prepare("SELECT* FROM messages");
 $query->execute();
 $res = $query->get_result();

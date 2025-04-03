@@ -1,6 +1,5 @@
 <?php
 include 'connect.php';
-session_start();
 if (isset($_POST["newPass"])) {
    $newPass = $_POST["newPass"];
    $query = $conn->prepare("UPDATE admins SET passwords=? WHERE admin_id=?");

@@ -1,6 +1,5 @@
 <?php
 include 'connect.php';
-session_start();
 if (isset($_POST["fullname"])) {
     $fullname = $_POST["fullname"];
     $email = $_POST["email"];

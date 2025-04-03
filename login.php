@@ -1,20 +1,19 @@
 <?php
-session_start();
 include 'connect.php';
 require 'vendor/autoload.php';
 $timeout_duration = 1800; // 30 minutes (in seconds)
 
 // Check if the last activity time is set
 if (isset($_SESSION['LAST_ACTIVITY'])) {
-  $time_since_last_activity = time() - $_SESSION['LAST_ACTIVITY'];
+    $time_since_last_activity = time() - $_SESSION['LAST_ACTIVITY'];
 
-  // If the user has been inactive for too long, destroy the session
-  if ($time_since_last_activity > $timeout_duration) {
-    session_unset();  // Clear session data
-    session_destroy(); // Destroy the session
-    header("Location: adminPanel.php?timeout=true"); // Redirect to login
-    exit();
-  }
+    // If the user has been inactive for too long, destroy the session
+    if ($time_since_last_activity > $timeout_duration) {
+        session_unset();  // Clear session data
+        session_destroy(); // Destroy the session
+        header("Location: adminPanel.php?timeout=true"); // Redirect to login
+        exit();
+    }
 }
 
 // Update last activity timestamp
@@ -36,7 +35,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         $data = $result->fetch_assoc();
         $admin_id = $data['admin_id'];
         $_SESSION['admin_id'] = $admin_id;
-        $_SESSION['avatar']=$data['avatar'];
+        $_SESSION['avatar'] = $data['avatar'];
         $_SESSION['firstname'] = $data['firstName'];
         $_SESSION['lastname'] = $data['lastName'];
         $mail = new PHPMailer(true);
@@ -87,6 +86,10 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
                 $checkTrustRes = $checkTrust->get_result();
                 if ($checkTrustRes->num_rows > 0) {
                     $_SESSION["logged"] = true;
+                    $set_token = $conn->prepare("UPDATE admins SET admin_token=?,admin_token_expire=? WHERE admin_id=?");
+                    $set_token->bind_param("sii", $token, $expire, $admin_id);
+                    $set_token->execute();
+                    setcookie("token", $token, $expire);
                     header("Location: dashboard.php");
                     exit();
                 } else {

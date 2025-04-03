@@ -1,6 +1,5 @@
 <?php
 include 'connect.php';
-session_start();
 if (isset($_POST["verifCode"])) {
    $verifCode = $_POST["verifCode"];
    if ($verifCode == $_SESSION["code"]) {
